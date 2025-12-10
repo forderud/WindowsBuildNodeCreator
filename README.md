@@ -1,4 +1,6 @@
-Sample project that demonstrates how to automate building of a Windows CI/CD node Virtual Machime (VM) with Packer and automation scripts. 
+Sample project that demonstrates how to automate building of a Windows CI/CD node Virtual Machime (VM) with Packer and automation scripts.
+
+Based on the GitHub [marcinbojko/hv-packer](https://github.com/marcinbojko/hv-packer) project with extensive modifications.
 
 ## Image build steps
 
