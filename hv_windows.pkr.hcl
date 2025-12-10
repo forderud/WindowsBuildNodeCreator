@@ -23,11 +23,6 @@ variable "switch_name" {
   default = ""
 }
 
-variable "sysprep_unattended" {
-  type    = string
-  default = ""
-}
-
 variable "vlan_id" {
   type    = string
   default = ""
@@ -110,7 +105,7 @@ build {
 
   provisioner "file" {
     destination = "C:\\Windows\\System32\\Sysprep\\unattend.xml"
-    source      = "${var.sysprep_unattended}"
+    source      = "./files/unattend.xml"
   }
   provisioner "file" {
     destination = "C:\\PackerShutdown.bat"
