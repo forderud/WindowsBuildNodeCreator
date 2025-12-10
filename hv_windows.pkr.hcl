@@ -1,13 +1,3 @@
-variable "memory" {
-  type    = string
-  default = "1024"
-}
-
-variable "cpus" {
-  type    = string
-  default = "1"
-}
-
 variable "disk_size" {
   type    = string
   default = ""
@@ -62,7 +52,7 @@ source "hyperv-iso" "vm" {
   boot_command          = ["a<enter><wait>a<enter><wait>a<enter><wait>a<enter>"]
   boot_wait             = "1s"
   communicator          = "winrm"
-  cpus                  = "${var.cpus}"
+  cpus                  = "4"
   disk_size             = "${var.disk_size}"
   enable_dynamic_memory = "true"
   enable_secure_boot    = false
@@ -70,7 +60,7 @@ source "hyperv-iso" "vm" {
   guest_additions_mode  = "disable"
   iso_checksum          = "${var.iso_checksum_type}:${var.iso_checksum}"
   iso_url               = "${var.iso_url}"
-  memory                = "${var.memory}"
+  memory                = "4096"
   output_directory      = "${var.output_directory}"
   cd_files              = ["./files/Autounattend.xml", "./files/bootstrap.ps1"]
   cd_label              = "cidata"
