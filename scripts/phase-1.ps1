@@ -1,56 +1,18 @@
 # Main Phase-1 script
 # Windows Features, Firewall rules and registry entries,chocolatey
 
-# Variables
-$global:os=""
-
-function whichWindows {
-$version=(Get-WMIObject win32_operatingsystem).name
- if ($version) {
-    switch -Regex ($version) {
-        '(Server 2022)' {
-            $global:os="2022"
-            printWindowsVersion
-        }
-        '(Microsoft Windows Server Standard|Microsoft Windows Server Datacenter)'{
-            $ws_version=(Get-WmiObject win32_operatingsystem).buildnumber
-                switch -Regex ($ws_version) {
-                    '19042' {
-                        $global:os="20H2"
-                        printWindowsVersion
-                    }
-                }
-        }
-        '(Windows 10)' {
-            Write-Output 'Phase 1 [INFO] - Windows 10 found'
-            $global:os="10"
-            printWindowsVersion
-        }
-        default {
-            Write-Output "unknown"
-            printWindowsVersion
-        }
-    }
- }
- else {
-     throw "Buildnumber empty, cannot continue"
- }
-}
-function printWindowsVersion {
-    if ($global:os) {
-        Write-Output "Phase 1 [INFO] - Windows Server "$global:os" found."
-    }
-    else {
-        Write-Output "Phase 1 [INFO] - Unknown version of Windows Server found."
-    }
+function PrintWindowsVersion {
+    $os = Get-WMIObject Win32_OperatingSystem
+    Write-Output "Phase 1 [INFO] - $($os.Caption) (version $($os.Version)) found."
 }
 
 # Phase 1 - Mandatory generic stuff
 Write-Output "Phase 1 [START] - Start of Phase 1"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Import-Module ServerManager
-# let's check which windows
-whichWindows
+
+PrintWindowsVersion
+
 Enable-NetFirewallRule -DisplayGroup "Windows Defender Firewall Remote Management" -Verbose
 
 # features and firewall rules common for all Windows Servers
@@ -86,22 +48,11 @@ Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force -Verbose;
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) -ErrorAction Stop
 Write-Output "Phase 1 [INFO] - installing Chocolatey exit code is: $LASTEXITCODE"
-
 if ($LASTEXITCODE -ne 0) {
     Write-Output "Phase 1 [ERROR] - Chocolatey install problem, critical, exiting"
     exit (1)
 }
 
-# Install PSWindowsUpdate
-# Write-Output "Phase 1 [INFO] - Installing Nuget"
-# Get-PackageProvider -Name "Nuget" -ForceBootstrap -Verbose -ErrorAction Stop
-# Write-Output "Phase 1 [INFO] - Installing PSWindowsUpdate"
-# Install-Module PSWindowsUpdate -Force -Confirm:$false -Verbose -ErrorAction Stop
-# Import-Module PSWindowsUpdate
-# Get-WUServiceManager
-# if ($global:os -ne '2022') {
-#   Add-WUServiceManager -ServiceID 7971f918-a847-4430-9279-4a52d1efe18d -Confirm:$false
-# }
 #Remove 260 Character Path Limit
 if (Test-Path 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem') {
     Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' -name "LongPathsEnabled" -Value 1 -Verbose -Force
