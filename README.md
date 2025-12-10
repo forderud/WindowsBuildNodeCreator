@@ -1,3 +1,4 @@
+Sample project that demonstrates how to automate building of a Windows CI/CD node Virtual Machime (VM) with Packer and automation scripts. 
 
 ## Image build steps
 
