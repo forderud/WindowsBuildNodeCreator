@@ -6,9 +6,7 @@ packer plugins install github.com/hashicorp/hyperv
 packer plugins install github.com/rgl/windows-update
 ```
 
-Build image from [`marcinbojko/hv-packer`](https://github.com/marcinbojko/hv-packer) repo:
-
-Change `switch_name` in `variables\variables_windows_server_2022_std.pkvars.hcl` to a switch with internet access (or remove it).
+Change `switch_name` in `variables_windows_server_2022_std.pkvars.hcl` to a switch with internet access.
 
 Image build steps:
 ```
@@ -36,6 +34,7 @@ packer build --force --var-file=variables_windows_server_2022_std.pkvars.hcl hv_
 * Packer [`rgl/windows-update`](https://github.com/rgl/packer-plugin-windows-update) plugin
 
 ### Other template projects
+* GitHub [marcinbojko/hv-packer](https://github.com/marcinbojko/hv-packer) templates
 * GitHub [StefanScherer/packer-windows](https://github.com/StefanScherer/packer-windows) templates
 * GitHub [jborean93/packer-windoze](https://github.com/jborean93/packer-windoze) templates
 * GitHub [MattHodge/PackerTemplates](https://github.com/MattHodge/PackerTemplates) - with shutdown samples
