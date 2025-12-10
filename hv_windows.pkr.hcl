@@ -28,11 +28,6 @@ variable "sysprep_unattended" {
   default = ""
 }
 
-variable "upgrade_timeout" {
-  type    = string
-  default = ""
-}
-
 variable "vlan_id" {
   type    = string
   default = ""
