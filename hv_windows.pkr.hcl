@@ -8,11 +8,6 @@ variable "iso_checksum" {
   default = ""
 }
 
-variable "iso_checksum_type" {
-  type    = string
-  default = ""
-}
-
 variable "iso_url" {
   type    = string
   default = ""
@@ -58,7 +53,7 @@ source "hyperv-iso" "vm" {
   enable_secure_boot    = false
   generation            = 2
   guest_additions_mode  = "disable"
-  iso_checksum          = "${var.iso_checksum_type}:${var.iso_checksum}"
+  iso_checksum          = "${var.iso_checksum}"
   iso_url               = "${var.iso_url}"
   memory                = "4096"
   output_directory      = "${var.output_directory}"
