@@ -13,7 +13,7 @@ Change `switch_name` in `variables\variables_windows_server_2022_std.pkvars.hcl`
 Image build steps:
 ```
 set PATH=%PATH%;C:\Dev;C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Deployment Tools\amd64\Oscdimg
-packer build --force --var-file="variables/variables_windows_server_2022_std.pkvars.hcl" "templates/hv_windows.pkr.hcl"
+packer build --force --var-file=variables_windows_server_2022_std.pkvars.hcl hv_windows.pkr.hcl
 ```
 
 ## Prerequisites
