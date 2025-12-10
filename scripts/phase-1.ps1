@@ -11,14 +11,6 @@ function whichWindows {
 $version=(Get-WMIObject win32_operatingsystem).name
  if ($version) {
     switch -Regex ($version) {
-        '(Server 2016)' {
-            $global:os="2016"
-            printWindowsVersion
-        }
-        '(Server 2019)' {
-            $global:os="2019"
-            printWindowsVersion
-        }
         '(Server 2022)' {
             $global:os="2022"
             printWindowsVersion
@@ -26,30 +18,6 @@ $version=(Get-WMIObject win32_operatingsystem).name
         '(Microsoft Windows Server Standard|Microsoft Windows Server Datacenter)'{
             $ws_version=(Get-WmiObject win32_operatingsystem).buildnumber
                 switch -Regex ($ws_version) {
-                    '16299' {
-                        $global:os="1709"
-                        printWindowsVersion
-                    }
-                    '17134' {
-                        $global:os="1803"
-                        printWindowsVersion
-                    }
-                    '17763' {
-                        $global:os="1809"
-                        printWindowsVersion
-                    }
-                    '18362' {
-                        $global:os="1903"
-                        printWindowsVersion
-                    }
-                    '18363' {
-                        $global:os="1909"
-                        printWindowsVersion
-                    }
-                    '19041' {
-                        $global:os="2004"
-                        printWindowsVersion
-                    }
                     '19042' {
                         $global:os="20H2"
                         printWindowsVersion
@@ -86,14 +54,7 @@ Write-Output "Phase 1 [START] - Start of Phase 1"
 Import-Module ServerManager
 # let's check which windows
 whichWindows
-# 1709/1803/1809/1903/2019/2022
-if ($global:os -notlike '2016') {
-    Enable-NetFirewallRule -DisplayGroup "Windows Defender Firewall Remote Management" -Verbose
-}
-# 2016
-if ($global:os -eq '2016') {
-    Enable-NetFirewallRule -DisplayGroup "Windows Firewall Remote Management" -Verbose
-}
+Enable-NetFirewallRule -DisplayGroup "Windows Defender Firewall Remote Management" -Verbose
 
 # features and firewall rules common for all Windows Servers
 try {
@@ -122,57 +83,17 @@ catch {
     Write-Output "Phase 1 [ERROR] - setting registry went wrong"
 }
 
-# remove Windows Defender (2016)
-
-if ($global:os -eq '2016') {
-  try {
-  }
-  catch {
-  }
-}
-
-if ($global:os -eq '2019') {
-    try {
-    # workaround for SYSTEM account adding keys to RSA folder
-    $keyFolder="$Env:ALLUSERSPROFILE\Microsoft\Crypto\RSA\MachineKeys"
-    $keyUsers=@("SYSTEM")
-    foreach ($keyUser in $keyUsers) {
-        $acl = Get-Acl "$keyFolder"
-        $argument = New-Object System.Security.AccessControl.FileSystemAccessRule("$keyuser", "FullControl", "ContainerInherit,ObjectInherit", "None", "Allow")
-        $acl.SetAccessRule($argument)
-        Set-Acl "$keyFolder" $Acl
-        }
-    Write-Output "Phase 1 [INFO] - workaround for PrivateKeys permission completed succesfully"
-    }
-
-    catch {
-        Write-Output "Phase 1 [WARN] - workaround for PrivateKeys permission failed"
-    }
-  }
 # Install chocolatey
 do {
     try {
         Write-Output "Phase 1 [INFO] - installing Chocolatey, attempt $choco_install_count of $choco_install_count_max"
         Get-ExecutionPolicy
-        if ($global:os -eq '2019') {
-            try {
-                # Install Chocolatey in version pre 2.0.0
-                Write-Output "Phase 1 [INFO] - installing Chocolatey, Windows 2019 found, locking to version 1.4.0"
-                $env:chocolateyVersion = '1.4.0';Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iwr https://community.chocolatey.org/install.ps1 -UseBasicParsing| iex
-            }
-            catch {
-                Write-Output "Phase 1 [WARN] - Chocolatey install problem, attempt $choco_install_count of $choco_install_count_max"
-                Sleep 1
-            }
-        }
-        else {
-            # Install Chocolatey in version 2.0.0 or later
-            Write-Output "Phase 1 [INFO] - installing Chocolatey, Windows later han 2019 found, enabling latest"
-            Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force -Verbose;
-            [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-            Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) -ErrorAction Stop
-            Write-Output "Phase 1 [INFO] - installing Chocolatey exit code is: $LASTEXITCODE"
-        }
+
+        Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force -Verbose;
+        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+        Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) -ErrorAction Stop
+        Write-Output "Phase 1 [INFO] - installing Chocolatey exit code is: $LASTEXITCODE"
+
         if ($LASTEXITCODE -eq 0) {
             $choco_install_success=$true
             Write-Output "Phase 1 [INFO] - Chocolatey install succesful"
