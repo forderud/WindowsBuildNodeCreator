@@ -1,10 +1,5 @@
 
-## Hyper-V build steps
-Initialization:
-```
-packer plugins install github.com/hashicorp/hyperv
-packer plugins install github.com/rgl/windows-update
-```
+## Image build steps
 
 Change `switch_name` in `variables_windows_server_2022_std.pkvars.hcl` to a switch with internet access.
 
@@ -15,8 +10,15 @@ packer build --force --var-file=variables_windows_server_2022_std.pkvars.hcl hv_
 ```
 
 ## Prerequisites
+* Hyper-V installed and enabled
 * [Packer](https://developer.hashicorp.com/packer/install) downloaded with `packer.exe` in PATH
 * Windows [Assessment and Deployment Kit (ADK)](https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install) installed (for `Oscdimg`)
+
+#### Packer initialization
+```
+packer plugins install github.com/hashicorp/hyperv
+packer plugins install github.com/rgl/windows-update
+```
 
 ## Documentation
 
