@@ -4,12 +4,12 @@ Based on the GitHub [marcinbojko/hv-packer](https://github.com/marcinbojko/hv-pa
 
 ## Image build steps
 
-Change `switch_name` in `variables_windows_server_2022_std.pkvars.hcl` to a switch with internet access.
+Change `switch_name` in `variables_ws2022.pkvars.hcl` to a switch with internet access.
 
 Image build steps:
 ```
 set PATH=%PATH%;C:\Dev;C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Deployment Tools\amd64\Oscdimg
-packer build --force --var-file=variables_windows_server_2022_std.pkvars.hcl hv_windows.pkr.hcl
+packer build --force --var-file=variables_ws2022.pkvars.hcl hv_windows.pkr.hcl
 ```
 
 ## Prerequisites
