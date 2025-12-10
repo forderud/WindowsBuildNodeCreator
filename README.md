@@ -8,7 +8,7 @@ Change `switch_name` in `variables_ws2022.pkvars.hcl` to a switch with internet 
 
 Image build steps:
 ```
-set PATH=%PATH%;C:\Dev;C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Deployment Tools\amd64\Oscdimg
+set PATH=%PATH%;C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Deployment Tools\amd64\Oscdimg
 packer build --force --var-file=variables_ws2022.pkvars.hcl hv_windows.pkr.hcl
 ```
 
