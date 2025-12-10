@@ -3,9 +3,6 @@
 
 # Variables
 $global:os=""
-$choco_install_success=$false
-$choco_install_count=1
-$choco_install_count_max=99
 
 function whichWindows {
 $version=(Get-WMIObject win32_operatingsystem).name
@@ -84,30 +81,13 @@ catch {
 }
 
 # Install chocolatey
-do {
-    try {
-        Write-Output "Phase 1 [INFO] - installing Chocolatey, attempt $choco_install_count of $choco_install_count_max"
-        Get-ExecutionPolicy
+Write-Output "Phase 1 [INFO] - installing Chocolatey, attempt $choco_install_count of $choco_install_count_max"
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force -Verbose;
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) -ErrorAction Stop
+Write-Output "Phase 1 [INFO] - installing Chocolatey exit code is: $LASTEXITCODE"
 
-        Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force -Verbose;
-        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-        Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) -ErrorAction Stop
-        Write-Output "Phase 1 [INFO] - installing Chocolatey exit code is: $LASTEXITCODE"
-
-        if ($LASTEXITCODE -eq 0) {
-            $choco_install_success=$true
-            Write-Output "Phase 1 [INFO] - Chocolatey install succesful"
-        }
-    }
-    catch {
-        Write-Output "Phase 1 [WARN]- Chocolatey install problem, attempt $choco_install_count of $choco_install_count_max"
-        Sleep 1
-    }
-    $choco_install_count++
-  }
-until ($choco_install_count -eq $choco_install_count_max -or $choco_install_success)
-
-if (-not $choco_install_success) {
+if ($LASTEXITCODE -ne 0) {
     Write-Output "Phase 1 [ERROR] - Chocolatey install problem, critical, exiting"
     exit (1)
 }
