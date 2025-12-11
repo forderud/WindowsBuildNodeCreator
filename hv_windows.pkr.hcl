@@ -33,6 +33,11 @@ variable "vm_name" {
   default = ""
 }
 
+variable "windows_update" {
+  type    = bool
+  default = true
+}
+
 source "hyperv-iso" "vm" {
   boot_command          = ["a<enter><wait>a<enter><wait>a<enter><wait>a<enter>"]
   boot_wait             = "1s"
@@ -85,8 +90,9 @@ build {
   }
 
   provisioner "windows-update" {
+    only            = var.windows_update == true ? ["source.hyperv-iso.vm"] : [""]
     search_criteria = "IsInstalled=0"
-    update_limit = 10
+    update_limit    = 10
   }
 
   provisioner "windows-restart" {
