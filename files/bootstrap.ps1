@@ -20,9 +20,6 @@ $connections |ForEach-Object {
 
 Function Enable-WinRM {
     Write-Host "Enable WinRM"
-    netsh advfirewall firewall set rule group="remote administration" new enable=yes
-    netsh advfirewall firewall add rule name="WinRM open Port 5985" dir=in action=allow protocol=TCP localport=5985
-
     winrm quickconfig -q
     winrm quickconfig -transport:http
     winrm set winrm/config '@{MaxTimeoutms="7200000"}'
