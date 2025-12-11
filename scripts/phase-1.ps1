@@ -8,7 +8,6 @@ function PrintWindowsVersion {
 
 # Phase 1 - Mandatory generic stuff
 Write-Output "Phase 1 [START] - Start of Phase 1"
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Import-Module ServerManager
 
 PrintWindowsVersion
@@ -44,7 +43,6 @@ catch {
 
 # Install chocolatey
 Write-Output "Phase 1 [INFO] - installing Chocolatey, attempt $choco_install_count of $choco_install_count_max"
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) -ErrorAction Stop
 Write-Output "Phase 1 [INFO] - installing Chocolatey exit code is: $LASTEXITCODE"
 if ($LASTEXITCODE -ne 0) {

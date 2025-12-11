@@ -10,7 +10,6 @@ $packages_exit_codes=@(0,1605,1614,1641,3010)
 
 
 Write-Output "Phase 2 [START] - Start of Phase 2"
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
   try {
     Set-TimeZone -Id "Central European Standard Time" -Verbose
   }
