@@ -25,9 +25,10 @@ packer plugins install github.com/rgl/windows-update
 
 ## Documentation
 
-### Hyper-V documentation
+### Windows documentation
 * Hyper-V [Switch and network adapter choices](https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/plan/plan-hyper-v-networking-in-windows-server#switch-and-network-adapter-choices).
 * [Create NAT Rules for the Hyper-V NAT Virtual Switch](https://petri.com/create-nat-rules-hyper-v-nat-virtual-switch/) - describes [`Add-NetNatStaticMapping`](https://learn.microsoft.com/en-us/powershell/module/netnat/add-netnatstaticmapping)
+* [Installation and configuration for Windows Remote Management](https://learn.microsoft.com/en-us/windows/win32/winrm/installation-and-configuration-for-windows-remote-management) - uses HTTP port 5985 and HTTPS port 5986. 
 
 ### Packer documentation
 * HashiCorp [Packer documentation](https://developer.hashicorp.com/packer) ([sources](https://github.com/hashicorp/packer))
