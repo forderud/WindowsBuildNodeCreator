@@ -56,7 +56,6 @@ source "hyperv-iso" "vm" {
   vlan_id               = "${var.vlan_id}"
   vm_name               = "${var.vm_name}"
   winrm_password        = "password"
-  winrm_timeout         = "8h"
   winrm_username        = "Administrator"
 }
 

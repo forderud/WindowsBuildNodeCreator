@@ -22,7 +22,6 @@ Function Enable-WinRM {
     Write-Host "Enable WinRM"
     winrm quickconfig -q
     winrm quickconfig -transport:http
-    winrm set winrm/config '@{MaxTimeoutms="7200000"}'
     winrm set winrm/config/winrs '@{MaxMemoryPerShellMB="0"}'
     winrm set winrm/config/winrs '@{MaxProcessesPerShell="0"}'
     winrm set winrm/config/winrs '@{MaxShellsPerUser="0"}'
