@@ -1,3 +1,4 @@
+:: Stop whitelisting WinRM in firewall
 ::netsh advfirewall firewall set rule name="Windows Remote Management (HTTP-In)" new enable=no
 
 ::C:\Windows\System32\Sysprep\Sysprep.exe /generalize /oobe /unattend:C:\Windows\System32\Sysprep\unattend.xml /quiet /shutdown
