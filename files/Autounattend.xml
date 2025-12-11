@@ -133,11 +133,6 @@
                     <Order>3</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c wmic useraccount where "name='Administrator'" set PasswordExpires=FALSE</CommandLine>
-                    <Order>4</Order>
-                    <Description>Disable password expiration for Administrator user</Description>
-                </SynchronousCommand>
             </FirstLogonCommands>
             <OOBE>
                 <HideEULAPage>true</HideEULAPage>
