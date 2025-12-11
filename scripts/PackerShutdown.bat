@@ -1,4 +1,4 @@
-::netsh advfirewall firewall set rule name="WinRM-HTTP" new action=block
+::netsh advfirewall firewall set rule name="Windows Remote Management (HTTP-In)" new enable=no
 
 ::C:\Windows\System32\Sysprep\Sysprep.exe /generalize /oobe /unattend:C:\Windows\System32\Sysprep\unattend.xml /quiet /shutdown
 
