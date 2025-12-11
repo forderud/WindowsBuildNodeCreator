@@ -86,7 +86,7 @@ build {
 
   provisioner "windows-update" {
     search_criteria = "IsInstalled=0"
-    update_limit = 10
+    update_limit    = 10
   }
 
   provisioner "windows-restart" {
@@ -95,7 +95,7 @@ build {
 
   provisioner "windows-update" {
     search_criteria = "IsInstalled=0"
-    update_limit = 10
+    update_limit    = 10
   }
 
   provisioner "windows-restart" {
