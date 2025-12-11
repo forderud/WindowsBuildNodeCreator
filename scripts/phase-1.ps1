@@ -44,7 +44,6 @@ catch {
 
 # Install chocolatey
 Write-Output "Phase 1 [INFO] - installing Chocolatey, attempt $choco_install_count of $choco_install_count_max"
-Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force -Verbose;
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) -ErrorAction Stop
 Write-Output "Phase 1 [INFO] - installing Chocolatey exit code is: $LASTEXITCODE"
