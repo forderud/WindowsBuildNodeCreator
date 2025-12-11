@@ -1,11 +1,7 @@
 # This script is called from the answerfile
 
 # You cannot enable Windows PowerShell Remoting on network connections that are set to Public
-# http://msdn.microsoft.com/en-us/library/windows/desktop/aa370750(v=vs.85).aspx
-# http://blogs.msdn.com/b/powershell/archive/2009/04/03/setting-network-location-to-private.aspx
-
-#Write-Host "Copy unattend.xml to C:\Windows\Panther\Unattend\"
-#New-Item C:\Windows\Panther\Unattend -Type Directory
+# https://learn.microsoft.com/nb-no/windows/win32/api/netlistmgr/nn-netlistmgr-inetwork
 
 # Get network connections
 $networkListManager = [Activator]::CreateInstance([Type]::GetTypeFromCLSID([Guid]'{DCB00C01-570F-4A9B-8D69-199FDBA5723B}'))
@@ -13,10 +9,10 @@ $connections = $networkListManager.GetNetworkConnections()
 
 $connections |ForEach-Object {
     $category = $_.GetNetwork().GetCategory()
-    if ($category -ne 1) {
+    if ($category -eq 0) { # NLM_NETWORK_CATEGORY_PUBLIC
         $name = $_.GetNetwork().GetName()
         Write-Host "Changing $name category from $category to 1"
-        $_.GetNetwork().SetCategory(1)
+        $_.GetNetwork().SetCategory(1) # NLM_NETWORK_CATEGORY_PRIVATE
     }
 }
 
