@@ -18,6 +18,7 @@ $connections |ForEach-Object {
 
 Function Enable-WinRM {
     Write-Host "Enable WinRM"
+    # This will automatically enable the "Windows Remote Management (HTTP-In)" firewall exception 
     winrm quickconfig -q
     winrm quickconfig -transport:http
     winrm set winrm/config/winrs '@{MaxMemoryPerShellMB="0"}'
