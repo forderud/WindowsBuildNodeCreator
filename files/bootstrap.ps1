@@ -29,10 +29,6 @@ Function Enable-WinRM {
     winrm set winrm/config/service '@{AllowUnencrypted="true"}'
     winrm set winrm/config/service/auth '@{Basic="true"}'
     winrm set winrm/config/client/auth '@{Basic="true"}'
-
-    net stop winrm
-    sc.exe config winrm start= auto
-    net start winrm
 }
 
 # Disable pasword expiry for Administrator account
