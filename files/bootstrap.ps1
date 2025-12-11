@@ -13,9 +13,9 @@ $connections = $networkListManager.GetNetworkConnections()
 
 $connections |ForEach-Object {
     Write-Host "Setting network config"
-    $_.GetNetwork().GetName() + 'category was previously set to' + $_.GetNetwork().GetCategory() | Out-File c:\windows\temp\logfile.txt
+    $_.GetNetwork().GetName() + 'category was previously set to' + $_.GetNetwork().GetCategory()
     $_.GetNetwork().SetCategory(1)
-    $_.GetNetwork().GetName() + 'change to ' + $_.GetNetwork().GetCategory() | Out-File C:\windows\temp\logfile.txt -Append
+    $_.GetNetwork().GetName() + 'change to ' + $_.GetNetwork().GetCategory()
 }
 
 Function Enable-WinRM {
