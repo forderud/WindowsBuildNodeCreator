@@ -12,10 +12,12 @@ $networkListManager = [Activator]::CreateInstance([Type]::GetTypeFromCLSID([Guid
 $connections = $networkListManager.GetNetworkConnections()
 
 $connections |ForEach-Object {
-    Write-Host "Setting network config"
-    $_.GetNetwork().GetName() + 'category was previously set to' + $_.GetNetwork().GetCategory()
-    $_.GetNetwork().SetCategory(1)
-    $_.GetNetwork().GetName() + 'change to ' + $_.GetNetwork().GetCategory()
+    $category = $_.GetNetwork().GetCategory()
+    if ($category -ne 1) {
+        $name = $_.GetNetwork().GetName()
+        Write-Host "Changing $name category from $category to 1"
+        $_.GetNetwork().SetCategory(1)
+    }
 }
 
 Function Enable-WinRM {
