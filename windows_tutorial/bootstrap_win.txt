@@ -4,8 +4,9 @@ net user Administrator SuperS3cr3t!!!!
 # Disable pasword expiry for Administrator account
 Get-WmiObject -Class Win32_UserAccount -Filter "name = 'Administrator'" | Set-WmiInstance -Arguments @{PasswordExpires = 0}
 
-# Create a new WinRM listener and configure
-winrm create winrm/config/listener?Address=*+Transport=HTTP
+# Configure new WinRM listener
+# Will set WinRM service to auto-start and enable "Windows Remote Management (HTTP-In)" firewall exception
+winrm quickconfig -transport:http -force
 winrm set winrm/config/winrs '@{MaxMemoryPerShellMB="0"}'
 winrm set winrm/config '@{MaxTimeoutms="7200000"}'
 winrm set winrm/config/service '@{AllowUnencrypted="true"}'
