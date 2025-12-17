@@ -8,7 +8,7 @@ packer {
 }
 
 source "amazon-ebs" "ubuntu" {
-  ami_name      = "learn-packer-linux-aws"
+  ami_name      = "learn-packer-linux-aws" # output AMI name
   instance_type = "t3.micro"  # 2 CPUs, 1GB RAM (or "t3.small" for 2 CPUs, 2GB RAM)
   region        = "us-west-2" # US West (Oregon)
   source_ami_filter {
