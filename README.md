@@ -50,4 +50,4 @@ packer plugins install github.com/rgl/windows-update
 
 ## Amazon Web Services
 Query AMI name:
-* Command: `aws ec2 describe-images --image-ids <ami-id>` (use [Amazon CLI](https://aws.amazon.com/cli/))
+* Command: `aws ec2 describe-images --image-ids <ami-id> --region <region>` (use [Amazon CLI](https://aws.amazon.com/cli/))
