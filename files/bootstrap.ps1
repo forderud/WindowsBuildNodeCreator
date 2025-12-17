@@ -19,9 +19,8 @@ ChangeNetworkCategoryToPrivate
 
 Function Enable-WinRM {
     Write-Host "Enable WinRM"
-    # This will automatically enable the "Windows Remote Management (HTTP-In)" firewall exception
-    winrm quickconfig -q
-    winrm quickconfig -transport:http
+    # Will set WinRM service to auto-start and enable "Windows Remote Management (HTTP-In)" firewall exception
+    winrm quickconfig -quiet -transport:http
     winrm set winrm/config/winrs '@{MaxMemoryPerShellMB="0"}'
     winrm set winrm/config/winrs '@{MaxProcessesPerShell="0"}'
     winrm set winrm/config/winrs '@{MaxShellsPerUser="0"}'
