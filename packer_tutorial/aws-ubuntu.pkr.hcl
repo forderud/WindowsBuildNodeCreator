@@ -9,7 +9,7 @@ packer {
 
 variable "ami_prefix" {
   type    = string
-  default = "learn-packer-linux-aws"
+  default = "learn-packer-linux"
 }
 
 locals {
