@@ -4,14 +4,6 @@ net user Administrator SuperS3cr3t!!!!
 # Disable pasword expiry for Administrator account
 Get-WmiObject -Class Win32_UserAccount -Filter "name = 'Administrator'" | Set-WmiInstance -Arguments @{PasswordExpires = 0}
 
-# Disable group policies which block basic authentication and unencrypted login
-
-Set-ItemProperty -Path HKLM:\Software\Policies\Microsoft\Windows\WinRM\Client -Name AllowBasic -Value 1
-Set-ItemProperty -Path HKLM:\Software\Policies\Microsoft\Windows\WinRM\Client -Name AllowUnencryptedTraffic -Value 1
-Set-ItemProperty -Path HKLM:\Software\Policies\Microsoft\Windows\WinRM\Service -Name AllowBasic -Value 1
-Set-ItemProperty -Path HKLM:\Software\Policies\Microsoft\Windows\WinRM\Service -Name AllowUnencryptedTraffic -Value 1
-
-
 # Create a new WinRM listener and configure
 winrm create winrm/config/listener?Address=*+Transport=HTTP
 winrm set winrm/config/winrs '@{MaxMemoryPerShellMB="0"}'
