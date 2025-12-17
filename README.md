@@ -47,3 +47,7 @@ packer plugins install github.com/rgl/windows-update
 ## Windows server images
 * [Windows Server 2022 download](https://www.microsoft.com/en-us/evalcenter/download-windows-server-2022) 21H2- `SERVER_EVAL_x64FRE_en-us.iso` (4.7 GB)
 * [Windows Server 2025 download](https://www.microsoft.com/en-us/evalcenter/download-windows-server-2025) 24H2 - `26100.1742.240906-0331.ge_release_svc_refresh_SERVER_EVAL_x64FRE_en-us.iso` (5.6 GB)
+
+## Amazon Web Services
+Query AMI name:
+* Command: `aws ec2 describe-images --image-ids <ami-id>` (use [Amazon CLI](https://aws.amazon.com/cli/))
