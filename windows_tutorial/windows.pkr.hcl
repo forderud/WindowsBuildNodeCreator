@@ -20,7 +20,7 @@ locals { timestamp = regex_replace(timestamp(), "[- TZ:]", "") }
 source "amazon-ebs" "firstrun-windows" {
   ami_name      = "packer-windows-demo-${local.timestamp}"
   communicator  = "winrm"
-  instance_type = "t2.micro"
+  instance_type = "t3.micro"
   region        = "${var.region}"
   source_ami_filter {
     filters = {
