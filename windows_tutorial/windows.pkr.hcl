@@ -24,7 +24,7 @@ source "amazon-ebs" "firstrun-windows" {
   region        = "${var.region}"
   source_ami_filter {
     filters = {
-      name                = "Windows_Server-2012-R2*English-64Bit-Base*"
+      name                = "Windows_Server-2025-English-Full-Base*"
       root-device-type    = "ebs"
       virtualization-type = "hvm"
     }
