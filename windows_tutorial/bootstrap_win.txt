@@ -1,24 +1,10 @@
 <powershell>
 
-write-output "Running User Data Script"
-write-host "(host) Running User Data Script"
-
-Set-ExecutionPolicy Unrestricted -Scope LocalMachine -Force -ErrorAction Ignore
-
-# Don't set this before Set-ExecutionPolicy as it throws an error
-$ErrorActionPreference = "stop"
-
-# Remove HTTP listener
-Remove-Item -Path WSMan:\Localhost\listener\listener* -Recurse
-
-# Create certificate for WinRM auhentication
+# Create certificate for WinRM authentication
 $cert = New-SelfSignedCertificate -CertstoreLocation Cert:\LocalMachine\My -DnsName "packer"
 New-Item -Path WSMan:\LocalHost\Listener -Transport HTTPS -Address * -CertificateThumbPrint $cert.Thumbprint -Force
 
-# WinRM
-write-output "Setting up WinRM"
-write-host "(host) setting up WinRM"
-
+# Configure WinRM
 cmd.exe /c winrm quickconfig -q
 cmd.exe /c winrm set "winrm/config" '@{MaxTimeoutms="1800000"}'
 cmd.exe /c winrm set "winrm/config/winrs" '@{MaxMemoryPerShellMB="1024"}'
