@@ -54,6 +54,11 @@ build {
     environment_vars = ["VAR1=A$Dollar", "VAR2=A`Backtick", "VAR3=A'SingleQuote", "VAR4=A\"DoubleQuote"]
     script           = "./sample_script.ps1"
   }
+
+  provisioner "powershell" {
+    inline = [
+      "& 'C:/Program Files/Amazon/EC2Launch/ec2launch' reset --block",
+      "& 'C:/Program Files/Amazon/EC2Launch/ec2launch' sysprep --shutdown --block"
+    ]
+  }
 }
-
-
