@@ -57,8 +57,8 @@ build {
 
   provisioner "powershell" {
     inline = [
-      "& 'C:/Program Files/Amazon/EC2Launch/ec2launch' reset",
-      "& 'C:/Program Files/Amazon/EC2Launch/ec2launch' sysprep --shutdown"
+      "& 'C:/Program Files/Amazon/EC2Launch/ec2launch' reset", # reset admin password
+      "& 'C:/Program Files/Amazon/EC2Launch/ec2launch' sysprep --shutdown" # make image generic
     ]
   }
 }
