@@ -34,8 +34,9 @@ source "amazon-ebs" "firstrun-windows" {
 
   user_data_file = "./bootstrap_win.txt"
 
-  winrm_password = "SuperS3cr3t!!!!"
   winrm_username = "Administrator"
+  winrm_insecure = true
+  winrm_use_ssl = true
 }
 
 # a build block invokes sources and runs provisioning steps on them.
@@ -53,6 +54,11 @@ build {
     environment_vars = ["VAR1=A$Dollar", "VAR2=A`Backtick", "VAR3=A'SingleQuote", "VAR4=A\"DoubleQuote"]
     script           = "./sample_script.ps1"
   }
+
+  provisioner "powershell" {
+    inline = [
+      "& 'C:/Program Files/Amazon/EC2Launch/ec2launch' reset", # reset admin password
+      "& 'C:/Program Files/Amazon/EC2Launch/ec2launch' sysprep --shutdown" # make image generic
+    ]
+  }
 }
-
-

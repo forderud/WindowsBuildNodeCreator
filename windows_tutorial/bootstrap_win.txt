@@ -1,23 +1,35 @@
 <powershell>
-# Set administrator password
-net user Administrator SuperS3cr3t!!!!
-# Disable pasword expiry for Administrator account
-Get-WmiObject -Class Win32_UserAccount -Filter "name = 'Administrator'" | Set-WmiInstance -Arguments @{PasswordExpires = 0}
 
-# Configure new WinRM listener
-winrm quickconfig -transport:http -force
-winrm set winrm/config/winrs '@{MaxMemoryPerShellMB="0"}'
-winrm set winrm/config '@{MaxTimeoutms="7200000"}'
-winrm set winrm/config/service '@{AllowUnencrypted="true"}'
-winrm set winrm/config/service '@{MaxConcurrentOperationsPerUser="12000"}'
-winrm set winrm/config/service/auth '@{Basic="true"}'
-winrm set winrm/config/client/auth '@{Basic="true"}'
+write-output "Running User Data Script"
+write-host "(host) Running User Data Script"
 
-# Enable WinRM firewall exception
-netsh advfirewall firewall set rule name="Windows Remote Management (HTTP-In)" new action=allow localip=any remoteip=any
+Set-ExecutionPolicy Unrestricted -Scope LocalMachine -Force -ErrorAction Ignore
 
-# Configure UAC to allow privilege elevation in remote shells
-$Key = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System'
-$Setting = 'LocalAccountTokenFilterPolicy'
-Set-ItemProperty -Path $Key -Name $Setting -Value 1 -Force
+# Don't set this before Set-ExecutionPolicy as it throws an error
+$ErrorActionPreference = "stop"
+
+# Remove HTTP listener
+Remove-Item -Path WSMan:\Localhost\listener\listener* -Recurse
+
+# Create certificate for WinRM auhentication
+$cert = New-SelfSignedCertificate -CertstoreLocation Cert:\LocalMachine\My -DnsName "packer"
+New-Item -Path WSMan:\LocalHost\Listener -Transport HTTPS -Address * -CertificateThumbPrint $cert.Thumbprint -Force
+
+# WinRM
+write-output "Setting up WinRM"
+write-host "(host) setting up WinRM"
+
+cmd.exe /c winrm quickconfig -q
+cmd.exe /c winrm set "winrm/config" '@{MaxTimeoutms="1800000"}'
+cmd.exe /c winrm set "winrm/config/winrs" '@{MaxMemoryPerShellMB="1024"}'
+cmd.exe /c winrm set "winrm/config/service" '@{AllowUnencrypted="true"}'
+cmd.exe /c winrm set "winrm/config/client" '@{AllowUnencrypted="true"}'
+cmd.exe /c winrm set "winrm/config/service/auth" '@{Basic="true"}'
+cmd.exe /c winrm set "winrm/config/client/auth" '@{Basic="true"}'
+cmd.exe /c winrm set "winrm/config/service/auth" '@{CredSSP="true"}'
+cmd.exe /c winrm set "winrm/config/listener?Address=*+Transport=HTTPS" "@{Port=`"5986`";Hostname=`"packer`";CertificateThumbprint=`"$($cert.Thumbprint)`"}"
+
+cmd.exe /c netsh advfirewall firewall set rule group="remote administration" new enable=yes
+cmd.exe /c netsh advfirewall firewall add rule name="Port 5986" dir=in action=allow protocol=TCP localport=5986 profile=any
+
 </powershell>
