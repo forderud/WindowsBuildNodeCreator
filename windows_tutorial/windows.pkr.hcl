@@ -31,7 +31,9 @@ source "amazon-ebs" "firstrun-windows" {
     most_recent = true
     owners      = ["amazon"]
   }
+
   user_data_file = "./bootstrap_win.txt"
+
   winrm_password = "SuperS3cr3t!!!!"
   winrm_username = "Administrator"
 }
