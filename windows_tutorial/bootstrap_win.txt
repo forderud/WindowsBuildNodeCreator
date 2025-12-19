@@ -13,6 +13,7 @@ cmd.exe /c winrm set "winrm/config/client" '@{AllowUnencrypted="true"}'
 cmd.exe /c winrm set "winrm/config/service/auth" '@{Basic="true"}'
 cmd.exe /c winrm set "winrm/config/client/auth" '@{Basic="true"}'
 
-cmd.exe /c netsh advfirewall firewall add rule name="Port 5986" dir=in action=allow protocol=TCP localport=5986 profile=any
+# Add WinRM firewall exception
+New-NetFirewallRule -DisplayName "Windows Remote Management (HTTPS-In)" -Direction Inbound -Protocol TCP -LocalPort 5986 -Action Allow
 
 </powershell>
