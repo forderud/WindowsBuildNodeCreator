@@ -12,7 +12,6 @@ cmd.exe /c winrm set "winrm/config/service" '@{AllowUnencrypted="true"}'
 cmd.exe /c winrm set "winrm/config/client" '@{AllowUnencrypted="true"}'
 cmd.exe /c winrm set "winrm/config/service/auth" '@{Basic="true"}'
 cmd.exe /c winrm set "winrm/config/client/auth" '@{Basic="true"}'
-cmd.exe /c winrm set "winrm/config/service/auth" '@{CredSSP="true"}'
 
 cmd.exe /c netsh advfirewall firewall add rule name="Port 5986" dir=in action=allow protocol=TCP localport=5986 profile=any
 
