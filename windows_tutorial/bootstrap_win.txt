@@ -5,11 +5,11 @@ $cert = New-SelfSignedCertificate -CertstoreLocation Cert:\LocalMachine\My -DnsN
 New-Item -Path WSMan:\LocalHost\Listener -Transport HTTPS -Address * -CertificateThumbPrint $cert.Thumbprint -Force
 
 # Configure WinRM
-cmd.exe /c winrm quickconfig -transport:https -force
-cmd.exe /c winrm set "winrm/config" '@{MaxTimeoutms="1800000"}'
-cmd.exe /c winrm set "winrm/config/winrs" '@{MaxMemoryPerShellMB="1024"}'
-cmd.exe /c winrm set "winrm/config/service/auth" '@{Basic="true"}'
-cmd.exe /c winrm set "winrm/config/client/auth" '@{Basic="true"}'
+winrm quickconfig -transport:https -force
+winrm set "winrm/config" '@{MaxTimeoutms="1800000"}'
+winrm set "winrm/config/winrs" '@{MaxMemoryPerShellMB="1024"}'
+winrm set "winrm/config/service/auth" '@{Basic="true"}'
+winrm set "winrm/config/client/auth" '@{Basic="true"}'
 
 # Add WinRM firewall exception
 New-NetFirewallRule -DisplayName "Windows Remote Management (HTTPS-In)" -Direction Inbound -Protocol TCP -LocalPort 5986 -Action Allow
