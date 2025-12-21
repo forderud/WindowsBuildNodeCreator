@@ -31,7 +31,7 @@ source "amazon-ebs" "windows-builder" {
     owners      = ["amazon"]
   }
 
-  user_data_file = "./scripts/bootstrap.txt"
+  user_data_file = "./scripts/bootstrap.txt" # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html
 
   winrm_username = "Administrator"
   winrm_insecure = true
