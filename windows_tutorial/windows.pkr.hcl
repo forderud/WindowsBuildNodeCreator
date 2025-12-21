@@ -19,7 +19,7 @@ locals {
 source "amazon-ebs" "firstrun-windows" {
   ami_name      = "packer-windows-demo-${local.timestamp}"
   communicator  = "winrm"
-  instance_type = "t3.micro"
+  instance_type = "t3.small" # 2 CPUs, 2GB RAM
   region        = "${var.region}"
   source_ami_filter {
     filters = {
