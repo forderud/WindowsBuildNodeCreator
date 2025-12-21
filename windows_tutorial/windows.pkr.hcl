@@ -31,7 +31,7 @@ source "amazon-ebs" "firstrun-windows" {
     owners      = ["amazon"]
   }
 
-  user_data_file = "./bootstrap_win.txt"
+  user_data_file = "./bootstrap.txt"
 
   winrm_username = "Administrator"
   winrm_insecure = true
