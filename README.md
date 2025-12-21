@@ -1,7 +1,7 @@
 Sample project that demonstrates how to automate building of a Windows CI/CD build node Virtual Machine (VM) with Packer and automation scripts.
 
 ## Build instructions
-`packer build windows.pkr.hcl`
+`packer build windows-builder.pkr.hcl`
 
 
 ## Documentation
