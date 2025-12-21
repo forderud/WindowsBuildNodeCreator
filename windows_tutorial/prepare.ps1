@@ -1,0 +1,4 @@
+$ver = [System.Environment]::OSVersion.Version
+Write-Host "Windows OS build: $ver"
+
+Write-Host "PACKER_BUILD_NAME:" $Env:PACKER_BUILD_NAME
