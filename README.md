@@ -26,6 +26,7 @@ packer plugins install github.com/rgl/windows-update
 ## Documentation
 
 ### Windows documentation
+* [Manage Windows Server on Amazon EC2 by using Windows Admin Center](https://learn.microsoft.com/en-us/windows-server/manage/windows-admin-center/use/manage-aws-machines)
 * Hyper-V [Switch and network adapter choices](https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/plan/plan-hyper-v-networking-in-windows-server#switch-and-network-adapter-choices)
 * [Installation and configuration for Windows Remote Management](https://learn.microsoft.com/en-us/windows/win32/winrm/installation-and-configuration-for-windows-remote-management) - uses HTTP port 5985 and HTTPS port 5986. 
 
@@ -35,8 +36,11 @@ packer plugins install github.com/rgl/windows-update
 * Packer [`winrm`](https://developer.hashicorp.com/packer/docs/communicators/winrm) communicator
 * Packer [`powershell`](https://developer.hashicorp.com/packer/docs/provisioners/powershell) provisioner
 * Packer [`windows-restart`](https://developer.hashicorp.com/packer/docs/provisioners/windows-restart) provisioner
-* Packer [`hyperv`](https://developer.hashicorp.com/packer/integrations/hashicorp/hyperv) plugin ([sources](https://github.com/hashicorp/packer-plugin-hyperv))
+* AWS [Build a Windows image](https://developer.hashicorp.com/packer/tutorials/cloud-production/aws-windows-image)
+* [learn-packer-windows-ami](https://github.com/hashicorp-education/learn-packer-windows-ami) sample
+* Packer [Amazon integration](https://developer.hashicorp.com/packer/integrations/hashicorp/amazon) - mentions `%USERPROFILE%.aws\credentials` ([sources](https://github.com/hashicorp/packer-plugin-amazon))
 * Packer [`rgl/windows-update`](https://github.com/rgl/packer-plugin-windows-update) plugin
+* Packer [`hyperv`](https://developer.hashicorp.com/packer/integrations/hashicorp/hyperv) plugin ([sources](https://github.com/hashicorp/packer-plugin-hyperv))
 
 ### Similar Windows image projects
 * GitHub [marcinbojko/hv-packer](https://github.com/marcinbojko/hv-packer) - starting point for this project
