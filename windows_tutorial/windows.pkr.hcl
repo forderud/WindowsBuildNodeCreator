@@ -39,7 +39,6 @@ source "amazon-ebs" "windows-builder" {
 }
 
 build {
-  name    = "learn-packer"
   sources = ["source.amazon-ebs.windows-builder"]
 
   provisioner "powershell" {
