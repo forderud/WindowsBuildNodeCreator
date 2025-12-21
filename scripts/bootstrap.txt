@@ -14,4 +14,7 @@ winrm set "winrm/config/client/auth" '@{Basic="true"}'
 # Add WinRM firewall exception
 New-NetFirewallRule -DisplayName "Windows Remote Management (HTTPS-In)" -Direction Inbound -Protocol TCP -LocalPort 5986 -Action Allow
 
+# Create C:\Install folder
+New-Item -Path "C:\" -Name "Install" -ItemType "Directory"
+
 </powershell>

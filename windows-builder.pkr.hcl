@@ -41,6 +41,11 @@ source "amazon-ebs" "windows-builder" {
 build {
   sources = ["source.amazon-ebs.windows-builder"]
 
+  provisioner "file" {
+    source      = "./Install"
+    destination = "C:\\"
+  }
+
   provisioner "powershell" {
     script = "./scripts/prepare.ps1"
   }
