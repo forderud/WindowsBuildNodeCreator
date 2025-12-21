@@ -19,9 +19,9 @@ Sample project that demonstrates how to automate building of a Windows CI/CD bui
 * Packer [`windows-restart`](https://developer.hashicorp.com/packer/docs/provisioners/windows-restart) provisioner
 * AWS [Build a Windows image](https://developer.hashicorp.com/packer/tutorials/cloud-production/aws-windows-image)
 * [learn-packer-windows-ami](https://github.com/hashicorp-education/learn-packer-windows-ami) sample
-* Packer [Amazon integration](https://developer.hashicorp.com/packer/integrations/hashicorp/amazon) - mentions `%USERPROFILE%.aws\credentials` ([sources](https://github.com/hashicorp/packer-plugin-amazon))
 * Packer [`rgl/windows-update`](https://github.com/rgl/packer-plugin-windows-update) plugin
-* Packer [`hyperv`](https://developer.hashicorp.com/packer/integrations/hashicorp/hyperv) plugin ([sources](https://github.com/hashicorp/packer-plugin-hyperv))
+* Packer [Amazon integration](https://developer.hashicorp.com/packer/integrations/hashicorp/amazon) - mentions `%USERPROFILE%.aws\credentials` ([sources](https://github.com/hashicorp/packer-plugin-amazon))
+* Packer [Hyper-V integration](https://developer.hashicorp.com/packer/integrations/hashicorp/hyperv) ([sources](https://github.com/hashicorp/packer-plugin-hyperv))
 
 ### Similar Windows image projects
 * GitHub [marcinbojko/hv-packer](https://github.com/marcinbojko/hv-packer) - starting point for this project
