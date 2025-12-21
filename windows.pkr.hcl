@@ -31,7 +31,7 @@ source "amazon-ebs" "windows-builder" {
     owners      = ["amazon"]
   }
 
-  user_data_file = "./bootstrap.txt"
+  user_data_file = "./scripts/bootstrap.txt"
 
   winrm_username = "Administrator"
   winrm_insecure = true
@@ -42,13 +42,13 @@ build {
   sources = ["source.amazon-ebs.windows-builder"]
 
   provisioner "powershell" {
-    script = "./prepare.ps1"
+    script = "./scripts/prepare.ps1"
   }
 
   provisioner "windows-restart" {
   }
 
   provisioner "powershell" {
-    script = "./shutdown.ps1"
+    script = "./scripts/shutdown.ps1"
   }
 }
