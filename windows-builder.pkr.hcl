@@ -18,9 +18,9 @@ locals {
 
 source "amazon-ebs" "windows-builder" {
   ami_name      = "windows-builder-${local.timestamp}"
-  communicator  = "winrm"
   instance_type = "t3.small" # 2 CPUs, 2GB RAM
   region        = "${var.region}"
+
   source_ami_filter {
     filters = {
       name                = "Windows_Server-2025-English-Full-Base*"
@@ -33,6 +33,7 @@ source "amazon-ebs" "windows-builder" {
 
   user_data_file = "./scripts/bootstrap.txt" # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html
 
+  communicator  = "winrm"
   winrm_username = "Administrator"
   winrm_insecure = true
   winrm_use_ssl = true
