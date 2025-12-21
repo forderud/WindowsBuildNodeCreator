@@ -16,8 +16,8 @@ locals {
   timestamp = regex_replace(timestamp(), "[- TZ:]", "")
 }
 
-source "amazon-ebs" "firstrun-windows" {
-  ami_name      = "packer-windows-demo-${local.timestamp}"
+source "amazon-ebs" "windows-builder" {
+  ami_name      = "windows-builder-${local.timestamp}"
   communicator  = "winrm"
   instance_type = "t3.small" # 2 CPUs, 2GB RAM
   region        = "${var.region}"
@@ -40,7 +40,7 @@ source "amazon-ebs" "firstrun-windows" {
 
 build {
   name    = "learn-packer"
-  sources = ["source.amazon-ebs.firstrun-windows"]
+  sources = ["source.amazon-ebs.windows-builder"]
 
   provisioner "powershell" {
     script = "./prepare.ps1"
