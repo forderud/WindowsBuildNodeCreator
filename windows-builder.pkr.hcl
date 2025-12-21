@@ -23,9 +23,7 @@ source "amazon-ebs" "windows-builder" {
 
   source_ami_filter {
     filters = {
-      name                = "Windows_Server-2025-English-Full-Base*"
-      root-device-type    = "ebs"
-      virtualization-type = "hvm"
+      name = "Windows_Server-2025-English-Full-Base*"
     }
     most_recent = true
     owners      = ["amazon"]
