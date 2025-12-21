@@ -12,7 +12,6 @@ packer build --force --var-file=variables_ws2022.pkvars.hcl hv_windows.pkr.hcl
 
 ## Prerequisites
 * Hyper-V installed and enabled
-* [Packer](https://developer.hashicorp.com/packer/install) downloaded with `packer.exe` in PATH
 * Windows [Assessment and Deployment Kit (ADK)](https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install) installed (for `Oscdimg`)
 
 #### Packer initialization
