@@ -42,12 +42,16 @@ source "hyperv-iso" "vm" {
   enable_secure_boot    = false
   generation            = 2
   guest_additions_mode  = "disable"
+
   iso_checksum          = "${var.iso_checksum}"
   iso_url               = "${var.iso_url}"
+
   memory                = "4096"
   output_directory      = "${var.output_directory}"
+
   cd_files              = ["./files/Autounattend.xml", "./files/bootstrap.ps1"]
   cd_label              = "cidata"
+
   shutdown_command      = "C:/PackerShutdown.bat"
   skip_export           = true
   switch_name           = "${var.switch_name}"
