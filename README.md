@@ -3,6 +3,8 @@ Sample project that demonstrates how to automate building of a Windows CI/CD bui
 ## Build instructions
 `packer build windows-builder.pkr.hcl`
 
+Verbose build output: `set PACKER_LOG=1`
+
 ## Prerequisites
 * [Packer](https://developer.hashicorp.com/packer/install) downloaded with `packer.exe` in PATH
 
