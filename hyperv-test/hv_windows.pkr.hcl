@@ -36,7 +36,6 @@ variable "vm_name" {
 source "hyperv-iso" "vm" {
   boot_command          = ["a<enter><wait>a<enter><wait>a<enter><wait>a<enter>"]
   boot_wait             = "1s"
-  communicator          = "winrm"
   cpus                  = "4"
   disk_size             = "${var.disk_size}"
   enable_dynamic_memory = "true"
@@ -55,6 +54,8 @@ source "hyperv-iso" "vm" {
   temp_path             = "."
   vlan_id               = "${var.vlan_id}"
   vm_name               = "${var.vm_name}"
+
+  communicator          = "winrm"
   winrm_password        = "password"
   winrm_username        = "Administrator"
 }
