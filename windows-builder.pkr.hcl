@@ -52,6 +52,7 @@ build {
   }
 
   provisioner "powershell" {
+    environment_vars = ["WINRMPASS=${build.Password}"]
     script = "./scripts/prepare.ps1"
   }
 
