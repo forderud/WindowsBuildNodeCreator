@@ -13,11 +13,6 @@ variable "switch_name" {
   default = ""
 }
 
-variable "vlan_id" {
-  type    = string
-  default = ""
-}
-
 
 source "hyperv-iso" "vm" {
   boot_command          = ["a<enter><wait>a<enter><wait>a<enter><wait>a<enter>"]
@@ -44,7 +39,7 @@ source "hyperv-iso" "vm" {
   skip_export           = true
   switch_name           = "${var.switch_name}"
   temp_path             = "."
-  vlan_id               = "${var.vlan_id}"
+  vlan_id               = ""
 
   communicator          = "winrm"
   winrm_password        = "password"
