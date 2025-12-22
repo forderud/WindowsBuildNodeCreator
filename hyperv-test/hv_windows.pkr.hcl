@@ -15,9 +15,6 @@ variable "switch_name" {
 
 
 source "hyperv-iso" "vm" {
-  boot_command          = ["a<enter><wait>a<enter><wait>a<enter><wait>a<enter>"]
-  boot_wait             = "1s"
-
   cpus                  = "4"
   memory                = "4096"
   disk_size             = "80000"
@@ -25,21 +22,24 @@ source "hyperv-iso" "vm" {
   enable_secure_boot    = false
   generation            = 2
   guest_additions_mode  = "disable"
+  skip_export           = true
+  switch_name           = "${var.switch_name}"
+  temp_path             = "."
+  vlan_id               = ""
+
+  vm_name               = "windows-builder"
+  output_directory      = "output"
 
   iso_url               = "${var.iso_url}"
   iso_checksum          = "${var.iso_checksum}"
 
-  vm_name               = "windows-builder"
-  output_directory      = "output"
+  boot_command          = ["a<enter><wait>a<enter><wait>a<enter><wait>a<enter>"]
+  boot_wait             = "1s"
 
   cd_files              = ["./files/Autounattend.xml", "./files/bootstrap.ps1"]
   cd_label              = "cidata"
 
   shutdown_command      = "C:/PackerShutdown.bat"
-  skip_export           = true
-  switch_name           = "${var.switch_name}"
-  temp_path             = "."
-  vlan_id               = ""
 
   communicator          = "winrm"
   winrm_password        = "password"
