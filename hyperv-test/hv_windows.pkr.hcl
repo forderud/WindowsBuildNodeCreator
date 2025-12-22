@@ -18,10 +18,6 @@ variable "vlan_id" {
   default = ""
 }
 
-variable "vm_name" {
-  type    = string
-  default = ""
-}
 
 source "hyperv-iso" "vm" {
   boot_command          = ["a<enter><wait>a<enter><wait>a<enter><wait>a<enter>"]
@@ -38,6 +34,7 @@ source "hyperv-iso" "vm" {
   iso_url               = "${var.iso_url}"
   iso_checksum          = "${var.iso_checksum}"
 
+  vm_name               = "windows-builder"
   output_directory      = "output"
 
   cd_files              = ["./files/Autounattend.xml", "./files/bootstrap.ps1"]
@@ -48,7 +45,6 @@ source "hyperv-iso" "vm" {
   switch_name           = "${var.switch_name}"
   temp_path             = "."
   vlan_id               = "${var.vlan_id}"
-  vm_name               = "${var.vm_name}"
 
   communicator          = "winrm"
   winrm_password        = "password"
