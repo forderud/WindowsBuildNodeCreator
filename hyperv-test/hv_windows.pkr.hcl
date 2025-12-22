@@ -36,7 +36,9 @@ variable "vm_name" {
 source "hyperv-iso" "vm" {
   boot_command          = ["a<enter><wait>a<enter><wait>a<enter><wait>a<enter>"]
   boot_wait             = "1s"
+
   cpus                  = "4"
+  memory                = "4096"
   disk_size             = "${var.disk_size}"
   enable_dynamic_memory = "true"
   enable_secure_boot    = false
@@ -46,7 +48,6 @@ source "hyperv-iso" "vm" {
   iso_checksum          = "${var.iso_checksum}"
   iso_url               = "${var.iso_url}"
 
-  memory                = "4096"
   output_directory      = "${var.output_directory}"
 
   cd_files              = ["./files/Autounattend.xml", "./files/bootstrap.ps1"]
