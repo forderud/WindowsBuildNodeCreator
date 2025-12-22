@@ -50,7 +50,7 @@ build {
   }
 
   provisioner "powershell" {
-      inline = ["C:\Install\InstallVisualStudio.ps1 17/release.ltsc.17.6"]
+      inline = ["C:\\Install\\InstallVisualStudio.ps1 17/release.ltsc.17.6"]
   }
 
   provisioner "windows-restart" {
