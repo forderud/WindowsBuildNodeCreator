@@ -29,6 +29,10 @@ source "amazon-ebs" "windows-builder" {
     owners      = ["amazon"]
   }
 
+  launch_block_device_mappings {
+    volume_size = 64
+  }
+
   user_data_file = "./scripts/bootstrap.txt" # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html
 
   communicator  = "winrm"
