@@ -32,6 +32,8 @@ source "amazon-ebs" "windows-builder" {
   launch_block_device_mappings {
     device_name = "/dev/sda1"
     volume_size = 64
+    volume_type = "gp2"
+    delete_on_termination = true
   }
 
   user_data_file = "./scripts/bootstrap.txt" # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html
