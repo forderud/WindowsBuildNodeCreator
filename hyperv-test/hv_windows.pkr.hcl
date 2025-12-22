@@ -1,8 +1,3 @@
-variable "disk_size" {
-  type    = string
-  default = ""
-}
-
 variable "iso_checksum" {
   type    = string
   default = ""
@@ -39,14 +34,14 @@ source "hyperv-iso" "vm" {
 
   cpus                  = "4"
   memory                = "4096"
-  disk_size             = "${var.disk_size}"
+  disk_size             = "80000"
   enable_dynamic_memory = "true"
   enable_secure_boot    = false
   generation            = 2
   guest_additions_mode  = "disable"
 
-  iso_checksum          = "${var.iso_checksum}"
   iso_url               = "${var.iso_url}"
+  iso_checksum          = "${var.iso_checksum}"
 
   output_directory      = "${var.output_directory}"
 
