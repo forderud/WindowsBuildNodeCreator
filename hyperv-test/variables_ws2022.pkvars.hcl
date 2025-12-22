@@ -3,4 +3,3 @@ iso_checksum="sha256:3e4fa6d8507b554856fc9ca6079cc402df11a8b79344871669f02515352
 switch_name="External"
 vlan_id=""
 vm_name="packer-ws2022"
-output_directory="output"

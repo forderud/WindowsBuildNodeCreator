@@ -1,14 +1,9 @@
-variable "iso_checksum" {
-  type    = string
-  default = ""
-}
-
 variable "iso_url" {
   type    = string
   default = ""
 }
 
-variable "output_directory" {
+variable "iso_checksum" {
   type    = string
   default = ""
 }
@@ -43,7 +38,7 @@ source "hyperv-iso" "vm" {
   iso_url               = "${var.iso_url}"
   iso_checksum          = "${var.iso_checksum}"
 
-  output_directory      = "${var.output_directory}"
+  output_directory      = "output"
 
   cd_files              = ["./files/Autounattend.xml", "./files/bootstrap.ps1"]
   cd_label              = "cidata"
