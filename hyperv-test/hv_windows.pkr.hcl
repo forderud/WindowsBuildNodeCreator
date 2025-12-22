@@ -71,6 +71,7 @@ build {
     restart_timeout       = "2h"
   }
 
+/*
   provisioner "windows-update" {
     search_criteria = "IsInstalled=0"
     update_limit    = 10
@@ -88,6 +89,7 @@ build {
   provisioner "windows-restart" {
     restart_timeout = "1h"
   }
+*/
 
   provisioner "file" {
     destination = "C:\\Windows\\System32\\Sysprep\\unattend.xml"
