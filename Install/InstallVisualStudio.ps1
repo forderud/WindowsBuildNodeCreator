@@ -7,11 +7,11 @@ if ($vsVersion -eq $null) {
     throw "Visual Studio version parameter missing"
 }
 
-Write-Host "Downloading Visual Studio bootstrapper..."
+Write-Host "Downloading Visual Studio $vsVersion bootstrapper..."
 $client = new-object System.Net.WebClient
 $client.DownloadFile("https://aka.ms/vs/"+$vsVersion+"/vs_professional.exe","C:\Install\vs_Professional.exe")
 
-Write-Host "Installing Visual Studio with C++ and .Net..."
+Write-Host "Installing Visual Studio $vsVersion with C++ and .Net..."
 # Component list: https://learn.microsoft.com/en-us/visualstudio/install/workload-component-id-vs-professional
 $process = Start-Process -FilePath "C:\Install\vs_Professional.exe" -ArgumentList `
     "--add", "Microsoft.VisualStudio.Workload.NativeDesktop", `
@@ -45,3 +45,5 @@ if ($vsVersion.Substring(0,2) -eq "17") {
     Write-Host "Set VS170COMNTOOLS env.var. to VS2022 installation folder..."
     [Environment]::SetEnvironmentVariable("VS170COMNTOOLS", "C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\Tools\", [EnvironmentVariableTarget]::Machine)
 }
+
+Write-Host "SUCCESS: Visual Studio $vsVersion installation completed."
