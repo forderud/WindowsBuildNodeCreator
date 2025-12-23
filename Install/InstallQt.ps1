@@ -3,6 +3,10 @@ $ErrorActionPreference = "Stop"
 
 # NOTICE: The script expects $Env:QT_INSTALLER_JWT_TOKEN to have already been set
 
+# DOC: https://doc.qt.io/qt-6/get-and-install-qt-cli.html
+$client = new-object System.Net.WebClient
+$client.DownloadFile("https://download.qt.io/official_releases/online_installers/qt-online-installer-windows-x64-online.exe","C:\Install\qt-online-installer.exe")
+
 # Install Qt maintenance tool first
 & "C:\Install\qt-online-installer.exe" --root C:\Qt --accept-licenses --default-answer --confirm-command --no-default-installations install qt.tools.maintenance
 if ($LastExitCode -ne 0) {
