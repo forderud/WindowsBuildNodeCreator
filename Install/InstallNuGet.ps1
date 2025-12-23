@@ -1,6 +1,10 @@
 # stop script on first error
 $ErrorActionPreference = "Stop"
 
+# command-line arguments
+$username = $args[0]
+$password = $args[1]
+
 Write-Host "Downloading NuGet.exe..."
 $client = new-object System.Net.WebClient
 $client.DownloadFile("https://dist.nuget.org/win-x86-commandline/latest/nuget.exe","C:\Install\nuget.exe")
@@ -11,23 +15,13 @@ if ($LastExitCode -ne 0) {
     throw "nuget.exe sources Add failure"
 }
 
-# require ARTIFACTORY_CREDS file
-$artifactoryCreds = "C:\Install\ARTIFACTORY_CREDS"
-if (Test-Path $artifactoryCreds -PathType Leaf) {
-    # set global env. variable
-    $userpw = Get-Content -Path $artifactoryCreds
-} else {
-    Write-Host "Skipping NuGet configuration due to lack of credentials."
-    exit 1
-}
-
 Write-Host "Configure Artifactory authentication..."
-& "C:\Install\nuget.exe" sources Update -Name nuget-cvus-prod-all -Username $userpw[0] -Password $userpw[1]
+& "C:\Install\nuget.exe" sources Update -Name nuget-cvus-prod-all -Username $username -Password $password
 if ($LastExitCode -ne 0) {
     throw "nuget.exe sources Update failure"
 }
 
-$auth = "{0}:{1}" -f $userpw[0], $userpw[1]
+$auth = "{0}:{1}" -f $username, $password
 & "C:\Install\nuget.exe" setapikey $auth -Source nuget-cvus-prod-all
 if ($LastExitCode -ne 0) {
     throw "nuget.exe setapikey failure"
