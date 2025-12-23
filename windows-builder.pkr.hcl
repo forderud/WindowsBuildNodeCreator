@@ -12,6 +12,27 @@ variable "region" {
   default = "us-east-1"
 }
 
+variable "BUILD_SERVER_URL" {
+  type    = string
+  default = ""
+}
+variable "BUILDER_SECRET" {
+  type    = string
+  default = ""
+}
+variable "ARTIFACTORY_USER" {
+  type    = string
+  default = ""
+}
+variable "ARTIFACTORY_PW" {
+  type    = string
+  default = ""
+}
+variable "QT_INSTALLER_JWT_TOKEN" {
+  type    = string
+  default = ""
+}
+
 locals {
   timestamp = regex_replace(timestamp(), "[- TZ:]", "")
 }
@@ -61,7 +82,7 @@ build {
   }
 /*
   provisioner "powershell" {
-      inline = ["C:\\Install\\InstallNuGet.ps1"]
+      inline = ["C:\\Install\\InstallNuGet.ps1 ${var.ARTIFACTORY_USER} ${var.ARTIFACTORY_PW}"]
   }
 */
   provisioner "powershell" {
@@ -73,7 +94,7 @@ build {
   }
 /*
   provisioner "powershell" {
-      inline = ["C:\\Install\\InstallQt.ps1 qt6.683"]
+      inline = ["C:\\Install\\InstallQt.ps1 qt6.683 ${var.QT_INSTALLER_JWT_TOKEN}"]
   }
 */
   provisioner "powershell" {
@@ -84,7 +105,7 @@ build {
       inline = ["C:\\Install\\InstallWix.ps1"]
   }
   provisioner "powershell" {
-      inline = ["C:\\Install\\InstallCiAgent.ps1"]
+      inline = ["C:\\Install\\InstallCiAgent.ps1 ${var.BUILD_SERVER_URL} ${var.BUILDER_SECRET}"]
   }
 */
   provisioner "windows-restart" {
