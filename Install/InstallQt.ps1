@@ -4,10 +4,11 @@ $ErrorActionPreference = "Stop"
 # NOTICE: The script expects $Env:QT_INSTALLER_JWT_TOKEN to have already been set
 
 # DOC: https://doc.qt.io/qt-6/get-and-install-qt-cli.html
+Write-Host "Downloading Qt online installer..."
 $client = new-object System.Net.WebClient
 $client.DownloadFile("https://download.qt.io/official_releases/online_installers/qt-online-installer-windows-x64-online.exe","C:\Install\qt-online-installer.exe")
 
-# Install Qt maintenance tool first
+Write-Host "Installing Qt maintenance tool..."
 & "C:\Install\qt-online-installer.exe" --root C:\Qt --accept-licenses --default-answer --confirm-command --no-default-installations install qt.tools.maintenance
 if ($LastExitCode -ne 0) {
     throw "Qt online install failure"
@@ -32,13 +33,14 @@ for ($i=0; $i -lt $args.Count; $i++) {
     }
     $modules += "qt.$qtVersion.addons.qtactiveqt", "qt.$qtVersion.addons.qt3d"
 
+    Write-Host "Installing $modules..."
     & "C:\Qt\MaintenanceTool.exe" --accept-licenses --default-answer --confirm-command install @modules
     if ($LastExitCode -ne 0) {
         throw "Qt install failure"
     }
 }
 
-# Let QT_ROOT_64 point to the Qt SDK path for the last argument
+Write-Host "Let QT_ROOT_64 point to the Qt SDK path for the last argument"
 $ver = $qtVersion.Split(".")[1] # from "qt5.5152" to "5152"
 $ver = $ver[0]+"."+$ver.substring(1, $ver.length-2)+"."+$ver[-1] # from "5152" to 5.15.2)
 setx.exe QT_ROOT_64 C:\Qt\$ver\$msvcVer /M
