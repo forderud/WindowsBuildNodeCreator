@@ -59,13 +59,11 @@ build {
   provisioner "powershell" {
       inline = ["C:\\Install\\InstallVisualStudio.ps1 17/release.ltsc.17.6"]
   }
-
 /*
   provisioner "powershell" {
       inline = ["C:\\Install\\InstallNuGet.ps1"]
   }
 */
-
   provisioner "powershell" {
       inline = ["C:\\Install\\InstallPython.ps1"]
   }
@@ -73,11 +71,22 @@ build {
   provisioner "powershell" {
       inline = ["C:\\Install\\InstallCMake.ps1"]
   }
-
+/*
+  provisioner "powershell" {
+      inline = ["C:\\Install\\InstallQt.ps1 qt6.683"]
+  }
+*/
   provisioner "powershell" {
       inline = ["C:\\Install\\InstallGit.ps1"]
   }
-
+/*
+  provisioner "powershell" {
+      inline = ["C:\\Install\\InstallWix.ps1"]
+  }
+  provisioner "powershell" {
+      inline = ["C:\\Install\\InstallCiAgent.ps1"]
+  }
+*/
   provisioner "windows-restart" {
   }
 
