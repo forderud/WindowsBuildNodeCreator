@@ -22,7 +22,7 @@ variable "BUILDER_SECRET" { # Jenkins builder secret or GitLab runner token
 }
 variable "VISUAL_STUDIO" { # Visual Studio version
   type    = string
-  default = "17/release.ltsc.17.6" # "17/release.ltsc.17.6", "17/release", "16/release.16.7", "16/release"
+  default = "17/release" # "17/release.ltsc.17.6", "17/release", "16/release.16.7", "16/release"
 }
 variable "ARTIFACTORY_USER" { # Artifactory username (optional)
   type    = string
