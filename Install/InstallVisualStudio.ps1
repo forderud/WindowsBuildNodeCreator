@@ -22,7 +22,7 @@ $process = Start-Process -FilePath "C:\Install\vs_Professional.exe" -ArgumentLis
     "--add", "Microsoft.VisualStudio.Component.VC.14.29.16.11.x86.x64", `
     "--add", "Microsoft.VisualStudio.Component.VC.Runtimes.x86.x64.Spectre", ` # required for driver builds
     "--add", "Microsoft.VisualStudio.Workload.ManagedDesktop", `
-    "--includeRecommended", "--passive", "--wait" -Wait -PassThru
+    "--includeRecommended", "--passive", "--norestart", "--wait" -Wait -PassThru
 if ($process.ExitCode -ne 0) {
     throw "Visual Studio install failure"
 }
