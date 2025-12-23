@@ -60,7 +60,7 @@ source "amazon-ebs" "windows-builder" {
 
   launch_block_device_mappings {
     device_name = "/dev/sda1"
-    volume_size = 64 # GB
+    volume_size = 128 # GB
     delete_on_termination = true
   }
 
