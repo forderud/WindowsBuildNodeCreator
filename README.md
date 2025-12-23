@@ -3,7 +3,15 @@ Sample project that demonstrates how to automate building of a Windows CI/CD bui
 ## Build instructions
 `packer build windows-builder.pkr.hcl`
 
+
+### Debugging build problems
 Verbose build output: `set PACKER_LOG=1`
+
+### RDP connection
+Steps to connect with RDP to the VM during packer build:
+* Edit the VM "Security group" and add an inbound "RDP" firewall rule.
+* Use the VM "Public DNS" name to connect to the VM with the remote desktop client.
+* Use `Administrator` as username and WinRM password from the packer build log.
 
 ## Prerequisites
 * [Packer](https://developer.hashicorp.com/packer/install) downloaded with `packer.exe` in PATH
