@@ -1,12 +1,13 @@
 # stop script on first error
 $ErrorActionPreference = "Stop"
 
-# require CI_PARAMS file
-$ciParams = Get-Content -Path "C:\Install\CI_PARAMS"
+# command-line arguments
+$url   = $args[0]
+$token = $args[1]
 
-if ($ciParams[0][-1] -eq "/") {
+if ($url[-1] -eq "/") {
     # strip trailing "/" from URL if present
-    $ciParams[0] = $ciParams[0].Substring(0, $ciParams[0].Length-1)
+    $url = $url.Substring(0, $url.Length-1)
 }
 
 function InstallJava {
@@ -40,7 +41,7 @@ function InstallJenkinsAgent {
 
     # Download Jenkins agent
     $client = new-object System.Net.WebClient
-    $urlParts = $ciParams[0].Split("/")
+    $urlParts = $url.Split("/")
     $agentUrl = $urlParts[0] + "//" + $urlParts[2] + "/jnlpJars/agent.jar"
     $client.DownloadFile($agentUrl,"C:\Install\agent.jar")
 
@@ -66,7 +67,7 @@ function InstallJenkinsAgent {
     $service.AppendChild($executable)
     # <<arguments>></<arguments>>
     $arguments = $xml.CreateElement("arguments")
-    $arguments.InnerText = "-jar C:\Install\agent.jar -jnlpUrl $($ciParams[0]) -noCertificateCheck -secret $($ciParams[1]) -workDir C:\Jenkins"
+    $arguments.InnerText = "-jar C:\Install\agent.jar -jnlpUrl $url -noCertificateCheck -secret $token -workDir C:\Jenkins"
     $service.AppendChild($arguments)
     # <log mode="roll"></log>
     $log = $xml.CreateElement("log")
@@ -97,7 +98,7 @@ function InstallGitLabRunner {
 
     # Register GitLab runner
     # https://docs.gitlab.com/runner/register/index.html?tab=Windows
-    & "C:\Install\gitlab-runner.exe" register --non-interactive --url $ciParams[0] --token $ciParams[1] --executor shell
+    & "C:\Install\gitlab-runner.exe" register --non-interactive --url $url --token $token --executor shell
     if ($LastExitCode -ne 0) {
         throw "GitLab runner register failure"
     }
@@ -122,7 +123,7 @@ function InstallGitLabRunner {
 }
 
 
-if ($ciParams[0] -eq "https://gitlab.apps.ge-healthcare.net") {
+if ($url -eq "https://gitlab.apps.ge-healthcare.net") {
     # Assume GitLab setup
     InstallGitLabRunner
 } else {
