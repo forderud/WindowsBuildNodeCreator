@@ -109,10 +109,11 @@ build {
   provisioner "powershell" {
     inline = ["C:\\Install\\InstallGit.ps1"]
   }
-/*
+
   provisioner "powershell" {
     inline = ["C:\\Install\\InstallWix.ps1"]
   }
+/*
   provisioner "powershell" {
     inline = ["C:\\Install\\InstallCiAgent.ps1 ${var.BUILD_SERVER_URL} ${var.BUILDER_SECRET}"]
   }
