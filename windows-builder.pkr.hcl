@@ -12,19 +12,23 @@ variable "region" {
   default = "us-east-1"
 }
 
-variable "BUILD_SERVER_URL" {
+variable "BUILD_SERVER_URL" { # Jenkins agent URL or GitLab server URL
   type    = string
   default = ""
 }
-variable "BUILDER_SECRET" {
+variable "BUILDER_SECRET" { # Jenkins builder secret or GitLab runner token
   type    = string
   default = ""
 }
-variable "ARTIFACTORY_USER" {
+variable "VISUAL_STUDIO" { # Visual Studio version
+  type    = string
+  default = "17/release.ltsc.17.6" # "17/release.ltsc.17.6", "17/release", "16/release.16.7", "16/release"
+}
+variable "ARTIFACTORY_USER" { # Artifactory username (optional)
   type    = string
   default = ""
 }
-variable "ARTIFACTORY_PW" {
+variable "ARTIFACTORY_PW" { # Artifactory API key from https://eu-artifactory.apps.ge-healthcare.net/ui/user_profile (optional)
   type    = string
   default = ""
 }
@@ -32,7 +36,7 @@ variable "QT_VERSION" {
   type    = string
   default = "qt6.683"
 }
-variable "QT_INSTALLER_JWT_TOKEN" {
+variable "QT_INSTALLER_JWT_TOKEN" { # Qt license JWT token from %APPDATA%\\Qt\\qtaccount.ini (optional). The installation will be listed on https://account.qt.io/s/active-installation-list
   type    = string
   default = ""
 }
@@ -82,7 +86,7 @@ build {
   }
 
   provisioner "powershell" {
-      inline = ["C:\\Install\\InstallVisualStudio.ps1 17/release.ltsc.17.6"]
+      inline = ["C:\\Install\\InstallVisualStudio.ps1 ${var.VISUAL_STUDIO}"]
   }
 /*
   provisioner "powershell" {
