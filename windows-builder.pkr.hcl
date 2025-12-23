@@ -88,11 +88,11 @@ build {
   provisioner "powershell" {
     inline = ["C:\\Install\\InstallVisualStudio.ps1 ${var.VISUAL_STUDIO}"]
   }
-/*
+
   provisioner "powershell" {
     inline = ["C:\\Install\\InstallNuGet.ps1 ${var.ARTIFACTORY_USER} ${var.ARTIFACTORY_PW}"]
   }
-*/
+
   provisioner "powershell" {
     inline = ["C:\\Install\\InstallPython.ps1"]
   }
@@ -100,12 +100,12 @@ build {
   provisioner "powershell" {
     inline = ["C:\\Install\\InstallCMake.ps1"]
   }
-/*
+
   provisioner "powershell" {
     environment_vars = ["QT_INSTALLER_JWT_TOKEN=${var.QT_INSTALLER_JWT_TOKEN}"]
     inline = ["C:\\Install\\InstallQt.ps1 ${var.QT_VERSION}"]
   }
-*/
+
   provisioner "powershell" {
     inline = ["C:\\Install\\InstallGit.ps1"]
   }
