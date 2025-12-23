@@ -1,16 +1,7 @@
 # stop script on first error
 $ErrorActionPreference = "Stop"
 
-# require QT_INSTALLER_JWT_TOKEN file
-$qtjwtSrc = "C:\Install\QT_INSTALLER_JWT_TOKEN"
-if (Test-Path $qtjwtSrc -PathType Leaf) {
-    # set global env. variable
-    $jwt_token = Get-Content -Path $qtjwtSrc
-    $Env:QT_INSTALLER_JWT_TOKEN = $jwt_token
-} else {
-    Write-Host "Skipping Qt installation due to lack of license."
-    exit 1
-}
+# NOTICE: The script expects $Env:QT_INSTALLER_JWT_TOKEN to have already been set
 
 # Install Qt maintenance tool first
 & "C:\Install\qt-online-installer.exe" --root C:\Qt --accept-licenses --default-answer --confirm-command --no-default-installations install qt.tools.maintenance
