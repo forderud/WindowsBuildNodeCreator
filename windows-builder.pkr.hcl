@@ -18,7 +18,7 @@ locals {
 
 source "amazon-ebs" "windows-builder" {
   ami_name      = "windows-builder-${local.timestamp}"
-  instance_type = "t3.small" # 2 CPUs, 2GB RAM
+  instance_type = "m7i-flex.large" # 2 CPUs, 8GB RAM
   region        = "${var.region}"
 
   source_ami_filter {
