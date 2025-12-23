@@ -28,6 +28,10 @@ variable "ARTIFACTORY_PW" {
   type    = string
   default = ""
 }
+variable "QT_VERSION" {
+  type    = string
+  default = "qt6.683"
+}
 variable "QT_INSTALLER_JWT_TOKEN" {
   type    = string
   default = ""
@@ -94,7 +98,7 @@ build {
   }
 /*
   provisioner "powershell" {
-      inline = ["C:\\Install\\InstallQt.ps1 qt6.683 ${var.QT_INSTALLER_JWT_TOKEN}"]
+      inline = ["C:\\Install\\InstallQt.ps1 ${var.QT_VERSION} ${var.QT_INSTALLER_JWT_TOKEN}"]
   }
 */
   provisioner "powershell" {
