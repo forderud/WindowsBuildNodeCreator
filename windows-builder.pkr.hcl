@@ -72,6 +72,10 @@ build {
       inline = ["C:\\Install\\InstallCMake.ps1"]
   }
 
+  provisioner "powershell" {
+      inline = ["C:\\Install\\InstallGit.ps1"]
+  }
+
   provisioner "windows-restart" {
   }
 
