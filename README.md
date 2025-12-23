@@ -1,7 +1,7 @@
 Sample project that demonstrates how to automate building of a Windows CI/CD build node Virtual Machine (VM) with Packer and automation scripts.
 
 ## Build instructions
-`packer build windows-builder.pkr.hcl`
+`packer build --var-file=variables.pkvars.hcl windows-builder.pkr.hcl` where `variables.pkvars.hcl` contains the build variables.
 
 
 ### Debugging build problems
