@@ -60,6 +60,18 @@ build {
       inline = ["C:\\Install\\InstallVisualStudio.ps1 17/release.ltsc.17.6"]
   }
 
+  provisioner "powershell" {
+      inline = ["C:\\Install\\InstallNuGet.ps1"]
+  }
+
+  provisioner "powershell" {
+      inline = ["C:\\Install\\InstallPython.ps1"]
+  }
+
+  provisioner "powershell" {
+      inline = ["C:\\Install\\InstallCMake.ps1"]
+  }
+
   provisioner "windows-restart" {
   }
 
