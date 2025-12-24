@@ -1,9 +1,8 @@
 # stop script on first error
 $ErrorActionPreference = "Stop"
 
-# command-line arguments
-$url   = $args[0]
-$token = $args[1]
+$url   = $Env:BUILD_SERVER_URL
+$token = $Env:BUILDER_SECRET
 
 if ($url[-1] -eq "/") {
     # strip trailing "/" from URL if present

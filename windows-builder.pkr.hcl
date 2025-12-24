@@ -116,7 +116,8 @@ build {
   }
 /*
   provisioner "powershell" {
-    inline = ["C:\\Install\\InstallCiAgent.ps1 ${var.BUILD_SERVER_URL} ${var.BUILDER_SECRET}"]
+    environment_vars = ["BUILD_SERVER_URL=${var.BUILD_SERVER_URL}", "BUILDER_SECRET=${var.BUILDER_SECRET}"]
+    inline = ["C:\\Install\\InstallCiAgent.ps1"]
   }
 */
   provisioner "windows-restart" {
