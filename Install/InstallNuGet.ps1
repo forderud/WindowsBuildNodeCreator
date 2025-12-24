@@ -2,8 +2,8 @@
 $ErrorActionPreference = "Stop"
 
 # command-line arguments
-$username = $args[0]
-$password = $args[1]
+$username = $Env:ARTIFACTORY_USER
+$password = $Env:ARTIFACTORY_PW
 
 Write-Host "Downloading NuGet.exe..."
 $client = new-object System.Net.WebClient

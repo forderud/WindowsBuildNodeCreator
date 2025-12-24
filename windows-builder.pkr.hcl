@@ -90,7 +90,8 @@ build {
   }
 
   provisioner "powershell" {
-    inline = ["C:\\Install\\InstallNuGet.ps1 ${var.ARTIFACTORY_USER} ${var.ARTIFACTORY_PW}"]
+    environment_vars = ["ARTIFACTORY_USER=${var.ARTIFACTORY_USER}", "ARTIFACTORY_PW=${var.ARTIFACTORY_PW}"]
+    inline = ["C:\\Install\\InstallNuGet.ps1"]
   }
 
   provisioner "powershell" {
