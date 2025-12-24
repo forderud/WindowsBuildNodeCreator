@@ -1,7 +1,6 @@
 # stop script on first error
 $ErrorActionPreference = "Stop"
 
-# command-line arguments
 $username = $Env:ARTIFACTORY_USER
 $password = $Env:ARTIFACTORY_PW
 
