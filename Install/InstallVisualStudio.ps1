@@ -7,9 +7,14 @@ if ($vsVersion -eq $null) {
     throw "Visual Studio version parameter missing"
 }
 
-Write-Host "Downloading Visual Studio $vsVersion bootstrapper..."
-$client = new-object System.Net.WebClient
-$client.DownloadFile("https://aka.ms/vs/"+$vsVersion+"/vs_professional.exe","C:\Install\vs_Professional.exe")
+if ($vsVersion -eq "16/release.16.7") {
+    # use download from Box
+    Copy-Item "C:\Install\vs_Professional_16.7.exe" -Destination "C:\Install\vs_Professional.exe"
+} else {
+    Write-Host "Downloading Visual Studio $vsVersion bootstrapper..."
+    $client = new-object System.Net.WebClient
+    $client.DownloadFile("https://aka.ms/vs/"+$vsVersion+"/vs_professional.exe","C:\Install\vs_Professional.exe")
+}
 
 Write-Host "Installing Visual Studio $vsVersion with C++ and .Net..."
 # Component list: https://learn.microsoft.com/en-us/visualstudio/install/workload-component-id-vs-professional
