@@ -112,7 +112,7 @@ build {
   }
 
   provisioner "powershell" {
-    inline = ["C:\\Install\\InstallWix.ps1"]
+    inline = ["C:\\Install\\InstallWix.ps1 ${var.VISUAL_STUDIO}"]
   }
 /*
   provisioner "powershell" {

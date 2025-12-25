@@ -1,6 +1,9 @@
 # stop script on first error
 $ErrorActionPreference = "Stop"
 
+# command-line arguments
+$vsVersion = $args[0] # Visual Studio version
+
 Write-Host "Downloading Wix toolset v3.14..."
 $filePath = "C:\Install\wix314.exe"
 $client = new-object System.Net.WebClient
@@ -24,8 +27,14 @@ if ($process.ExitCode -ne 0) {
 
 Write-Host "Downloading Wix5 HeatWave Visual Studio extension for VS2022..."
 $filePath = "C:\Install\FireGiant.HeatWave.Dev17.vsix"
+if ($vsVersion -eq "17/release.ltsc.17.6") {
+    # FireGiantHeatWaveDev17 1.0.3 is the last version compatible with VS 17.6
+    $heatWaveUrl = "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/FireGiant/vsextensions/FireGiantHeatWaveDev17/1.0.3/vspackage"
+} else {
+    $heatWaveUrl = "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/FireGiant/vsextensions/FireGiantHeatWaveDev17/latest/vspackage"
+}
 $client = new-object System.Net.WebClient
-$client.DownloadFile("https://marketplace.visualstudio.com/_apis/public/gallery/publishers/FireGiant/vsextensions/FireGiantHeatWaveDev17/latest/vspackage", $filePath)
+$client.DownloadFile($heatWaveUrl, $filePath)
 Write-Host "Installing Wix5 HeatWave Visual Studio extension for VS2022..."
 $process = Start-Process -FilePath $installerPath -ArgumentList @('/quiet', "`"$filePath`"") -Wait -PassThru
 if ($process.ExitCode -ne 0) {
