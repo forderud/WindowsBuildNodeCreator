@@ -10,6 +10,11 @@ if (Test-Path $qtjwtSrc -PathType Leaf) {
     $Env:QT_INSTALLER_JWT_TOKEN = $jwt_token
 }
 
+if ($Env:QT_INSTALLER_JWT_TOKEN -eq $null) {
+    Write-Host "Skipping Qt installation due to lack of license."
+    exit 0
+}
+
 # DOC: https://doc.qt.io/qt-6/get-and-install-qt-cli.html
 Write-Host "Downloading Qt online installer..."
 $client = new-object System.Net.WebClient
