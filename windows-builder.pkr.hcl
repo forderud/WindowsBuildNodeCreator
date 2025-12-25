@@ -7,11 +7,6 @@ packer {
   }
 }
 
-variable "region" {
-  type    = string
-  default = "us-east-1"
-}
-
 variable "BUILD_SERVER_URL" { # Jenkins agent URL or GitLab server URL
   type    = string
   default = ""
@@ -48,7 +43,7 @@ locals {
 source "amazon-ebs" "windows-builder" {
   ami_name      = "windows-builder-${local.timestamp}"
   instance_type = "m7i-flex.large" # 2 CPUs, 8GB RAM
-  region        = "${var.region}"
+  region        = "us-east-1"
 
   source_ami_filter {
     filters = {
