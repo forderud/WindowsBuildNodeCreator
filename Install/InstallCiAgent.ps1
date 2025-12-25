@@ -18,19 +18,19 @@ if ($url[-1] -eq "/") {
 }
 
 function InstallJava {
-    # Download Java JDK 21 (LTS)
+    Write-Host "Downloading Java JDK 21 (LTS)..."
     $javaMsiName = "jdk-21_windows-x64_bin.msi"
     $javaMsiPath = "C:\Install\"+$javaMsiName
     $client = new-object System.Net.WebClient
     $client.DownloadFile("https://download.oracle.com/java/21/latest/"+$javaMsiName, $javaMsiPath)
 
-    # Install Java
+    Write-Host "Installing Java..."
     $process = Start-Process -FilePath msiexec.exe -ArgumentList "/i", $javaMsiPath, "/qn", "/norestart" -Wait -PassThru
     if ($process.ExitCode -ne 0) {
         throw "Java install failure"
     }
 
-    # Let Java trust the GE root CA
+    Write-Host "Let Java trust the GEHC root CA..."
     & "C:\Program Files\Java\jdk-21\bin\keytool.exe" -import -alias gehealthcarerootca1 -file "C:\Install\gehealthcarerootca1.crt" -keystore "C:\Program Files\Java\jdk-21\lib\security\cacerts" -noprompt
     if ($process.ExitCode -ne 0) {
         throw "Java GEHC root CA 1 failure"
@@ -42,17 +42,17 @@ function InstallJava {
 }
 
 function InstallJenkinsAgent {
-    # Download service wrapper
+    Write-Host "Downloading service wrapper..."
     $client = new-object System.Net.WebClient
     $client.DownloadFile("https://github.com/winsw/winsw/releases/download/v2.12.0/WinSW-x64.exe","C:\Install\JenkinsAgent.exe")
 
-    # Download Jenkins agent
+    Write-Host "Downloading Jenkins agent..."
     $client = new-object System.Net.WebClient
     $urlParts = $url.Split("/")
     $agentUrl = $urlParts[0] + "//" + $urlParts[2] + "/jnlpJars/agent.jar"
     $client.DownloadFile($agentUrl,"C:\Install\agent.jar")
 
-    # Create JenkinsAgent.xml for service wrapper
+    Write-Host "Creating JenkinsAgent.xml for service wrapper..."
     $xml = New-Object -TypeName System.Xml.XmlDocument
     $service = $xml.CreateElement("service") # root node
     $xml.AppendChild($service)
@@ -83,13 +83,13 @@ function InstallJenkinsAgent {
     # Save XML file
     $xml.Save("C:\Install\JenkinsAgent.xml")
 
-    # Install Jenkins agent service
+    Write-Host "Installing Jenkins agent service..."
     & "C:\Install\JenkinsAgent.exe" install
     if ($LastExitCode -ne 0) {
         throw "Jenkins agent service install failure"
     }
 
-    # Start Jenkins agent service
+    Write-Host "Starting Jenkins agent service..."
     & "C:\Install\JenkinsAgent.exe" start
     if ($LastExitCode -ne 0) {
         throw "Jenkins agent service startup failure"
@@ -97,13 +97,13 @@ function InstallJenkinsAgent {
 }
 
 function InstallGitLabRunner {
-    # Download GitLab runner
+    Write-Host "Downloading GitLab runner..."
     # https://docs.gitlab.com/runner/install/windows.html
     $client = new-object System.Net.WebClient
     $runnerUrl = "https://s3.dualstack.us-east-1.amazonaws.com/gitlab-runner-downloads/latest/binaries/gitlab-runner-windows-amd64.exe"
     $client.DownloadFile($runnerUrl,"C:\Install\gitlab-runner.exe")
 
-    # Register GitLab runner
+    Write-Host "Registering GitLab runner..."
     # https://docs.gitlab.com/runner/register/index.html?tab=Windows
     & "C:\Install\gitlab-runner.exe" register --non-interactive --url $url --token $token --executor shell
     if ($LastExitCode -ne 0) {
@@ -116,13 +116,13 @@ function InstallGitLabRunner {
     $cfg = $cfg.Replace('"pwsh"', '"powershell"')
     $cfg | Set-Content $cfgFile
 
-    # Install GitLab runner service
+    Write-Host "Installing GitLab runner service..."
     & "C:\Install\gitlab-runner.exe" install
     if ($LastExitCode -ne 0) {
         throw "GitLab runner install failure"
     }
 
-    # Start Jenkins agent service
+    Write-Host "Starting Jenkins agent service..."
     & "C:\Install\gitlab-runner.exe" start
     if ($LastExitCode -ne 0) {
         throw "GitLab runner startup failure"
