@@ -2,6 +2,13 @@
 $ErrorActionPreference = "Stop"
 
 # NOTICE: The script expects $Env:QT_INSTALLER_JWT_TOKEN to have already been set
+# or a QT_INSTALLER_JWT_TOKEN file to be present.
+$qtjwtSrc = "C:\Install\QT_INSTALLER_JWT_TOKEN"
+if (Test-Path $qtjwtSrc -PathType Leaf) {
+    # set global env. variable
+    $jwt_token = Get-Content -Path $qtjwtSrc
+    $Env:QT_INSTALLER_JWT_TOKEN = $jwt_token
+}
 
 # DOC: https://doc.qt.io/qt-6/get-and-install-qt-cli.html
 Write-Host "Downloading Qt online installer..."
