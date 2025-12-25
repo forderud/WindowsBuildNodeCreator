@@ -1,9 +1,9 @@
 # stop script on first error
 $ErrorActionPreference = "Stop"
 
-Write-Host "Downloading Python 3.12..."
+Write-Host "Downloading Python..."
 $client = new-object System.Net.WebClient
-$client.DownloadFile("https://www.python.org/ftp/python/3.12.3/python-3.12.3-amd64.exe", "C:\Install\python-amd64.exe")
+$client.DownloadFile("https://www.python.org/ftp/python/3.14.2/python-3.14.2-amd64.exe", "C:\Install\python-amd64.exe")
 
 Write-Host "Installing Python..."
 $process = Start-Process -FilePath "C:\Install\python-amd64.exe" -ArgumentList "/quiet", "InstallAllUsers=1" -Wait -PassThru
