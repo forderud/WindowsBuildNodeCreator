@@ -1,8 +1,18 @@
 # stop script on first error
 $ErrorActionPreference = "Stop"
 
-$username = $Env:ARTIFACTORY_USER
-$password = $Env:ARTIFACTORY_PW
+# NOTICE: The script expects $Env:ARTIFACTORY_USER and $Env:ARTIFACTORY_PW to have already been set
+# or a ARTIFACTORY_CREDS file to be present.
+$artifactoryCreds = "C:\Install\ARTIFACTORY_CREDS"
+if (Test-Path $artifactoryCreds -PathType Leaf) {
+    # set global env. variable
+    $userpw = Get-Content -Path $artifactoryCreds
+    $username = $userpw[0]
+    $password = $userpw[1]
+} else {
+    $username = $Env:ARTIFACTORY_USER
+    $password = $Env:ARTIFACTORY_PW
+}
 
 Write-Host "Downloading NuGet.exe..."
 $client = new-object System.Net.WebClient
