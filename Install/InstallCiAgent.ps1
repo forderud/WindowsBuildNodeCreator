@@ -1,8 +1,16 @@
 # stop script on first error
 $ErrorActionPreference = "Stop"
 
-$url   = $Env:BUILD_SERVER_URL
-$token = $Env:BUILDER_SECRET
+# NOTICE: The script expects $Env:BUILD_SERVER_URL and $Env:BUILDER_SECRET to have already been set
+# or a CI_PARAMS file to be present.
+if (Test-Path "C:\Install\CI_PARAMS" -PathType Leaf) {
+    $ciParams = Get-Content -Path "C:\Install\CI_PARAMS"
+    $url = $ciParams[0]
+    $token = $ciParams[1]
+} else {
+    $url   = $Env:BUILD_SERVER_URL
+    $token = $Env:BUILDER_SECRET
+}
 
 if ($url[-1] -eq "/") {
     # strip trailing "/" from URL if present
@@ -92,8 +100,8 @@ function InstallGitLabRunner {
     # Download GitLab runner
     # https://docs.gitlab.com/runner/install/windows.html
     $client = new-object System.Net.WebClient
-    $url = "https://s3.dualstack.us-east-1.amazonaws.com/gitlab-runner-downloads/latest/binaries/gitlab-runner-windows-amd64.exe"
-    $client.DownloadFile($url,"C:\Install\gitlab-runner.exe")
+    $runnerUrl = "https://s3.dualstack.us-east-1.amazonaws.com/gitlab-runner-downloads/latest/binaries/gitlab-runner-windows-amd64.exe"
+    $client.DownloadFile($runnerUrl,"C:\Install\gitlab-runner.exe")
 
     # Register GitLab runner
     # https://docs.gitlab.com/runner/register/index.html?tab=Windows
