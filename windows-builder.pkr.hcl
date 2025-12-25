@@ -121,6 +121,7 @@ build {
   }
 */
   provisioner "windows-restart" {
+    restart_timeout = "15m"
   }
 
   provisioner "powershell" {
