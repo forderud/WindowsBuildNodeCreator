@@ -3,6 +3,16 @@ Sample project that demonstrates how to automate building of a Windows CI/CD bui
 ## Build instructions
 `packer build --var-file=variables.pkvars.hcl windows-builder.pkr.hcl` where `variables.pkvars.hcl` contains the build variables.
 
+Example `variables.pkvars.hcl` file:
+```
+BUILD_SERVER_URL="https://gitlab.kitware.com/"
+BUILDER_SECRET=""
+VISUAL_STUDIO="17/release.ltsc.17.6"
+ARTIFACTORY_USER=""
+ARTIFACTORY_PW=""
+QT_VERSION="qt6.683"
+QT_INSTALLER_JWT_TOKEN=""
+```
 
 ### Debugging build problems
 Verbose build output: `set PACKER_LOG=1`
