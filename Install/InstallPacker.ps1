@@ -13,3 +13,12 @@ Write-Host "Copying Packer.exe to BuildTools folder..."
 $buildFolder = "C:\BuildTools"
 [void](New-Item $buildFolder -Type Directory)
 Copy-Item "C:\Install\packer.exe" -Destination $buildFolder
+
+$machinePath = [Environment]::GetEnvironmentVariable("Path", [EnvironmentVariableTarget]::Machine)
+if ($machinePath -like "*$buildFolder*") {
+    # already in PATH
+} else {
+    Write-Host "Adding BuildTools to machine-wide PATH..."
+    $machinePath += ";$buildFolder"
+    [Environment]::SetEnvironmentVariable("Path", $machinePath, [EnvironmentVariableTarget]::Machine)
+}

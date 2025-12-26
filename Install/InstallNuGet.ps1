@@ -41,7 +41,11 @@ $buildFolder = "C:\BuildTools"
 [void](New-Item $buildFolder -Type Directory)
 Copy-Item "C:\Install\nuget.exe" -Destination $buildFolder
 
-Write-Host "Add folder to machine-wide PATH..."
 $machinePath = [Environment]::GetEnvironmentVariable("Path", [EnvironmentVariableTarget]::Machine)
-$machinePath += ";$buildFolder"
-[Environment]::SetEnvironmentVariable("Path", $machinePath, [EnvironmentVariableTarget]::Machine)
+if ($machinePath -like "*$buildFolder*") {
+    # already in PATH
+} else {
+    Write-Host "Adding BuildTools to machine-wide PATH..."
+    $machinePath += ";$buildFolder"
+    [Environment]::SetEnvironmentVariable("Path", $machinePath, [EnvironmentVariableTarget]::Machine)
+}
