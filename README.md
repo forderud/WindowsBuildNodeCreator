@@ -1,7 +1,10 @@
 Sample project that demonstrates how to automate building of a Windows CI/CD build node Virtual Machine (VM) with Packer and automation scripts.
 
 ## Build instructions
-`packer build --var-file=variables.pkvars.hcl windows-builder.pkr.hcl` where `variables.pkvars.hcl` contains the build variables.
+```
+packer init windows-builder.pkr.hcl
+packer build --var-file=variables.pkvars.hcl windows-builder.pkr.hcl
+```
 
 Example `variables.pkvars.hcl` file:
 ```
@@ -24,7 +27,7 @@ Steps to connect with RDP to the VM during packer build:
 * Use `Administrator` as username and WinRM password from the packer build log.
 
 ## Prerequisites
-* [Packer](https://developer.hashicorp.com/packer/install) downloaded with `packer.exe` in PATH
+* [Packer](https://developer.hashicorp.com/packer/install) downloaded with `packer.exe` in `PATH`
 
 ## Documentation
 
