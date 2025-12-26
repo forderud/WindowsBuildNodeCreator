@@ -117,12 +117,12 @@ build {
   provisioner "powershell" {
     inline = ["C:\\Install\\InstallWix.ps1 ${var.VISUAL_STUDIO}"]
   }
-/*
+
   provisioner "powershell" {
     environment_vars = ["BUILD_SERVER_URL=${var.BUILD_SERVER_URL}", "BUILDER_SECRET=${var.BUILDER_SECRET}"]
     inline = ["C:\\Install\\InstallCiAgent.ps1"]
   }
-*/
+
   provisioner "windows-restart" {
     restart_timeout = "15m"
   }
