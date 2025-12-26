@@ -59,6 +59,10 @@ source "amazon-ebs" "windows-builder" {
     delete_on_termination = true
   }
 
+  aws_polling {
+     max_attempts = 60
+  }
+
   user_data_file = "./scripts/bootstrap.txt" # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html
 
   communicator  = "winrm"
