@@ -14,29 +14,31 @@ if ($process.ExitCode -ne 0) {
     throw "Wix 3 install failure (ExitCode: {0})" -f $process.ExitCode
 }
 
-Write-Host "Downloading Wix 3 Visual Studio extension..."
-$filePath = "C:\Install\Votive2022.vsix"
-$client = new-object System.Net.WebClient
-$client.DownloadFile("https://github.com/wixtoolset/VisualStudioExtension/releases/download/v1.0.0.22/Votive2022.vsix", $filePath)
-Write-Host "Installing Wix 3 Visual Studio extension..."
-$installerPath = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\resources\app\ServiceHub\Services\Microsoft.VisualStudio.Setup.Service\VSIXInstaller.exe"
-$process = Start-Process -FilePath $installerPath -ArgumentList @('/quiet', "`"$filePath`"") -Wait -PassThru
-if ($process.ExitCode -ne 0) {
-    throw "Wix 3 extension install failure (ExitCode: {0})" -f $process.ExitCode
-}
+if ($vsVersion.Substring(0,2) -eq "17") {
+    Write-Host "Downloading Wix 3 Visual Studio extension..."
+    $filePath = "C:\Install\Votive2022.vsix"
+    $client = new-object System.Net.WebClient
+    $client.DownloadFile("https://github.com/wixtoolset/VisualStudioExtension/releases/download/v1.0.0.22/Votive2022.vsix", $filePath)
+    Write-Host "Installing Wix 3 Visual Studio extension..."
+    $installerPath = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\resources\app\ServiceHub\Services\Microsoft.VisualStudio.Setup.Service\VSIXInstaller.exe"
+    $process = Start-Process -FilePath $installerPath -ArgumentList @('/quiet', "`"$filePath`"") -Wait -PassThru
+    if ($process.ExitCode -ne 0) {
+        throw "Wix 3 extension install failure (ExitCode: {0})" -f $process.ExitCode
+    }
 
-Write-Host "Downloading Wix5 HeatWave Visual Studio extension for VS2022..."
-$filePath = "C:\Install\FireGiant.HeatWave.Dev17.vsix"
-if ($vsVersion -eq "17/release.ltsc.17.6") {
-    # FireGiantHeatWaveDev17 1.0.3 is the last version compatible with VS 17.6
-    $heatWaveUrl = "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/FireGiant/vsextensions/FireGiantHeatWaveDev17/1.0.3/vspackage"
-} else {
-    $heatWaveUrl = "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/FireGiant/vsextensions/FireGiantHeatWaveDev17/latest/vspackage"
-}
-$client = new-object System.Net.WebClient
-$client.DownloadFile($heatWaveUrl, $filePath)
-Write-Host "Installing Wix5 HeatWave Visual Studio extension for VS2022..."
-$process = Start-Process -FilePath $installerPath -ArgumentList @('/quiet', "`"$filePath`"") -Wait -PassThru
-if ($process.ExitCode -ne 0) {
-    throw "Wix 5 extension install failure (ExitCode: {0})" -f $process.ExitCode
+    Write-Host "Downloading Wix5 HeatWave Visual Studio extension for VS2022..."
+    $filePath = "C:\Install\FireGiant.HeatWave.Dev17.vsix"
+    if ($vsVersion -eq "17/release.ltsc.17.6") {
+        # FireGiantHeatWaveDev17 1.0.3 is the last version compatible with VS 17.6
+        $heatWaveUrl = "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/FireGiant/vsextensions/FireGiantHeatWaveDev17/1.0.3/vspackage"
+    } else {
+        $heatWaveUrl = "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/FireGiant/vsextensions/FireGiantHeatWaveDev17/latest/vspackage"
+    }
+    $client = new-object System.Net.WebClient
+    $client.DownloadFile($heatWaveUrl, $filePath)
+    Write-Host "Installing Wix5 HeatWave Visual Studio extension for VS2022..."
+    $process = Start-Process -FilePath $installerPath -ArgumentList @('/quiet', "`"$filePath`"") -Wait -PassThru
+    if ($process.ExitCode -ne 0) {
+        throw "Wix 5 extension install failure (ExitCode: {0})" -f $process.ExitCode
+    }
 }
