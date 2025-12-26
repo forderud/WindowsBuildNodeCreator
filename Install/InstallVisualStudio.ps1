@@ -29,7 +29,7 @@ $process = Start-Process -FilePath "C:\Install\vs_Professional.exe" -ArgumentLis
     "--add", "Microsoft.VisualStudio.Workload.ManagedDesktop", `
     "--includeRecommended", "--passive", "--norestart", "--wait" -Wait -PassThru
 if ($process.ExitCode -ne 0) {
-    throw "Visual Studio install failure"
+    throw "Visual Studio install failure (ExitCode: {0})" -f $process.ExitCode
 }
 
 if ($vsVersion.Substring(0,2) -eq "17") {
@@ -39,7 +39,7 @@ if ($vsVersion.Substring(0,2) -eq "17") {
 
     $process = Start-Process -FilePath "C:\Install\wdksetup.exe" -ArgumentList "/features", "+", "/quiet" -Wait -PassThru
     if ($process.ExitCode -ne 0) {
-        throw "WDK installation failure"
+        throw "WDK installation failure (ExitCode: {0})" -f $process.ExitCode
     }
 
     Write-Host "Installing WDK Visual Studio extension..."

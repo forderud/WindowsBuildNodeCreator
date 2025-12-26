@@ -11,7 +11,7 @@ $client.DownloadFile("https://github.com/wixtoolset/wix3/releases/download/wix31
 Write-Host "Installing Wix 3..."
 $process = Start-Process -FilePath $filePath -ArgumentList "/install", "/quiet", "/norestart" -Wait -PassThru
 if ($process.ExitCode -ne 0) {
-    throw "Wix 3 install failure"
+    throw "Wix 3 install failure (ExitCode: {0})" -f $process.ExitCode
 }
 
 Write-Host "Downloading Wix 3 Visual Studio extension..."
@@ -22,7 +22,7 @@ Write-Host "Installing Wix 3 Visual Studio extension..."
 $installerPath = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\resources\app\ServiceHub\Services\Microsoft.VisualStudio.Setup.Service\VSIXInstaller.exe"
 $process = Start-Process -FilePath $installerPath -ArgumentList @('/quiet', "`"$filePath`"") -Wait -PassThru
 if ($process.ExitCode -ne 0) {
-    throw "Wix 3 extension install failure"
+    throw "Wix 3 extension install failure (ExitCode: {0})" -f $process.ExitCode
 }
 
 Write-Host "Downloading Wix5 HeatWave Visual Studio extension for VS2022..."
@@ -38,5 +38,5 @@ $client.DownloadFile($heatWaveUrl, $filePath)
 Write-Host "Installing Wix5 HeatWave Visual Studio extension for VS2022..."
 $process = Start-Process -FilePath $installerPath -ArgumentList @('/quiet', "`"$filePath`"") -Wait -PassThru
 if ($process.ExitCode -ne 0) {
-    throw "Wix 5 extension install failure"
+    throw "Wix 5 extension install failure (ExitCode: {0})" -f $process.ExitCode
 }

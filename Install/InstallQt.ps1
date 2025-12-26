@@ -23,7 +23,7 @@ $client.DownloadFile("https://download.qt.io/official_releases/online_installers
 Write-Host "Installing Qt maintenance tool..."
 & "C:\Install\qt-online-installer.exe" --root C:\Qt --accept-licenses --default-answer --confirm-command --no-default-installations install qt.tools.maintenance
 if ($LastExitCode -ne 0) {
-    throw "Qt online install failure"
+    throw "Qt online install failure (ExitCode: {0})" -f $LastExitCode
 }
 
 # iterate over Qt version arguments
@@ -48,7 +48,7 @@ for ($i=0; $i -lt $args.Count; $i++) {
     Write-Host "Installing $modules..."
     & "C:\Qt\MaintenanceTool.exe" --accept-licenses --default-answer --confirm-command install @modules
     if ($LastExitCode -ne 0) {
-        throw "Qt install failure"
+        throw "Qt install failure (ExitCode: {0})" -f $LastExitCode
     }
 }
 

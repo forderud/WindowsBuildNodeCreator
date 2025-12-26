@@ -10,5 +10,5 @@ $client.DownloadFile("https://github.com/Kitware/CMake/releases/download/v4.2.1/
 Write-Host "Installing CMake..."
 $process = Start-Process -FilePath msiexec.exe -ArgumentList "/i", $cmakeMsiPath, "/qn", "/norestart" -Wait -PassThru
 if ($process.ExitCode -ne 0) {
-    throw "CMake install failure"
+    throw "CMake install failure (ExitCode: {0})" -f $process.ExitCode
 }

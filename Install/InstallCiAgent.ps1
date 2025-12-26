@@ -27,17 +27,17 @@ function InstallJava {
     Write-Host "Installing Java..."
     $process = Start-Process -FilePath msiexec.exe -ArgumentList "/i", $javaMsiPath, "/qn", "/norestart" -Wait -PassThru
     if ($process.ExitCode -ne 0) {
-        throw "Java install failure"
+        throw "Java install failure (ExitCode: {0})" -f $process.ExitCode
     }
 
     Write-Host "Let Java trust the GEHC root CA..."
     & "C:\Program Files\Java\jdk-21\bin\keytool.exe" -import -alias gehealthcarerootca1 -file "C:\Install\gehealthcarerootca1.crt" -keystore "C:\Program Files\Java\jdk-21\lib\security\cacerts" -noprompt
     if ($process.ExitCode -ne 0) {
-        throw "Java GEHC root CA 1 failure"
+        throw "Java GEHC root CA 1 failure (ExitCode: {0})" -f $process.ExitCode
     }
     & "C:\Program Files\Java\jdk-21\bin\keytool.exe" -import -alias gehealthcarerootca2 -file "C:\Install\gehealthcarerootca2.crt" -keystore "C:\Program Files\Java\jdk-21\lib\security\cacerts" -noprompt
     if ($process.ExitCode -ne 0) {
-        throw "Java GEHC root CA 2 failure"
+        throw "Java GEHC root CA 2 failure (ExitCode: {0})" -f $process.ExitCode
     }
 }
 
@@ -86,13 +86,13 @@ function InstallJenkinsAgent {
     Write-Host "Installing Jenkins agent service..."
     & "C:\Install\JenkinsAgent.exe" install
     if ($LastExitCode -ne 0) {
-        throw "Jenkins agent service install failure"
+        throw "Jenkins agent service install failure (ExitCode: {0})" -f $LastExitCode
     }
 
     Write-Host "Starting Jenkins agent service..."
     & "C:\Install\JenkinsAgent.exe" start
     if ($LastExitCode -ne 0) {
-        throw "Jenkins agent service startup failure"
+        throw "Jenkins agent service startup failure (ExitCode: {0})" -f $LastExitCode
     }
 }
 
@@ -107,7 +107,7 @@ function InstallGitLabRunner {
     # https://docs.gitlab.com/runner/register/index.html?tab=Windows
     & "C:\Install\gitlab-runner.exe" register --non-interactive --url $url --token $token --executor shell
     if ($LastExitCode -ne 0) {
-        throw "GitLab runner register failure"
+        throw "GitLab runner register failure (ExitCode: {0})" -f $LastExitCode
     }
 
     # Change shell from "pwsh" to "powershell" in quasi-INI config file (a bit hacky)
@@ -119,13 +119,13 @@ function InstallGitLabRunner {
     Write-Host "Installing GitLab runner service..."
     & "C:\Install\gitlab-runner.exe" install
     if ($LastExitCode -ne 0) {
-        throw "GitLab runner install failure"
+        throw "GitLab runner install failure (ExitCode: {0})" -f $LastExitCode
     }
 
     Write-Host "Starting Jenkins agent service..."
     & "C:\Install\gitlab-runner.exe" start
     if ($LastExitCode -ne 0) {
-        throw "GitLab runner startup failure"
+        throw "GitLab runner startup failure (ExitCode: {0})" -f $LastExitCode
     }
 }
 
