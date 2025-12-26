@@ -60,7 +60,7 @@ source "amazon-ebs" "windows-builder" {
   }
 
   aws_polling {
-     max_attempts = 60
+     max_attempts = 80
   }
 
   user_data_file = "./scripts/bootstrap.txt" # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html
