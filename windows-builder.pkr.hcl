@@ -81,6 +81,10 @@ build {
   }
 
   provisioner "powershell" {
+    inline = ["C:\\Install\\InstallPacker.ps1"]
+  }
+
+  provisioner "powershell" {
     inline = ["C:\\Install\\InstallVisualStudio.ps1 ${var.VISUAL_STUDIO}"]
   }
 
