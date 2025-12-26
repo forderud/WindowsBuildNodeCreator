@@ -12,6 +12,11 @@ if (Test-Path "C:\Install\CI_PARAMS" -PathType Leaf) {
     $token = $Env:BUILDER_SECRET
 }
 
+if ((-not $url) -or (-not $token)) {
+    Write-Host "Skipping CI agent installation due to lack of URL or token."
+    exit 0
+}
+
 if ($url[-1] -eq "/") {
     # strip trailing "/" from URL if present
     $url = $url.Substring(0, $url.Length-1)
