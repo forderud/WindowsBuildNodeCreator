@@ -49,7 +49,7 @@ Steps to connect with RDP to the VM during packer build:
 * Packer [Hyper-V integration](https://developer.hashicorp.com/packer/integrations/hashicorp/hyperv) ([sources](https://github.com/hashicorp/packer-plugin-hyperv))
 
 ### Similar Windows image projects
-* GitHub [marcinbojko/hv-packer](https://github.com/marcinbojko/hv-packer) - starting point for this project
+* GitHub [marcinbojko/hv-packer](https://github.com/marcinbojko/hv-packer)
 * GitHub [StefanScherer/packer-windows](https://github.com/StefanScherer/packer-windows)
 * GitHub [jborean93/packer-windoze](https://github.com/jborean93/packer-windoze)
 * GitHub [MattHodge/PackerTemplates](https://github.com/MattHodge/PackerTemplates) - with shutdown samples
