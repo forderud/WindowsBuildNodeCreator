@@ -130,7 +130,7 @@ function InstallGitLabRunner {
 }
 
 
-if ($url -eq "https://gitlab.apps.ge-healthcare.net") {
+if ($url -like "*gitlab*") {
     # Assume GitLab setup
     InstallGitLabRunner
 } else {
