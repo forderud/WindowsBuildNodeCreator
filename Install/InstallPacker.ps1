@@ -11,7 +11,9 @@ Expand-Archive -Path $zipPath -DestinationPath C:\Install
 
 Write-Host "Copying Packer.exe to BuildTools folder..."
 $buildFolder = "C:\BuildTools"
-[void](New-Item $buildFolder -Type Directory)
+if (-not (Test-Path $buildFolder -PathType Container)) {
+    [void](New-Item $buildFolder -Type Directory)
+}
 Copy-Item "C:\Install\packer.exe" -Destination $buildFolder
 
 $machinePath = [Environment]::GetEnvironmentVariable("Path", [EnvironmentVariableTarget]::Machine)

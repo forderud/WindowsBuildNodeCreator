@@ -38,7 +38,9 @@ if ($LastExitCode -ne 0) {
 
 Write-Host "Copying NuGet.exe to new BuildTools folder..."
 $buildFolder = "C:\BuildTools"
-[void](New-Item $buildFolder -Type Directory)
+if (-not (Test-Path $buildFolder -PathType Container)) {
+    [void](New-Item $buildFolder -Type Directory)
+}
 Copy-Item "C:\Install\nuget.exe" -Destination $buildFolder
 
 $machinePath = [Environment]::GetEnvironmentVariable("Path", [EnvironmentVariableTarget]::Machine)
