@@ -14,9 +14,3 @@ packer build --force --var-file=variables.pkvars.hcl hv_windows.pkr.hcl
 ## Prerequisites
 * Hyper-V installed and enabled
 * Windows [Assessment and Deployment Kit (ADK)](https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install) installed (for `Oscdimg`)
-
-#### Packer initialization
-```
-packer plugins install github.com/hashicorp/hyperv
-packer plugins install github.com/rgl/windows-update
-```
