@@ -10,7 +10,7 @@ if (Test-Path $qtjwtSrc -PathType Leaf) {
     $Env:QT_INSTALLER_JWT_TOKEN = $jwt_token
 }
 
-if ($Env:QT_INSTALLER_JWT_TOKEN -eq $null) {
+if (-not $Env:QT_INSTALLER_JWT_TOKEN) {
     Write-Host "Skipping Qt installation due to lack of license."
     exit 0
 }

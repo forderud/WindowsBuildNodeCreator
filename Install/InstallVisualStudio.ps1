@@ -3,7 +3,7 @@ $ErrorActionPreference = "Stop"
 
 # command-line arguments
 $vsVersion = $args[0] # Visual Studio version
-if ($vsVersion -eq $null) {
+if (-not $vsVersion) {
     throw "Visual Studio version parameter missing"
 }
 
