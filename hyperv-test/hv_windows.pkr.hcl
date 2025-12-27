@@ -16,8 +16,11 @@ variable "switch_name" {
   default = ""
 }
 
+locals {
+  timestamp = regex_replace(timestamp(), "[- TZ:]", "")
+}
 
-source "hyperv-iso" "vm" {
+source "hyperv-iso" "windows-builder" {
   cpus                  = "4"
   memory                = "4096"
   disk_size             = "80000"
@@ -30,7 +33,7 @@ source "hyperv-iso" "vm" {
   temp_path             = "."
   vlan_id               = ""
 
-  vm_name               = "windows-builder"
+  vm_name               = "windows-builder-${local.timestamp}"
   output_directory      = "output"
 
   # Windows Server 2025 ISO from https://www.microsoft.com/en-us/evalcenter/download-windows-server-2025
@@ -51,7 +54,7 @@ source "hyperv-iso" "vm" {
 }
 
 build {
-  sources = ["source.hyperv-iso.vm"]
+  sources = ["source.hyperv-iso.windows-builder"]
 
   provisioner "powershell" {
     elevated_password = "password"
