@@ -72,7 +72,9 @@ source "amazon-ebs" "windows-builder" {
 }
 
 build {
-  sources = ["source.amazon-ebs.windows-builder"]
+  sources = [
+    "source.amazon-ebs.windows-builder"
+  ]
 
   provisioner "file" {
     source      = "./Install"
@@ -128,6 +130,7 @@ build {
   }
 
   provisioner "powershell" {
+    only   = ["amazon-ebs.windows-builder"]
     script = "./scripts/aws_shutdown.ps1"
   }
 }
