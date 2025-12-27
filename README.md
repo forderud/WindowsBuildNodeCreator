@@ -3,7 +3,7 @@ Sample project that demonstrates how to automate building of a Windows CI/CD bui
 ## AWS build instructions
 ```
 packer init windows-builder.pkr.hcl
-packer build --var-file=variables.pkvars.hcl windows-builder.pkr.hcl
+packer build -only=source.amazon-ebs.windows-builder --var-file=variables.pkvars.hcl windows-builder.pkr.hcl
 ```
 
 Example `variables.pkvars.hcl` file:
@@ -34,7 +34,7 @@ From an admin command prompt:
 ```
 set PATH=%PATH%;C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Deployment Tools\amd64\Oscdimg
 packer init windows-builder.pkr.hcl
-packer build --var-file=variables.pkvars.hcl hv_windows.pkr.hcl
+packer build -only=source.hyperv-iso.windows-builder --var-file=variables.pkvars.hcl hv_windows.pkr.hcl
 ```
 
 ## Prerequisites
