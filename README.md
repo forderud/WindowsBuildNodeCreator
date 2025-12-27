@@ -28,12 +28,12 @@ Steps to connect with RDP to the VM during packer build:
 
 ## Hyper-V build instructions
 
-Change `switch_name` in `variables.pkvars.hcl` to a switch with internet access.
+Set `switch_name` in `variables.pkvars.hcl` to a switch with internet access.
 
 From an admin command prompt:
 ```
 set PATH=%PATH%;C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Deployment Tools\amd64\Oscdimg
-packer init hv_windows.pkr.hcl
+packer init windows-builder.pkr.hcl
 packer build --var-file=variables.pkvars.hcl hv_windows.pkr.hcl
 ```
 
