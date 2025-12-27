@@ -128,6 +128,6 @@ build {
   }
 
   provisioner "powershell" {
-    script = "./scripts/shutdown.ps1"
+    script = "./scripts/aws_shutdown.ps1"
   }
 }
