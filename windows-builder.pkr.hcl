@@ -63,7 +63,7 @@ source "amazon-ebs" "windows-builder" {
      max_attempts = 240 # 1 hour (15sec intervals)
   }
 
-  user_data_file = "./scripts/bootstrap.txt" # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html
+  user_data_file = "./scripts/aws_bootstrap.txt" # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html
 
   communicator  = "winrm"
   winrm_username = "Administrator"
