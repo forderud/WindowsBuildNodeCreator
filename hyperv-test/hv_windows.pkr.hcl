@@ -60,29 +60,21 @@ build {
     script = "./scripts/phase-1.ps1"
   }
 
-  provisioner "windows-restart" {
-    restart_timeout = "1h"
-  }
-
 /*
   provisioner "windows-update" {
     search_criteria = "IsInstalled=0"
     update_limit    = 10
   }
 
-  provisioner "windows-restart" {
-    restart_timeout = "1h"
-  }
-
   provisioner "windows-update" {
     search_criteria = "IsInstalled=0"
     update_limit    = 10
   }
+*/
 
   provisioner "windows-restart" {
     restart_timeout = "1h"
   }
-*/
 
   provisioner "file" {
     only        = ["hyperv-iso.windows-builder"]
