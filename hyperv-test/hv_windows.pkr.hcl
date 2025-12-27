@@ -57,9 +57,7 @@ build {
   sources = ["source.hyperv-iso.windows-builder"]
 
   provisioner "powershell" {
-    elevated_password = "password"
-    elevated_user     = "Administrator"
-    script            = "./scripts/phase-1.ps1"
+    script = "./scripts/phase-1.ps1"
   }
 
   provisioner "windows-restart" {
