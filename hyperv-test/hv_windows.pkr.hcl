@@ -5,7 +5,7 @@ packer {
       source = "github.com/rgl/windows-update"
     }
     hyperv = {
-      version = ">= 1.1.0"
+      version = ">= 1.1.5"
       source  = "github.com/hashicorp/hyperv"
     }
   }
