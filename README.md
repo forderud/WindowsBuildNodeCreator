@@ -34,7 +34,7 @@ From an admin command prompt:
 ```
 set PATH=%PATH%;C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Deployment Tools\amd64\Oscdimg
 packer init windows-builder.pkr.hcl
-packer build -only='*.hyperv-iso.*' --var-file=variables.pkvars.hcl hv_windows.pkr.hcl
+packer build -only='*.hyperv-iso.*' --var-file=variables.pkvars.hcl windows-builder.pkr.hcl
 ```
 
 ## Prerequisites
