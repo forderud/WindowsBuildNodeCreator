@@ -46,7 +46,7 @@ source "hyperv-iso" "windows-builder" {
   cd_files              = ["./files/Autounattend.xml", "./files/bootstrap.ps1"]
   cd_label              = "cidata"
 
-  shutdown_command      = "C:/PackerShutdown.bat"
+  shutdown_command      = "C:/hyperv_shutdown.bat"
 
   communicator          = "winrm"
   winrm_password        = "password"
@@ -93,11 +93,13 @@ build {
 */
 
   provisioner "file" {
+    only        = ["hyperv-iso.windows-builder"]
     destination = "C:\\Windows\\System32\\Sysprep\\unattend.xml"
     source      = "./files/unattend.xml"
   }
   provisioner "file" {
-    destination = "C:\\PackerShutdown.bat"
-    source      = "./scripts/PackerShutdown.bat"
+    only        = ["hyperv-iso.windows-builder"]
+    destination = "C:\\hyperv_shutdown.bat"
+    source      = "./scripts/hyperv_shutdown.bat"
   }
 }
