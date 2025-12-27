@@ -62,13 +62,11 @@ build {
 
 /*
   provisioner "windows-update" {
-    search_criteria = "IsInstalled=0"
-    update_limit    = 10
+    search_criteria = "AutoSelectOnWebSites=1 and IsInstalled=0" # Important updates
   }
 
   provisioner "windows-update" {
-    search_criteria = "IsInstalled=0"
-    update_limit    = 10
+    search_criteria = "BrowseOnly=0 and IsInstalled=0" # Recommended updates
   }
 */
 
