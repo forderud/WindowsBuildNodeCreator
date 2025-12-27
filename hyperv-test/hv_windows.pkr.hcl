@@ -71,7 +71,7 @@ build {
 */
 
   provisioner "windows-restart" {
-    restart_timeout = "1h"
+    restart_timeout = "30m"
   }
 
   provisioner "file" {
