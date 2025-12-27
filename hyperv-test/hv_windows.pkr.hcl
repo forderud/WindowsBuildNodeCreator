@@ -43,7 +43,7 @@ source "hyperv-iso" "windows-builder" {
   boot_command          = ["a<enter><wait>a<enter><wait>a<enter><wait>a<enter>"]
   boot_wait             = "1s"
 
-  cd_files              = ["./files/Autounattend.xml", "./files/bootstrap.ps1"]
+  cd_files              = ["./scripts/hyperv/Autounattend.xml", "./scripts/hyperv/bootstrap.ps1"]
   cd_label              = "cidata"
 
   shutdown_command      = "C:/hyperv_shutdown.bat"
@@ -76,7 +76,7 @@ build {
   provisioner "file" {
     only        = ["hyperv-iso.windows-builder"]
     destination = "C:\\Windows\\System32\\Sysprep\\unattend.xml"
-    source      = "./files/unattend.xml"
+    source      = "./scripts/hyperv/unattend.xml"
   }
   provisioner "file" {
     only        = ["hyperv-iso.windows-builder"]
