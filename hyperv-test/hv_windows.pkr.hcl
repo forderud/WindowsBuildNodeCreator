@@ -57,6 +57,7 @@ build {
   sources = ["source.hyperv-iso.windows-builder"]
 
   provisioner "powershell" {
+    only   = ["hyperv-iso.windows-builder"]
     script = "./scripts/phase-1.ps1"
   }
 
