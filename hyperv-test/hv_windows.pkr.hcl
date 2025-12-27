@@ -23,7 +23,7 @@ locals {
 source "hyperv-iso" "windows-builder" {
   cpus                  = "4"
   memory                = "4096"
-  disk_size             = "80000"
+  disk_size             = "128000" # MB
   enable_dynamic_memory = "true"
   enable_secure_boot    = false
   generation            = 2
