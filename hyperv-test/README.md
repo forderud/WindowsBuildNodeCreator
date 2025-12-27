@@ -7,6 +7,7 @@ Change `switch_name` in `variables.pkvars.hcl` to a switch with internet access.
 From an admin command prompt:
 ```
 set PATH=%PATH%;C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Deployment Tools\amd64\Oscdimg
+packer init config.pkr.hcl
 packer build --force --var-file=variables.pkvars.hcl hv_windows.pkr.hcl
 ```
 
