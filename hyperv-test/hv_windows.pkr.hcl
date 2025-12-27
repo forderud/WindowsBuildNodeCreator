@@ -60,7 +60,6 @@ build {
     script = "./scripts/phase-1.ps1"
   }
 
-/*
   provisioner "windows-update" {
     search_criteria = "AutoSelectOnWebSites=1 and IsInstalled=0" # Important updates
   }
@@ -68,7 +67,6 @@ build {
   provisioner "windows-update" {
     search_criteria = "BrowseOnly=0 and IsInstalled=0" # Recommended updates
   }
-*/
 
   provisioner "windows-restart" {
     restart_timeout = "30m"
