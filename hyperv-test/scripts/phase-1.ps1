@@ -30,5 +30,8 @@ if (Test-Path 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem') {
     Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' -name "LongPathsEnabled" -Value 1 -Verbose -Force
 }
 
+Write-Output "[INFO] - Setting high performance power plan"
+powercfg.exe /s 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
+
 Write-Output "Phase 1 [END] - End of Phase 1"
 exit 0

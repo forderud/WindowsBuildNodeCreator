@@ -63,12 +63,6 @@ build {
     restart_timeout = "1h"
   }
 
-  provisioner "powershell" {
-    elevated_password = "password"
-    elevated_user     = "Administrator"
-    script            = "./scripts/phase-2.ps1"
-  }
-
   provisioner "windows-restart" {
     pause_before          = "1m0s"
     restart_check_command = "powershell -command \"& {Write-Output 'restarted.'}\""
