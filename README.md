@@ -1,6 +1,6 @@
 Sample project that demonstrates how to automate building of a Windows CI/CD build node Virtual Machine (VM) with Packer and automation scripts.
 
-## Build instructions
+## AWS build instructions
 ```
 packer init windows-builder.pkr.hcl
 packer build --var-file=variables.pkvars.hcl windows-builder.pkr.hcl
@@ -25,6 +25,21 @@ Steps to connect with RDP to the VM during packer build:
 * Edit the VM "Security group" and add an inbound "RDP" firewall rule.
 * Use the VM "Public DNS" name to connect to the VM with the remote desktop client.
 * Use `Administrator` as username and WinRM password from the packer build log.
+
+## Hyper-V build instructions
+
+Change `switch_name` in `variables.pkvars.hcl` to a switch with internet access.
+
+From an admin command prompt:
+```
+set PATH=%PATH%;C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Deployment Tools\amd64\Oscdimg
+packer init hv_windows.pkr.hcl
+packer build --var-file=variables.pkvars.hcl hv_windows.pkr.hcl
+```
+
+## Prerequisites
+* Hyper-V installed and enabled
+* Windows [Assessment and Deployment Kit (ADK)](https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install) installed (for `Oscdimg`)
 
 ## Prerequisites
 * [Packer](https://developer.hashicorp.com/packer/install) downloaded with `packer.exe` in `PATH`
