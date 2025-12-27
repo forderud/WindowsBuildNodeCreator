@@ -58,7 +58,7 @@ build {
 
   provisioner "powershell" {
     only   = ["hyperv-iso.windows-builder"]
-    script = "./scripts/phase-1.ps1"
+    script = "./scripts/hyperv_prepare.ps1"
   }
 
   provisioner "windows-update" {
