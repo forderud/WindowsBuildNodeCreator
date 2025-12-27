@@ -64,12 +64,6 @@ build {
     restart_timeout = "1h"
   }
 
-  provisioner "windows-restart" {
-    pause_before          = "1m0s"
-    restart_check_command = "powershell -command \"& {Write-Output 'restarted.'}\""
-    restart_timeout       = "2h"
-  }
-
 /*
   provisioner "windows-update" {
     search_criteria = "IsInstalled=0"
