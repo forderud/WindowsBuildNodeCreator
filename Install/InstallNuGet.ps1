@@ -24,16 +24,20 @@ if ($LastExitCode -ne 0) {
     throw "nuget.exe sources Add failure (ExitCode: {0})" -f $LastExitCode
 }
 
-Write-Host "Configure Artifactory authentication..."
-& "C:\Install\nuget.exe" sources Update -Name nuget-cvus-prod-all -Username $username -Password $password
-if ($LastExitCode -ne 0) {
-    throw "nuget.exe sources Update failure (ExitCode: {0})" -f $LastExitCode
-}
+if ((-not $username) -or (-not $password)) {
+    Write-Host "Skipping Artifactory authentication configuration."
+} else {
+    Write-Host "Configure Artifactory authentication..."
+    & "C:\Install\nuget.exe" sources Update -Name nuget-cvus-prod-all -Username $username -Password $password
+    if ($LastExitCode -ne 0) {
+        throw "nuget.exe sources Update failure (ExitCode: {0})" -f $LastExitCode
+    }
 
-$auth = "{0}:{1}" -f $username, $password
-& "C:\Install\nuget.exe" setapikey $auth -Source nuget-cvus-prod-all
-if ($LastExitCode -ne 0) {
-    throw "nuget.exe setapikey failure (ExitCode: {0})" -f $LastExitCode
+    $auth = "{0}:{1}" -f $username, $password
+    & "C:\Install\nuget.exe" setapikey $auth -Source nuget-cvus-prod-all
+    if ($LastExitCode -ne 0) {
+        throw "nuget.exe setapikey failure (ExitCode: {0})" -f $LastExitCode
+    }
 }
 
 Write-Host "Copying NuGet.exe to new BuildTools folder..."
