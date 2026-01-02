@@ -17,6 +17,9 @@ QT_VERSION="qt6.683"
 QT_INSTALLER_JWT_TOKEN=""
 ```
 
+### AWS prerequisites
+The `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` env.vars. set.
+
 ### RDP connection
 Steps to connect with RDP to the VM during packer build:
 * Edit the VM "Security group" and add an inbound "RDP" firewall rule.
@@ -38,7 +41,7 @@ packer build -only=hyperv-iso.windows-builder --var-file=variables.pkvars.hcl wi
 * Hyper-V installed and enabled
 * Windows [Assessment and Deployment Kit (ADK)](https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install) installed (for `Oscdimg`)
 
-## Prerequisites
+## Generic prerequisites
 * [Packer](https://developer.hashicorp.com/packer/install) downloaded with `packer.exe` in `PATH`
 
 ### Debugging build problems
