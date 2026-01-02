@@ -44,7 +44,7 @@ variable "QT_INSTALLER_JWT_TOKEN" { # Qt license JWT token from %APPDATA%\\Qt\\q
   default = ""
 }
 
-variable "switch_name" { # Hyper-V switch with internet access
+variable "HYPERV_SWITCH" { # Hyper-V switch with internet access
   type    = string
   default = ""
 }
@@ -62,7 +62,7 @@ source "hyperv-iso" "windows-builder" {
   generation            = 2
   guest_additions_mode  = "disable"
   skip_export           = true
-  switch_name           = "${var.switch_name}"
+  switch_name           = "${var.HYPERV_SWITCH}"
   temp_path             = "."
   vlan_id               = ""
 
