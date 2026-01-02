@@ -39,7 +39,7 @@ packer build -only=hyperv-iso.windows-builder --var-file=variables.pkvars.hcl wi
 
 ### Hyper-V prerequisites
 * Hyper-V installed and enabled
-* Windows [Assessment and Deployment Kit (ADK)](https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install) installed (for `Oscdimg`)
+* Windows [Assessment and Deployment Kit (ADK)](https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install) installed
 
 ## Generic prerequisites
 * [Packer](https://developer.hashicorp.com/packer/install) downloaded with `packer.exe` in `PATH`
