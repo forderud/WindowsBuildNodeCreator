@@ -17,9 +17,6 @@ QT_VERSION="qt6.683"
 QT_INSTALLER_JWT_TOKEN=""
 ```
 
-### Debugging build problems
-Verbose build output: `set PACKER_LOG=1`
-
 ### RDP connection
 Steps to connect with RDP to the VM during packer build:
 * Edit the VM "Security group" and add an inbound "RDP" firewall rule.
@@ -43,6 +40,9 @@ packer build -only=hyperv-iso.windows-builder --var-file=variables.pkvars.hcl wi
 
 ## Prerequisites
 * [Packer](https://developer.hashicorp.com/packer/install) downloaded with `packer.exe` in `PATH`
+
+### Debugging build problems
+Verbose build output: `set PACKER_LOG=1`
 
 ## Documentation
 
