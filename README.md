@@ -25,7 +25,7 @@ Steps to connect with RDP to the VM during packer build:
 
 ## Hyper-V build instructions
 
-Set `HYPERV_SWITCH` in `variables.pkvars.hcl` to a switch with internet access.
+Edit `variables.pkvars.hcl` as in AWS instructions above. In addition, set `HYPERV_SWITCH` to a switch with internet access.
 
 From an admin command prompt:
 ```
