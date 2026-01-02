@@ -44,7 +44,7 @@ variable "QT_INSTALLER_JWT_TOKEN" { # Qt license JWT token from %APPDATA%\\Qt\\q
   default = ""
 }
 
-variable "switch_name" {
+variable "switch_name" { # Hyper-V switch with internet access
   type    = string
   default = ""
 }
