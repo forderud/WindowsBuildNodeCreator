@@ -21,7 +21,7 @@ QT_INSTALLER_JWT_TOKEN=""
 Steps to connect with RDP to the VM during packer build:
 * Edit the VM "Security group" and add an inbound "RDP" firewall rule.
 * Use the VM "Public DNS" name to connect to the VM with the remote desktop client.
-* Use `Administrator` as username and WinRM password from the packer build log.
+* Use `Administrator` as username and the temporary WinRM password from the packer build log.
 
 ## Hyper-V build instructions
 
