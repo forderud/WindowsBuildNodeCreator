@@ -34,11 +34,6 @@ packer init windows-builder.pkr.hcl
 packer build -only=hyperv-iso.windows-builder --var-file=variables.pkvars.hcl windows-builder.pkr.hcl
 ```
 
-Example `variables.pkvars.hcl` file:
-```
-HYPERV_SWITCH="External"
-```
-
 ### Hyper-V prerequisites
 * Hyper-V installed and enabled
 * Windows [Assessment and Deployment Kit (ADK)](https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install) installed (for `Oscdimg`)
