@@ -181,6 +181,10 @@ build {
   }
 
   provisioner "powershell" {
+    inline = ["C:\\Install\\InstallSvn.ps1"]
+  }
+
+  provisioner "powershell" {
     inline = ["C:\\Install\\InstallWix.ps1 ${var.VISUAL_STUDIO}"]
   }
 
