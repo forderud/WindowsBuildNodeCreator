@@ -159,6 +159,10 @@ build {
   }
 
   provisioner "powershell" {
+    inline = ["C:\\Install\\InstallWix.ps1 ${var.VISUAL_STUDIO}"]
+  }
+
+  provisioner "powershell" {
     environment_vars = ["ARTIFACTORY_USER=${var.ARTIFACTORY_USER}", "ARTIFACTORY_PW=${var.ARTIFACTORY_PW}"]
     inline = ["C:\\Install\\InstallNuGet.ps1"]
   }
@@ -182,10 +186,6 @@ build {
 
   provisioner "powershell" {
     inline = ["C:\\Install\\InstallSvn.ps1"]
-  }
-
-  provisioner "powershell" {
-    inline = ["C:\\Install\\InstallWix.ps1 ${var.VISUAL_STUDIO}"]
   }
 
   provisioner "powershell" {
