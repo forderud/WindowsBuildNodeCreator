@@ -53,9 +53,9 @@ Verbose build output: `set PACKER_LOG=1`
 ## Documentation
 
 ### Windows documentation
-* [Manage Windows Server on Amazon EC2 by using Windows Admin Center](https://learn.microsoft.com/en-us/windows-server/manage/windows-admin-center/use/manage-aws-machines)
 * Hyper-V [Switch and network adapter choices](https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/plan/plan-hyper-v-networking-in-windows-server#switch-and-network-adapter-choices)
-* [Installation and configuration for Windows Remote Management](https://learn.microsoft.com/en-us/windows/win32/winrm/installation-and-configuration-for-windows-remote-management) - uses HTTP port 5985 and HTTPS port 5986. 
+* [Manage Windows Server on Amazon EC2 by using Windows Admin Center](https://learn.microsoft.com/en-us/windows-server/manage/windows-admin-center/use/manage-aws-machines) - AWS WinRM firewall instructions
+* [Installation and configuration for Windows Remote Management](https://learn.microsoft.com/en-us/windows/win32/winrm/installation-and-configuration-for-windows-remote-management) - WinRM uses HTTP port 5985 and HTTPS port 5986. 
 
 ### Packer documentation
 * HashiCorp [Packer documentation](https://developer.hashicorp.com/packer) ([sources](https://github.com/hashicorp/packer))
