@@ -16,10 +16,11 @@ if (Test-Path $artifactoryCreds -PathType Leaf) {
 
 Write-Host "Downloading NuGet.exe..."
 $client = new-object System.Net.WebClient
-$client.DownloadFile("https://dist.nuget.org/win-x86-commandline/latest/nuget.exe","C:\Install\nuget.exe")
+$exePath = "C:\Install\nuget.exe"
+$client.DownloadFile("https://dist.nuget.org/win-x86-commandline/latest/nuget.exe", $exePath)
 
 # Add CVUS Artifactory repo
-& "C:\Install\nuget.exe" sources Add -Name nuget-cvus-prod-all -Source https://eu-artifactory.apps.ge-healthcare.net/artifactory/api/nuget/nuget-cvus-prod-all
+& $exePath sources Add -Name nuget-cvus-prod-all -Source https://eu-artifactory.apps.ge-healthcare.net/artifactory/api/nuget/nuget-cvus-prod-all
 if ($LastExitCode -ne 0) {
     throw "nuget.exe sources Add failure (ExitCode: {0})" -f $LastExitCode
 }
@@ -28,13 +29,13 @@ if ((-not $username) -or (-not $password)) {
     Write-Host "Skipping Artifactory authentication configuration."
 } else {
     Write-Host "Configure Artifactory authentication..."
-    & "C:\Install\nuget.exe" sources Update -Name nuget-cvus-prod-all -Username $username -Password $password
+    & $exePath sources Update -Name nuget-cvus-prod-all -Username $username -Password $password
     if ($LastExitCode -ne 0) {
         throw "nuget.exe sources Update failure (ExitCode: {0})" -f $LastExitCode
     }
 
     $auth = "{0}:{1}" -f $username, $password
-    & "C:\Install\nuget.exe" setapikey $auth -Source nuget-cvus-prod-all
+    & $exePath setapikey $auth -Source nuget-cvus-prod-all
     if ($LastExitCode -ne 0) {
         throw "nuget.exe setapikey failure (ExitCode: {0})" -f $LastExitCode
     }
@@ -45,7 +46,7 @@ $buildFolder = "C:\BuildTools"
 if (-not (Test-Path $buildFolder -PathType Container)) {
     [void](New-Item $buildFolder -Type Directory)
 }
-Copy-Item "C:\Install\nuget.exe" -Destination $buildFolder
+Copy-Item $exePath -Destination $buildFolder
 
 $machinePath = [Environment]::GetEnvironmentVariable("Path", [EnvironmentVariableTarget]::Machine)
 if ($machinePath -like "*$buildFolder*") {
