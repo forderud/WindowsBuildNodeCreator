@@ -3,10 +3,11 @@ $ErrorActionPreference = "Stop"
 
 Write-Host "Downloading Python..."
 $client = new-object System.Net.WebClient
-$client.DownloadFile("https://www.python.org/ftp/python/3.14.2/python-3.14.2-amd64.exe", "C:\Install\python-amd64.exe")
+$exePath = "C:\Install\python-amd64.exe"
+$client.DownloadFile("https://www.python.org/ftp/python/3.14.2/python-3.14.2-amd64.exe", $exePath)
 
 Write-Host "Installing Python..."
-$process = Start-Process -FilePath "C:\Install\python-amd64.exe" -ArgumentList "/quiet", "InstallAllUsers=1" -Wait -PassThru
+$process = Start-Process -FilePath $exePath -ArgumentList "/quiet", "InstallAllUsers=1" -Wait -PassThru
 if ($process.ExitCode -ne 0) {
     throw "Python installation failure (ExitCode: {0})" -f $process.ExitCode
 }
