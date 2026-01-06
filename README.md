@@ -2,7 +2,7 @@ Sample project that demonstrates how to **automate building of a Windows CI/CD b
 
 ### Installed SW
 * Jenkins or GitLab CI agent
-* CMake
+* [CMake](Install/InstallCMake.ps1)
 * Docker
 * Git
 * NuGet
