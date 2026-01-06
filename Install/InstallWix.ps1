@@ -5,11 +5,11 @@ $ErrorActionPreference = "Stop"
 $vsVersion = $args[0] # Visual Studio version
 
 Write-Host "Downloading Wix toolset v3.14..."
-$filePath = "C:\Install\wix314.exe"
+$exePath = "C:\Install\wix314.exe"
 $client = new-object System.Net.WebClient
-$client.DownloadFile("https://github.com/wixtoolset/wix3/releases/download/wix3141rtm/wix314.exe", $filePath)
+$client.DownloadFile("https://github.com/wixtoolset/wix3/releases/download/wix3141rtm/wix314.exe", $exePath)
 Write-Host "Installing Wix 3..."
-$process = Start-Process -FilePath $filePath -ArgumentList "/install", "/quiet", "/norestart" -Wait -PassThru
+$process = Start-Process -FilePath $exePath -ArgumentList "/install", "/quiet", "/norestart" -Wait -PassThru
 if ($process.ExitCode -ne 0) {
     throw "Wix 3 install failure (ExitCode: {0})" -f $process.ExitCode
 }
