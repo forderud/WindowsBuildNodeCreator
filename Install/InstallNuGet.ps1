@@ -6,10 +6,10 @@ $ErrorActionPreference = "Stop"
 $artifactoryCreds = "C:\Install\ARTIFACTORY_CREDS"
 if (Test-Path $artifactoryCreds -PathType Leaf) {
     # set global env. variable
-    $userpw = Get-Content -Path $artifactoryCreds
-    $username = $userpw[0]
-    $password = $userpw[1]
-    $repoUrl  = $userpw[2]
+    $creds = Get-Content -Path $artifactoryCreds
+    $username = $creds[0]
+    $password = $creds[1]
+    $repoUrl  = $creds[2]
 } else {
     $username = $Env:NUGET_REPO_USER
     $password = $Env:NUGET_REPO_PW
