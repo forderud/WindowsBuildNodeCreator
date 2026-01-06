@@ -3,10 +3,11 @@ $ErrorActionPreference = "Stop"
 
 Write-Host "Downloading Git..."
 $client = new-object System.Net.WebClient
-$client.DownloadFile("https://github.com/git-for-windows/git/releases/download/v2.52.0.windows.1/Git-2.52.0-64-bit.exe","C:\Install\Git-64-bit.exe")
+$exePath = "C:\Install\Git-64-bit.exe"
+$client.DownloadFile("https://github.com/git-for-windows/git/releases/download/v2.52.0.windows.1/Git-2.52.0-64-bit.exe", $exePath)
 
 Write-Host "Installing Git..."
-$process = Start-Process -FilePath "C:\Install\Git-64-bit.exe" -ArgumentList "/silent" -Wait -PassThru
+$process = Start-Process -FilePath $exePath -ArgumentList "/silent" -Wait -PassThru
 if ($process.ExitCode -ne 0) {
     throw "Git install failure (ExitCode: {0})" -f $process.ExitCode
 }
