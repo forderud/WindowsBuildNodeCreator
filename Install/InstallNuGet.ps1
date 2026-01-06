@@ -13,7 +13,7 @@ if (Test-Path $artifactoryCreds -PathType Leaf) {
 } else {
     $username = $Env:ARTIFACTORY_USER
     $password = $Env:ARTIFACTORY_PW
-    $repoUrl  = "https://eu-artifactory.apps.ge-healthcare.net/artifactory/api/nuget/nuget-cvus-prod-all"
+    $repoUrl  = $Env:NUGET_REPO_URL
 }
 
 Write-Host "Downloading NuGet.exe..."

@@ -27,6 +27,7 @@ variable "VISUAL_STUDIO" { # Visual Studio version
   type    = string
   default = "17/release" # "17/release.ltsc.17.6", "17/release", "16/release.16.7", "16/release"
 }
+
 variable "ARTIFACTORY_USER" { # Artifactory username (optional)
   type    = string
   default = ""
@@ -35,6 +36,11 @@ variable "ARTIFACTORY_PW" { # Artifactory API key from https://eu-artifactory.ap
   type    = string
   default = ""
 }
+variable "NUGET_REPO_URL" { # NuGet repo URL (optional)
+  type    = string
+  default = ""
+}
+
 variable "QT_VERSION" {
   type    = string
   default = "qt6.683"
@@ -163,7 +169,7 @@ build {
   }
 
   provisioner "powershell" {
-    environment_vars = ["ARTIFACTORY_USER=${var.ARTIFACTORY_USER}", "ARTIFACTORY_PW=${var.ARTIFACTORY_PW}"]
+    environment_vars = ["ARTIFACTORY_USER=${var.ARTIFACTORY_USER}", "ARTIFACTORY_PW=${var.ARTIFACTORY_PW}", "NUGET_REPO_URL=${var.NUGET_REPO_URL}"]
     inline = ["C:\\Install\\InstallNuGet.ps1"]
   }
 
