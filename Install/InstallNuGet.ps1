@@ -20,8 +20,8 @@ $exePath = "C:\Install\nuget.exe"
 $client.DownloadFile("https://dist.nuget.org/win-x86-commandline/latest/nuget.exe", $exePath)
 
 # Add NuGet repo
-$repoName = "nuget-cvus-prod-all"
 $repoUrl = "https://eu-artifactory.apps.ge-healthcare.net/artifactory/api/nuget/nuget-cvus-prod-all"
+$repoName = $repoUrl.Split("/")[-1]
 & $exePath sources Add -Name $repoName -Source $repoUrl
 if ($LastExitCode -ne 0) {
     throw "nuget.exe sources Add failure (ExitCode: {0})" -f $LastExitCode
