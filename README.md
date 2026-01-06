@@ -6,12 +6,12 @@ Sample project that demonstrates how to **automate building of a Windows CI/CD b
 * [Docker](Install/InstallDocker.ps1)
 * [Git](Install/InstallGit.ps1)
 * [NuGet](Install/InstallNuGet.ps1)
-* [Packer](Install/InstallPacker.ps1)
+* [Packer](Install/InstallPacker.ps1) for self-hosting
 * [Python](Install/InstallPython.ps1)
 * [Qt](Install/InstallQt.ps1)
 * [Svn](Install/InstallSvn.ps1)
 * [Visual Studio](Install/InstallVisualStudio.ps1)
-* [Wix and HeatWave](Install/InstallWix.ps1)
+* [Wix and HeatWave](Install/InstallWix.ps1) for MSI packaging
 
 ## AWS build instructions
 ```
