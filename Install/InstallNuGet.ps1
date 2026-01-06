@@ -9,11 +9,12 @@ if (Test-Path $artifactoryCreds -PathType Leaf) {
     $userpw = Get-Content -Path $artifactoryCreds
     $username = $userpw[0]
     $password = $userpw[1]
+    $repoUrl  = $userpw[2]
 } else {
     $username = $Env:ARTIFACTORY_USER
     $password = $Env:ARTIFACTORY_PW
+    $repoUrl  = "https://eu-artifactory.apps.ge-healthcare.net/artifactory/api/nuget/nuget-cvus-prod-all"
 }
-$repoUrl = "https://eu-artifactory.apps.ge-healthcare.net/artifactory/api/nuget/nuget-cvus-prod-all"
 
 Write-Host "Downloading NuGet.exe..."
 $client = new-object System.Net.WebClient
