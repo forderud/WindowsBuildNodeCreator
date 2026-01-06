@@ -28,7 +28,7 @@ variable "VISUAL_STUDIO" { # Visual Studio version
   default = "17/release" # "17/release.ltsc.17.6", "17/release", "16/release.16.7", "16/release"
 }
 
-variable "ARTIFACTORY_USER" { # Artifactory username (optional)
+variable "NUGET_REPO_USER" { # Artifactory username (optional)
   type    = string
   default = ""
 }
@@ -169,7 +169,7 @@ build {
   }
 
   provisioner "powershell" {
-    environment_vars = ["ARTIFACTORY_USER=${var.ARTIFACTORY_USER}", "ARTIFACTORY_PW=${var.ARTIFACTORY_PW}", "NUGET_REPO_URL=${var.NUGET_REPO_URL}"]
+    environment_vars = ["NUGET_REPO_USER=${var.NUGET_REPO_USER}", "ARTIFACTORY_PW=${var.ARTIFACTORY_PW}", "NUGET_REPO_URL=${var.NUGET_REPO_URL}"]
     inline = ["C:\\Install\\InstallNuGet.ps1"]
   }
 

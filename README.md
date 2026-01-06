@@ -24,7 +24,7 @@ Example `variables.pkvars.hcl` file:
 BUILD_SERVER_URL="https://gitlab.kitware.com/"
 BUILDER_SECRET=""
 VISUAL_STUDIO="17/release.ltsc.17.6"
-ARTIFACTORY_USER=""
+NUGET_REPO_USER=""
 ARTIFACTORY_PW=""
 NUGET_REPO_URL=""
 QT_VERSION="qt6.683"
