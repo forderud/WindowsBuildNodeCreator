@@ -4,7 +4,7 @@ $ErrorActionPreference = "Stop"
 # command-line arguments
 $vsVersion = $args[0] # Visual Studio version
 
-Write-Host "Downloading Wix toolset v3.14..."
+Write-Host "Downloading Wix toolset..."
 $exePath = "C:\Install\wix314.exe"
 $client = new-object System.Net.WebClient
 $client.DownloadFile("https://github.com/wixtoolset/wix3/releases/download/wix3141rtm/wix314.exe", $exePath)
