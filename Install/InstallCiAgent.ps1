@@ -49,13 +49,13 @@ function InstallJava {
 function InstallJenkinsAgent {
     Write-Host "Downloading service wrapper..."
     $client = new-object System.Net.WebClient
-    $client.DownloadFile("https://github.com/winsw/winsw/releases/download/v2.12.0/WinSW-x64.exe","C:\Install\JenkinsAgent.exe")
+    $client.DownloadFile("https://github.com/winsw/winsw/releases/download/v2.12.0/WinSW-x64.exe", "C:\Install\JenkinsAgent.exe")
 
     Write-Host "Downloading Jenkins agent..."
     $client = new-object System.Net.WebClient
     $urlParts = $url.Split("/")
     $agentUrl = $urlParts[0] + "//" + $urlParts[2] + "/jnlpJars/agent.jar"
-    $client.DownloadFile($agentUrl,"C:\Install\agent.jar")
+    $client.DownloadFile($agentUrl, "C:\Install\agent.jar")
 
     Write-Host "Creating JenkinsAgent.xml for service wrapper..."
     $xml = New-Object -TypeName System.Xml.XmlDocument
@@ -106,7 +106,7 @@ function InstallGitLabRunner {
     # https://docs.gitlab.com/runner/install/windows.html
     $client = new-object System.Net.WebClient
     $runnerUrl = "https://s3.dualstack.us-east-1.amazonaws.com/gitlab-runner-downloads/latest/binaries/gitlab-runner-windows-amd64.exe"
-    $client.DownloadFile($runnerUrl,"C:\Install\gitlab-runner.exe")
+    $client.DownloadFile($runnerUrl, "C:\Install\gitlab-runner.exe")
 
     Write-Host "Registering GitLab runner..."
     # https://docs.gitlab.com/runner/register/index.html?tab=Windows
