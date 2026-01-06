@@ -1,4 +1,4 @@
-Sample project that demonstrates how to **automate building of a Windows CI/CD build node images** using Packer automation scripts. The images can either be built on Amazon AWS or locally using Hyper-V.
+Sample project that demonstrates how to **automate building of Windows CI/CD build node images** using Packer automation scripts. The images can either be built on Amazon AWS or locally using Hyper-V.
 
 ### Installed SW
 * [CI agent](Install/InstallCiAgent.ps1) - Jenkins or GitLab CI
