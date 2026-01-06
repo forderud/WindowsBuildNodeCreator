@@ -13,7 +13,7 @@ if ($vsVersion -eq "16/release.16.7") {
 } else {
     Write-Host "Downloading Visual Studio $vsVersion bootstrapper..."
     $client = new-object System.Net.WebClient
-    $client.DownloadFile("https://aka.ms/vs/"+$vsVersion+"/vs_professional.exe","C:\Install\vs_Professional.exe")
+    $client.DownloadFile("https://aka.ms/vs/"+$vsVersion+"/vs_professional.exe", "C:\Install\vs_Professional.exe")
 }
 
 Write-Host "Installing Visual Studio $vsVersion with C++ and .Net..."
@@ -36,7 +36,7 @@ if ($process.ExitCode -ne 0) {
 if ($vsVersion.Substring(0,2) -eq "17") {
     Write-Host "Downloading and install Windows Driver Kit (WDK) 10.0.22621.2428..."
     $client = new-object System.Net.WebClient
-    $client.DownloadFile("https://go.microsoft.com/fwlink/?linkid=2249371","C:\Install\wdksetup.exe")
+    $client.DownloadFile("https://go.microsoft.com/fwlink/?linkid=2249371", "C:\Install\wdksetup.exe")
 
     $process = Start-Process -FilePath "C:\Install\wdksetup.exe" -ArgumentList "/features", "+", "/quiet" -Wait -PassThru
     if ($process.ExitCode -ne 0) {
