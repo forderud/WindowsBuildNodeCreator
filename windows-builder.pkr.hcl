@@ -189,6 +189,10 @@ build {
   }
 
   provisioner "powershell" {
+    inline = ["C:\\Install\\InstallDocker.ps1"]
+  }
+
+  provisioner "powershell" {
     environment_vars = ["BUILD_SERVER_URL=${var.BUILD_SERVER_URL}", "BUILDER_SECRET=${var.BUILDER_SECRET}"]
     inline = ["C:\\Install\\InstallCiAgent.ps1"]
   }
