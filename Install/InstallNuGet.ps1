@@ -1,7 +1,7 @@
 # stop script on first error
 $ErrorActionPreference = "Stop"
 
-# NOTICE: The script expects $Env:NUGET_REPO_USER and $Env:ARTIFACTORY_PW to have already been set
+# NOTICE: The script expects $Env:NUGET_REPO_USER and $Env:NUGET_REPO_PW to have already been set
 # or a ARTIFACTORY_CREDS file to be present.
 $artifactoryCreds = "C:\Install\ARTIFACTORY_CREDS"
 if (Test-Path $artifactoryCreds -PathType Leaf) {
@@ -12,7 +12,7 @@ if (Test-Path $artifactoryCreds -PathType Leaf) {
     $repoUrl  = $userpw[2]
 } else {
     $username = $Env:NUGET_REPO_USER
-    $password = $Env:ARTIFACTORY_PW
+    $password = $Env:NUGET_REPO_PW
     $repoUrl  = $Env:NUGET_REPO_URL
 }
 
