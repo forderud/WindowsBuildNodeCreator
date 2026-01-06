@@ -1,17 +1,17 @@
 Sample project that demonstrates how to **automate building of a Windows CI/CD build node images** using Packer automation scripts. The images can either be built on Amazon AWS or locally using Hyper-V.
 
 ### Installed SW
-* Jenkins or GitLab CI agent
+* [Jenkins or GitLab CI agent](Install/InstallCiAgent.ps1)
 * [CMake](Install/InstallCMake.ps1)
 * [Docker](Install/InstallDocker.ps1)
 * [Git](Install/InstallGit.ps1)
-* NuGet
-* Packer
-* Python
-* Qt
-* Svn
-* Visual Studio
-* Wix and HeatWave
+* [NuGet](Install/InstallNuGet.ps1)
+* [Packer](Install/InstallPacker.ps1)
+* [Python](Install/InstallPython.ps1)
+* [Qt](Install/InstallQt.ps1)
+* [Svn](Install/InstallSvn.ps1)
+* [Visual Studio](Install/InstallVisualStudio.ps1)
+* [Wix and HeatWave](Install/InstallWix.ps1)
 
 ## AWS build instructions
 ```
