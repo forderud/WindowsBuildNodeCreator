@@ -10,7 +10,7 @@ Sample project that demonstrates how to **automate building of Windows CI/CD bui
 * [Python](Install/InstallPython.ps1)
 * [Qt](Install/InstallQt.ps1)
 * [Svn](Install/InstallSvn.ps1)
-* [Visual Studio](Install/InstallVisualStudio.ps1)
+* [Visual Studio](Install/InstallVisualStudio.ps1) with C++, .Net workloads and WDK
 * [Wix and HeatWave](Install/InstallWix.ps1) for MSI packaging
 
 ## AWS build instructions
