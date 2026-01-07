@@ -10,5 +10,7 @@ Write-Host "Installing Docker..."
 # DOC: https://docs.docker.com/desktop/setup/install/windows-install
 $process = Start-Process -FilePath $exePath -ArgumentList "install", "--accept-license", "--quiet" -Wait -PassThru
 if ($process.ExitCode -ne 0) {
+    #Write-Host("Docker install failure (ExitCode: {0})" -f $process.ExitCode)
+    #sleep 600 # sleep 10min to get a chance to debug
     throw "Docker install failure (ExitCode: {0})" -f $process.ExitCode
 }
