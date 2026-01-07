@@ -34,6 +34,8 @@ QT_INSTALLER_JWT_TOKEN=""
 ### AWS prerequisites
 The `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` env.vars. set as described in the [Amazon](https://developer.hashicorp.com/packer/integrations/hashicorp/amazon) packer integration.
 
+It's possible to use a [AWS Free Tier](https://aws.amazon.com/free/) account with this project.
+
 ### RDP connection
 Steps to connect with RDP to the VM during packer build:
 * Edit the VM "Security group" and add an inbound "RDP" firewall rule.
