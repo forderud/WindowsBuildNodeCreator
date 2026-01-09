@@ -26,11 +26,11 @@ if ($url[-1] -eq "/") {
 }
 
 function InstallJava {
-    Write-Host "Downloading Java JDK 21 (LTS)..."
-    $javaMsiName = "jdk-21_windows-x64_bin.msi"
+    Write-Host "Downloading Java JDK 25 (LTS)..."
+    $javaMsiName = "jdk-25_windows-x64_bin.msi"
     $javaMsiPath = "C:\Install\"+$javaMsiName
     $client = new-object System.Net.WebClient
-    $client.DownloadFile("https://download.oracle.com/java/21/latest/"+$javaMsiName, $javaMsiPath)
+    $client.DownloadFile("https://download.oracle.com/java/25/latest/"+$javaMsiName, $javaMsiPath)
 
     Write-Host "Installing Java..."
     $process = Start-Process -FilePath msiexec.exe -ArgumentList "/i", $javaMsiPath, "/qn", "/norestart" -Wait -PassThru
@@ -39,11 +39,11 @@ function InstallJava {
     }
 
     Write-Host "Let Java trust the GEHC root CA..."
-    & "C:\Program Files\Java\jdk-21\bin\keytool.exe" -import -alias gehealthcarerootca1 -file "C:\Install\gehealthcarerootca1.crt" -keystore "C:\Program Files\Java\jdk-21\lib\security\cacerts" -noprompt
+    & "C:\Program Files\Java\jdk-25\bin\keytool.exe" -import -alias gehealthcarerootca1 -file "C:\Install\gehealthcarerootca1.crt" -keystore "C:\Program Files\Java\jdk-25\lib\security\cacerts" -noprompt
     if ($process.ExitCode -ne 0) {
         throw "Java GEHC root CA 1 failure (ExitCode: {0})" -f $process.ExitCode
     }
-    & "C:\Program Files\Java\jdk-21\bin\keytool.exe" -import -alias gehealthcarerootca2 -file "C:\Install\gehealthcarerootca2.crt" -keystore "C:\Program Files\Java\jdk-21\lib\security\cacerts" -noprompt
+    & "C:\Program Files\Java\jdk-25\bin\keytool.exe" -import -alias gehealthcarerootca2 -file "C:\Install\gehealthcarerootca2.crt" -keystore "C:\Program Files\Java\jdk-25\lib\security\cacerts" -noprompt
     if ($process.ExitCode -ne 0) {
         throw "Java GEHC root CA 2 failure (ExitCode: {0})" -f $process.ExitCode
     }
