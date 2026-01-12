@@ -26,9 +26,13 @@ if ($url[-1] -eq "/") {
 }
 
 function InstallJava {
-    Write-Host "Downloading Java JDK 21 (LTS)..."
     $javaMsiName = "jdk-21_windows-x64_bin.msi"
     $javaMsiPath = "C:\Install\"+$javaMsiName
+
+    Write-Host("Whitelisting Java 21 to avoid file quarantine (threat EUS:Win32/CustomEnterpriseBlock!cl)")
+    Add-MpPreference -ExclusionPath $javaMsiPath
+
+    Write-Host "Downloading Java JDK 21 (LTS)..."
     $client = new-object System.Net.WebClient
     $client.DownloadFile("https://download.oracle.com/java/21/latest/"+$javaMsiName, $javaMsiPath)
 
