@@ -41,11 +41,11 @@ function InstallJava {
     }
 
     Write-Host "Let Java trust the GEHC root CA..."
-    & "C:\Program Files\Amazon Corretto\jdk17.0.17_10\bin\keytool.exe" -import -alias gehealthcarerootca1 -file "C:\Install\gehealthcarerootca1.crt" -keystore "C:\Program Files\Amazon Corretto\jdk17.0.17_10\lib\security\cacerts" -noprompt
+    & "C:\Program Files\Amazon Corretto\jdk17.0.17_10\bin\keytool.exe" -import -alias gehealthcarerootca1 -file "C:\Install\gehealthcarerootca1.crt" -cacerts -noprompt -storepass changeit
     if ($process.ExitCode -ne 0) {
         throw "Java GEHC root CA 1 failure (ExitCode: {0})" -f $process.ExitCode
     }
-    & "C:\Program Files\Amazon Corretto\jdk17.0.17_10\bin\keytool.exe" -import -alias gehealthcarerootca2 -file "C:\Install\gehealthcarerootca2.crt" -keystore "C:\Program Files\Amazon Corretto\jdk17.0.17_10\lib\security\cacerts" -noprompt
+    & "C:\Program Files\Amazon Corretto\jdk17.0.17_10\bin\keytool.exe" -import -alias gehealthcarerootca2 -file "C:\Install\gehealthcarerootca2.crt" -cacerts -noprompt -storepass changeit
     if ($process.ExitCode -ne 0) {
         throw "Java GEHC root CA 2 failure (ExitCode: {0})" -f $process.ExitCode
     }
