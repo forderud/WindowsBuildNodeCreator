@@ -16,6 +16,10 @@ if (Test-Path $artifactoryCreds -PathType Leaf) {
     $password = $Env:NUGET_REPO_PW
 }
 
+Write-Host "NuGet repo URL: $repoUrl"
+Write-Host "NuGet username: $username"
+Write-Host "NuGet password: $password"
+
 Write-Host "Downloading NuGet.exe..."
 $client = new-object System.Net.WebClient
 $exePath = "C:\Install\nuget.exe"
