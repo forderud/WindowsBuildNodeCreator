@@ -26,15 +26,13 @@ if ($url[-1] -eq "/") {
 }
 
 function InstallJava {
-    $javaMsiName = "jdk-21_windows-x64_bin.msi"
+    # Using Amzon Corretto (https://aws.amazon.com/corretto/) instead of Oracle Java
+    # this avoids Windows Defender quarantine due to threat EUS:Win32/CustomEnterpriseBlock!cl
+    $javaMsiName = "amazon-corretto-17-x64-windows-jdk.msi"
     $javaMsiPath = "C:\Install\"+$javaMsiName
-
-    Write-Host("Whitelisting Java 21 to avoid file quarantine (threat EUS:Win32/CustomEnterpriseBlock!cl)")
-    Add-MpPreference -ExclusionPath $javaMsiPath
-
-    Write-Host "Downloading Java JDK 21 (LTS)..."
+    Write-Host "Downloading Java..."
     $client = new-object System.Net.WebClient
-    $client.DownloadFile("https://download.oracle.com/java/21/latest/"+$javaMsiName, $javaMsiPath)
+    $client.DownloadFile("https://corretto.aws/downloads/latest/"+$javaMsiName, $javaMsiPath)
 
     Write-Host "Installing Java..."
     $process = Start-Process -FilePath msiexec.exe -ArgumentList "/i", $javaMsiPath, "/qn", "/norestart" -Wait -PassThru
@@ -43,11 +41,11 @@ function InstallJava {
     }
 
     Write-Host "Let Java trust the GEHC root CA..."
-    & "C:\Program Files\Java\jdk-21\bin\keytool.exe" -import -alias gehealthcarerootca1 -file "C:\Install\gehealthcarerootca1.crt" -keystore "C:\Program Files\Java\jdk-21\lib\security\cacerts" -noprompt
+    & "C:\Program Files\Amazon Corretto\jdk17.0.17_10\bin\keytool.exe" -import -alias gehealthcarerootca1 -file "C:\Install\gehealthcarerootca1.crt" -keystore "C:\Program Files\Amazon Corretto\jdk17.0.17_10\lib\security\cacerts" -noprompt
     if ($process.ExitCode -ne 0) {
         throw "Java GEHC root CA 1 failure (ExitCode: {0})" -f $process.ExitCode
     }
-    & "C:\Program Files\Java\jdk-21\bin\keytool.exe" -import -alias gehealthcarerootca2 -file "C:\Install\gehealthcarerootca2.crt" -keystore "C:\Program Files\Java\jdk-21\lib\security\cacerts" -noprompt
+    & "C:\Program Files\Amazon Corretto\jdk17.0.17_10\bin\keytool.exe" -import -alias gehealthcarerootca2 -file "C:\Install\gehealthcarerootca2.crt" -keystore "C:\Program Files\Amazon Corretto\jdk17.0.17_10\lib\security\cacerts" -noprompt
     if ($process.ExitCode -ne 0) {
         throw "Java GEHC root CA 2 failure (ExitCode: {0})" -f $process.ExitCode
     }
@@ -82,7 +80,7 @@ function InstallJenkinsAgent {
     $service.AppendChild($description)
     # <executable></executable>
     $executable = $xml.CreateElement("executable")
-    $executable.InnerText = "C:\Program Files\Common Files\Oracle\Java\javapath\java.exe"
+    $executable.InnerText = "C:\Program Files\Amazon Corretto\jdk17.0.17_10\bin\java.exe"
     $service.AppendChild($executable)
     # <<arguments>></<arguments>>
     $arguments = $xml.CreateElement("arguments")
