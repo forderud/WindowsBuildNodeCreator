@@ -41,6 +41,8 @@ if (-not $repoUrl) {
         Write-Host "Configure NuGet authentication..."
         & $exePath sources Update -Name $repoName -Username $username -Password $password
         if ($LastExitCode -ne 0) {
+            #Write-Host("nuget.exe sources Update failure (ExitCode: {0})" -f $LastExitCode)
+            #sleep 1800 # sleep 30min to give time for interactive debugging
             throw "nuget.exe sources Update failure (ExitCode: {0})" -f $LastExitCode
         }
 
