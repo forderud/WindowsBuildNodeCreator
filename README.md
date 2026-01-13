@@ -32,7 +32,7 @@ QT_INSTALLER_JWT_TOKEN=""
 ```
 
 ### AWS prerequisites
-The `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` env.vars. set as described in the [Amazon](https://developer.hashicorp.com/packer/integrations/hashicorp/amazon) packer integration.
+The `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` env.vars. set as described in the [Amazon](https://developer.hashicorp.com/packer/integrations/hashicorp/amazon) packer integration. You'll find these by logging in to http://aws.amazon.com/ and afterwards opening "Security Credentials" for your account.
 
 It's possible to use a [AWS Free Tier](https://aws.amazon.com/free/) account with this project.
 
