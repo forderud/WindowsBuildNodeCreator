@@ -161,16 +161,16 @@ build {
   }
 
   provisioner "powershell" {
+    environment_vars = ["NUGET_REPO_URL=${var.NUGET_REPO_URL}", "NUGET_REPO_USER=${var.NUGET_REPO_USER}", "NUGET_REPO_PW=${var.NUGET_REPO_PW}"]
+    inline = ["C:\\Install\\InstallNuGet.ps1"]
+  }
+
+  provisioner "powershell" {
     inline = ["C:\\Install\\InstallVisualStudio.ps1 ${var.VISUAL_STUDIO}"]
   }
 
   provisioner "powershell" {
     inline = ["C:\\Install\\InstallWix.ps1 ${var.VISUAL_STUDIO}"]
-  }
-
-  provisioner "powershell" {
-    environment_vars = ["NUGET_REPO_URL=${var.NUGET_REPO_URL}", "NUGET_REPO_USER=${var.NUGET_REPO_USER}", "NUGET_REPO_PW=${var.NUGET_REPO_PW}"]
-    inline = ["C:\\Install\\InstallNuGet.ps1"]
   }
 
   provisioner "powershell" {
