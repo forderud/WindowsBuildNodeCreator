@@ -18,9 +18,3 @@ Write-Host "Switch to schannel backend to access GEHC root CAs..."
 if ($LastExitCode -ne 0) {
     throw "Git schannel config failure (ExitCode: {0})" -f $LastExitCode
 }
-
-Write-Host "Configuring GEHC proxy..."
-& "C:\Program Files\Git\cmd\git.exe" config --global http.proxy http://proxy.net.ge-healthcare.net:8080
-if ($LastExitCode -ne 0) {
-    throw "Git proxy config failure (ExitCode: {0})" -f $LastExitCode
-}
