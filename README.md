@@ -1,4 +1,4 @@
-Sample project that demonstrates how to **automate building of Windows CI/CD build node images** using Packer automation scripts. The images can either be built on Amazon AWS or locally using Hyper-V.
+Project to **automate building of Windows CI/CD build node images** using Packer automation scripts. The images can either be built on Amazon AWS or locally using Hyper-V.
 
 ### Installed SW
 * [CI agent](Install/InstallCiAgent.ps1) - Jenkins or GitLab CI
@@ -21,7 +21,7 @@ packer build -only=amazon-ebs.windows-builder --var-file=variables.pkvars.hcl wi
 
 Example `variables.pkvars.hcl` file:
 ```
-BUILD_SERVER_URL="https://gitlab.kitware.com/"
+BUILD_SERVER_URL="https://gitlab.kitware.com"
 BUILDER_SECRET=""
 VISUAL_STUDIO="17/release.ltsc.17.6"
 NUGET_REPO_USER=""
@@ -41,9 +41,6 @@ Steps to connect with RDP to the VM during packer build:
 * Edit the VM "Security group" and add an inbound "RDP" firewall rule.
 * Use the VM "Public DNS" name to connect to the VM with the remote desktop client.
 * Use `Administrator` as username and the temporary WinRM password from the packer build log.
-
-### Query AMI name
-Command for querying AMI names: `aws ec2 describe-images --image-ids <ami-id> --region <region>` (use [Amazon CLI](https://aws.amazon.com/cli/))
 
 ## Hyper-V build instructions
 
