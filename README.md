@@ -76,7 +76,7 @@ Verbose build output: `set PACKER_LOG=1`
 * Packer [`winrm`](https://developer.hashicorp.com/packer/docs/communicators/winrm) communicator
 * Packer [`powershell`](https://developer.hashicorp.com/packer/docs/provisioners/powershell) provisioner
 * Packer [`windows-restart`](https://developer.hashicorp.com/packer/docs/provisioners/windows-restart) provisioner
-* AWS [Build a Windows image](https://developer.hashicorp.com/packer/tutorials/cloud-production/aws-windows-image)
+* AWS [Build a Windows image](https://developer.hashicorp.com/packer/tutorials/cloud-production/aws-windows-image) tutorial
 * [learn-packer-windows-ami](https://github.com/hashicorp-education/learn-packer-windows-ami) sample
 * Packer [`rgl/windows-update`](https://github.com/rgl/packer-plugin-windows-update) plugin
 * Packer [Amazon integration](https://developer.hashicorp.com/packer/integrations/hashicorp/amazon) - mentions `%USERPROFILE%.aws\credentials` ([sources](https://github.com/hashicorp/packer-plugin-amazon))
