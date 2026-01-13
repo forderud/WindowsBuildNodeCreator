@@ -71,7 +71,7 @@ Verbose build output: `set PACKER_LOG=1`
 * [Installation and configuration for Windows Remote Management](https://learn.microsoft.com/en-us/windows/win32/winrm/installation-and-configuration-for-windows-remote-management) - WinRM uses HTTP port 5985 and HTTPS port 5986. 
 
 ### Packer documentation
-* HashiCorp [Packer documentation](https://developer.hashicorp.com/packer) ([sources](https://github.com/hashicorp/packer))
+* [Packer documentation](https://developer.hashicorp.com/packer) ([sources](https://github.com/hashicorp/packer))
 * Packer [Unattended Installation for Windows](https://developer.hashicorp.com/packer/guides/automatic-operating-system-installs/autounattend_windows)
 * Packer [`winrm`](https://developer.hashicorp.com/packer/docs/communicators/winrm) communicator
 * Packer [`powershell`](https://developer.hashicorp.com/packer/docs/provisioners/powershell) provisioner
