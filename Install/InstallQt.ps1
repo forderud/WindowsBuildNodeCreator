@@ -2,14 +2,6 @@
 $ErrorActionPreference = "Stop"
 
 # NOTICE: The script expects $Env:QT_INSTALLER_JWT_TOKEN to have already been set
-# or a QT_INSTALLER_JWT_TOKEN file to be present.
-$qtjwtSrc = "C:\Install\QT_INSTALLER_JWT_TOKEN"
-if (Test-Path $qtjwtSrc -PathType Leaf) {
-    # set global env. variable
-    $jwt_token = Get-Content -Path $qtjwtSrc
-    $Env:QT_INSTALLER_JWT_TOKEN = $jwt_token
-}
-
 if (-not $Env:QT_INSTALLER_JWT_TOKEN) {
     Write-Host "Skipping Qt installation due to lack of license."
     exit 0

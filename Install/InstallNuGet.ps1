@@ -2,19 +2,9 @@
 $ErrorActionPreference = "Stop"
 
 # NOTICE: The script expects $Env:NUGET_REPO_USER and $Env:NUGET_REPO_PW to have already been set
-# or a ARTIFACTORY_CREDS file to be present.
-$artifactoryCreds = "C:\Install\ARTIFACTORY_CREDS"
-if (Test-Path $artifactoryCreds -PathType Leaf) {
-    # set global env. variable
-    $creds = Get-Content -Path $artifactoryCreds
-    $username = $creds[0]
-    $password = $creds[1]
-    $repoUrl  = $creds[2]
-} else {
-    $repoUrl  = $Env:NUGET_REPO_URL
-    $username = $Env:NUGET_REPO_USER
-    $password = $Env:NUGET_REPO_PW
-}
+$repoUrl  = $Env:NUGET_REPO_URL
+$username = $Env:NUGET_REPO_USER
+$password = $Env:NUGET_REPO_PW
 
 Write-Host "NuGet repo URL: $repoUrl"
 Write-Host "NuGet username: $username"

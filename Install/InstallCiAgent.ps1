@@ -2,15 +2,8 @@
 $ErrorActionPreference = "Stop"
 
 # NOTICE: The script expects $Env:BUILD_SERVER_URL and $Env:BUILDER_SECRET to have already been set
-# or a CI_PARAMS file to be present.
-if (Test-Path "C:\Install\CI_PARAMS" -PathType Leaf) {
-    $ciParams = Get-Content -Path "C:\Install\CI_PARAMS"
-    $url = $ciParams[0]
-    $token = $ciParams[1]
-} else {
-    $url   = $Env:BUILD_SERVER_URL
-    $token = $Env:BUILDER_SECRET
-}
+$url   = $Env:BUILD_SERVER_URL
+$token = $Env:BUILDER_SECRET
 
 Write-Host "CI agent URL: $url"
 Write-Host "CI agent token: $token"
