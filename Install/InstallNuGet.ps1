@@ -38,7 +38,7 @@ if (-not $repoUrl) {
         }
 
         $auth = "{0}:{1}" -f $username, $password
-        & $exePath setapikey $auth -Source $repoName -StorePasswordInClearText -Verbosity detailed
+        & $exePath setapikey $auth -Source $repoName -Verbosity detailed
         if ($LastExitCode -ne 0) {
             throw "nuget.exe setapikey failure (ExitCode: {0})" -f $LastExitCode
         }
