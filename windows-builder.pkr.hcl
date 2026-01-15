@@ -208,6 +208,10 @@ build {
   }
 
   provisioner "powershell" {
+      script = "./scripts/preshutdown.ps1"
+  }
+
+  provisioner "powershell" {
     only   = ["amazon-ebs.windows-builder"]
     script = "./scripts/aws_shutdown.ps1"
   }
