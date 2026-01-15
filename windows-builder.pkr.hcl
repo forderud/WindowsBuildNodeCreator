@@ -82,10 +82,10 @@ source "hyperv-iso" "windows-builder" {
   boot_command          = ["a<enter><wait>a<enter><wait>a<enter><wait>a<enter>"]
   boot_wait             = "1s"
 
-  cd_files              = ["./scripts/hyperv/Autounattend.xml", "./scripts/hyperv/bootstrap.ps1"]
+  cd_files              = ["./scripts/hyperv/Autounattend.xml", "./scripts/hyperv/bootstrap.ps1", "./scripts/hyperv/unattend.xml", "./scripts/hyperv_shutdown.bat"]
   cd_label              = "cidata"
 
-  shutdown_command      = "C:/hyperv_shutdown.bat"
+  shutdown_command      = "E:/hyperv_shutdown.bat"
 
   communicator          = "winrm"
   winrm_password        = "password"
@@ -210,16 +210,5 @@ build {
   provisioner "powershell" {
     only   = ["amazon-ebs.windows-builder"]
     script = "./scripts/aws_shutdown.ps1"
-  }
-
-  provisioner "file" {
-    only        = ["hyperv-iso.windows-builder"]
-    destination = "C:\\Windows\\System32\\Sysprep\\unattend.xml" # new file
-    source      = "./scripts/hyperv/unattend.xml"
-  }
-  provisioner "file" {
-    only        = ["hyperv-iso.windows-builder"]
-    destination = "C:\\hyperv_shutdown.bat"
-    source      = "./scripts/hyperv_shutdown.bat"
   }
 }
