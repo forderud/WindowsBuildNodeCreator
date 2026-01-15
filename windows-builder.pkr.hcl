@@ -144,68 +144,6 @@ build {
     script = "./scripts/hyperv_prepare.ps1"
   }
 
-  provisioner "windows-update" {
-    search_criteria = "AutoSelectOnWebSites=1 and IsInstalled=0" # Important updates
-  }
-
-  provisioner "windows-update" {
-    search_criteria = "BrowseOnly=0 and IsInstalled=0" # Recommended updates
-  }
-
-  provisioner "windows-restart" {
-    restart_timeout = "30m"
-  }
-
-  provisioner "powershell" {
-    inline = ["C:\\Install\\InstallPacker.ps1"]
-  }
-
-  provisioner "powershell" {
-    environment_vars = ["NUGET_REPO_URL=${var.NUGET_REPO_URL}", "NUGET_REPO_USER=${var.NUGET_REPO_USER}", "NUGET_REPO_PW=${var.NUGET_REPO_PW}"]
-    inline = ["C:\\Install\\InstallNuGet.ps1"]
-  }
-
-  provisioner "powershell" {
-    inline = ["C:\\Install\\InstallVisualStudio.ps1 ${var.VISUAL_STUDIO}"]
-  }
-
-  provisioner "powershell" {
-    inline = ["C:\\Install\\InstallWix.ps1 ${var.VISUAL_STUDIO}"]
-  }
-
-  provisioner "powershell" {
-    inline = ["C:\\Install\\InstallPython.ps1"]
-  }
-
-  provisioner "powershell" {
-    inline = ["C:\\Install\\InstallCMake.ps1"]
-  }
-
-  provisioner "powershell" {
-    environment_vars = ["QT_INSTALLER_JWT_TOKEN=${var.QT_INSTALLER_JWT_TOKEN}"]
-    inline = ["C:\\Install\\InstallQt.ps1 ${var.QT_VERSION}"]
-  }
-
-  provisioner "powershell" {
-    inline = ["C:\\Install\\InstallGit.ps1"]
-  }
-
-  provisioner "powershell" {
-    inline = ["C:\\Install\\InstallSvn.ps1"]
-  }
-
-  provisioner "powershell" {
-    inline = ["C:\\Install\\InstallDocker.ps1"]
-  }
-
-  provisioner "powershell" {
-    environment_vars = ["BUILD_SERVER_URL=${var.BUILD_SERVER_URL}", "BUILDER_SECRET=${var.BUILDER_SECRET}"]
-    inline = ["C:\\Install\\InstallCiAgent.ps1"]
-  }
-
-  provisioner "windows-restart" {
-    restart_timeout = "15m"
-  }
 
   provisioner "powershell" {
       script = "./scripts/preshutdown.ps1"
