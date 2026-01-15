@@ -83,7 +83,6 @@ source "hyperv-iso" "windows-builder" {
   boot_wait             = "1s"
 
   cd_files              = ["./scripts/hyperv/Autounattend.xml", "./scripts/hyperv/bootstrap.ps1", "./scripts/hyperv/unattend.xml", "./scripts/hyperv_shutdown.bat"]
-  cd_label              = "cidata"
 
   shutdown_command      = "E:/hyperv_shutdown.bat" # .ps1 doesn't seem to work
 
