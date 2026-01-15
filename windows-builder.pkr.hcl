@@ -214,7 +214,7 @@ build {
 
   provisioner "file" {
     only        = ["hyperv-iso.windows-builder"]
-    destination = "C:\\Windows\\System32\\Sysprep\\unattend.xml"
+    destination = "C:\\Windows\\System32\\Sysprep\\unattend.xml" # new file
     source      = "./scripts/hyperv/unattend.xml"
   }
   provisioner "file" {
