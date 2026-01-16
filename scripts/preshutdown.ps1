@@ -14,3 +14,13 @@ foreach ($package in $packages) {
     # Fails with "Remove-AppxProvisionedPackage : The system cannot find the file specified."
     #Remove-AppxProvisionedPackage -Online -PackageName $package.PackageFullName
 }
+
+Write-Host "Calling sysprep..."
+& "C:\Windows\System32\Sysprep\Sysprep.exe" /generalize /oobe /unattend:E:\unattend.xml /quiet /quit
+if ($LastExitCode -ne 0) {
+    Write-Host "sysprep error (ExitCode: {0})" -f $LastExitCode
+    sleep 1800 # sleep 30min to give time for interactive debugging
+    throw "sysprep error (ExitCode: {0})" -f $LastExitCode
+}
+
+Write-Host "[done]"
