@@ -22,16 +22,6 @@
                         </CreatePartition>
                         <CreatePartition wcm:action="add">
                             <Order>2</Order>
-                            <Size>100</Size>
-                            <Type>EFI</Type>
-                        </CreatePartition>
-                        <CreatePartition wcm:action="add">
-                            <Order>3</Order>
-                            <Size>128</Size>
-                            <Type>MSR</Type>
-                        </CreatePartition>
-                        <CreatePartition wcm:action="add">
-                            <Order>4</Order>
                             <Extend>true</Extend>
                             <Type>Primary</Type>
                         </CreatePartition>
@@ -42,21 +32,10 @@
                             <PartitionID>1</PartitionID>
                             <Label>WINRE</Label>
                             <Format>NTFS</Format>
-                            <TypeID>de94bba4-06d1-4d40-a16a-bfd50179d6ac</TypeID>
                         </ModifyPartition>
                         <ModifyPartition wcm:action="add">
                             <Order>2</Order>
                             <PartitionID>2</PartitionID>
-                            <Label>System</Label>
-                            <Format>FAT32</Format>
-                        </ModifyPartition>
-                        <ModifyPartition wcm:action="add">
-                            <Order>3</Order>
-                            <PartitionID>3</PartitionID>
-                        </ModifyPartition>
-                        <ModifyPartition wcm:action="add">
-                            <Order>4</Order>
-                            <PartitionID>4</PartitionID>
                             <Label>Windows</Label>
                             <Format>NTFS</Format>
                         </ModifyPartition>
@@ -76,7 +55,7 @@
                     </InstallFrom>
                     <InstallTo>
                         <DiskID>0</DiskID>
-                        <PartitionID>4</PartitionID>
+                        <PartitionID>2</PartitionID>
                     </InstallTo>
                 </OSImage>
             </ImageInstall>
