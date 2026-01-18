@@ -15,22 +15,22 @@
             <DiskConfiguration>
                 <Disk wcm:action="add">
                     <CreatePartitions>
-                        <CreatePartition wcm:action="add">
+                        <CreatePartition wcm:action="add"> <!-- Windows RE Tools partition -->
                             <Order>1</Order>
                             <Size>350</Size>
                             <Type>Primary</Type>
                         </CreatePartition>
-                        <CreatePartition wcm:action="add">
+                        <CreatePartition wcm:action="add"> <!-- System Partition -->
                             <Order>2</Order>
                             <Size>100</Size>
                             <Type>EFI</Type>
                         </CreatePartition>
-                        <CreatePartition wcm:action="add">
+                        <CreatePartition wcm:action="add"> <!-- Microsoft Reserved Partition (MSR) -->
                             <Order>3</Order>
                             <Size>128</Size>
                             <Type>MSR</Type>
                         </CreatePartition>
-                        <CreatePartition wcm:action="add">
+                        <CreatePartition wcm:action="add"> <!-- Windows partition and other data partitions -->
                             <Order>4</Order>
                             <Extend>true</Extend>
                             <Type>Primary</Type>
@@ -42,7 +42,7 @@
                             <PartitionID>1</PartitionID>
                             <Label>WINRE</Label>
                             <Format>NTFS</Format>
-                            <TypeID>de94bba4-06d1-4d40-a16a-bfd50179d6ac</TypeID>
+                            <TypeID>de94bba4-06d1-4d40-a16a-bfd50179d6ac</TypeID> <!-- recovery flag -->
                         </ModifyPartition>
                         <ModifyPartition wcm:action="add">
                             <Order>2</Order>
