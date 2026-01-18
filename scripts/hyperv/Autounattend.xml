@@ -32,6 +32,7 @@
                             <PartitionID>1</PartitionID>
                             <Label>WINRE</Label>
                             <Format>NTFS</Format>
+                            <TypeID>de94bba4-06d1-4d40-a16a-bfd50179d6ac</TypeID>
                         </ModifyPartition>
                         <ModifyPartition wcm:action="add">
                             <Active>true</Active>
