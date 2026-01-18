@@ -37,6 +37,7 @@
                             <Order>2</Order>
                             <PartitionID>2</PartitionID>
                             <Label>Windows</Label>
+                            <Letter>C</Letter>
                             <Format>NTFS</Format>
                         </ModifyPartition>
                     </ModifyPartitions>
