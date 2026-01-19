@@ -9,4 +9,4 @@ Invoke-WebRequest -UseBasicParsing "https://raw.githubusercontent.com/microsoft/
 Write-Host "Installing Docker CE..."
 # Force restart to avoid the following error on Hyper-V builds:
 # The system shutdown cannot be initiated because there are other users logged on to the computer.
-.\install-docker-ce.ps1 -Force
+. .\install-docker-ce.ps1 -Force
