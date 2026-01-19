@@ -84,6 +84,7 @@ Verbose build output: `set PACKER_LOG=1`
 
 ### Similar Windows image projects
 * GitHub [Actions runner images](https://github.com/actions/runner-images)
+* runs-on [GitHub Actions Runner images for AWS](https://github.com/runs-on/runner-images-for-aws)
 * GitHub [marcinbojko/hv-packer](https://github.com/marcinbojko/hv-packer)
 * GitHub [StefanScherer/packer-windows](https://github.com/StefanScherer/packer-windows)
 * GitHub [jborean93/packer-windoze](https://github.com/jborean93/packer-windoze)
