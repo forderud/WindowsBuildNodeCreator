@@ -11,3 +11,6 @@ foreach ($package in $packages) {
 
     Remove-AppxPackage -Package $package.PackageFullName
 }
+
+Write-Host "Disable WinRM startup on next boot..."
+Set-Service -Name WinRM -StartupType Disabled
