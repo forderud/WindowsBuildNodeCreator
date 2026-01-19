@@ -83,6 +83,7 @@ Verbose build output: `set PACKER_LOG=1`
 * Packer [Hyper-V integration](https://developer.hashicorp.com/packer/integrations/hashicorp/hyperv) ([sources](https://github.com/hashicorp/packer-plugin-hyperv))
 
 ### Similar Windows image projects
+* GitHub [Actions runner images](https://github.com/actions/runner-images)
 * GitHub [marcinbojko/hv-packer](https://github.com/marcinbojko/hv-packer)
 * GitHub [StefanScherer/packer-windows](https://github.com/StefanScherer/packer-windows)
 * GitHub [jborean93/packer-windoze](https://github.com/jborean93/packer-windoze)
