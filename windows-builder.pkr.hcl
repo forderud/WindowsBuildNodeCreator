@@ -211,8 +211,16 @@ build {
       script = "./scripts/preshutdown.ps1"
   }
 
-  provisioner "powershell" {
+  provisioner "windows-shell" {
     only   = ["amazon-ebs.windows-builder"]
-    script = "./scripts/aws_shutdown.ps1"
+    inline = [
+      # Reset admin password
+      "\"C:\\Program Files\\Amazon\\EC2Launch\\ec2launch.exe\" reset",
+
+      # Call sysprep to generalize image
+      #   https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sysprep-using-ec2launchv2.html
+      #   https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2launch-v2-settings.html
+      "\"C:\\Program Files\\Amazon\\EC2Launch\\ec2launch.exe\" sysprep"
+    ]
   }
 }
