@@ -10,7 +10,4 @@ foreach ($package in $packages) {
     Write-Host("* Removing {0}..." -f $package.Name)
 
     Remove-AppxPackage -Package $package.PackageFullName
-
-    # Fails with "Remove-AppxProvisionedPackage : The system cannot find the file specified."
-    #Remove-AppxProvisionedPackage -Online -PackageName $package.PackageFullName
 }
