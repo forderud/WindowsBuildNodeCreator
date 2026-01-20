@@ -56,8 +56,8 @@ for ($i=0; $i -lt $args.Count; $i++) {
     Write-Host "Installing $modules..."
     & "C:\Qt\MaintenanceTool.exe" --accept-licenses --default-answer --confirm-command install @modules
     if ($LastExitCode -ne 0) {
-        #Write-Host("Qt install failure (ExitCode: {0})" -f $LastExitCode)
-        #sleep 1800 # sleep 30min to give time for interactive debugging
+        Write-Host("Qt install failure (ExitCode: {0})" -f $LastExitCode)
+        sleep 18000 # sleep 300min to give time for interactive debugging
         throw "Qt install failure (ExitCode: {0})" -f $LastExitCode
     }
 }

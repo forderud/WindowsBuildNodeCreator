@@ -9,5 +9,5 @@ Write-Host "Install GEHC Root Certificates..."
 certutil.exe -addstore -f "root" C:\Install\gehealthcarerootca1.crt
 certutil.exe -addstore -f "root" C:\Install\gehealthcarerootca2.crt
 
-#Write-Host "Enable crash dump collection to %LOCALAPPDATA%\CrashDumps ..."
-#New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\Windows Error Reporting\LocalDumps"
+Write-Host "Enable crash dump collection to %LOCALAPPDATA%\CrashDumps ..."
+New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\Windows Error Reporting\LocalDumps"
