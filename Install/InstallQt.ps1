@@ -11,7 +11,7 @@ if (($args.Count -gt 0) -and -not (Test-Path "C:\Qt" -PathType Container)) {
     # DOC: https://doc.qt.io/qt-6/get-and-install-qt-cli.html
     Write-Host "Downloading Qt online installer..."
     $client = new-object System.Net.WebClient
-    $client.DownloadFile("https://download.qt.io/official_releases/online_installers/qt-online-installer-windows-x64-online.exe","C:\Install\qt-online-installer.exe")
+    $client.DownloadFile("https://github.com/forderud/WindowsBuildNodeCreator/releases/download/v0.1.0/qt-online-installer-windows-x64-4.11.0.exe","C:\Install\qt-online-installer.exe")
 
     Write-Host "Installing Qt maintenance tool..."
     & "C:\Install\qt-online-installer.exe" --root C:\Qt --accept-licenses --default-answer --confirm-command --no-default-installations install qt.tools.maintenance
