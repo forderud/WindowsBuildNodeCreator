@@ -16,7 +16,7 @@ $exePath = "C:\Install\nuget.exe"
 $client.DownloadFile("https://dist.nuget.org/win-x86-commandline/latest/nuget.exe", $exePath)
 
 if (-not $repoUrl) {
-    Write-Host "Skipping NuGet repo configuration."
+    Write-Host "SKIPPING NuGet repo configuration."
 } else {
     # Add NuGet repo
     $repoName = $repoUrl.Split("/")[-1]
@@ -26,7 +26,7 @@ if (-not $repoUrl) {
     }
 
     if ((-not $username) -or (-not $password)) {
-        Write-Host "Skipping NuGet authentication configuration."
+        Write-Host "SKIPPING NuGet authentication configuration."
     } else {
         Write-Host "Configure NuGet authentication..."
         # Passing -StorePasswordInClearText in an attempt to avoid "CryptographicException: Access is denied" errors on AWS

@@ -9,7 +9,7 @@ Write-Host "CI agent URL: $url"
 Write-Host "CI agent token: $token"
 
 if ((-not $url) -or (-not $token)) {
-    Write-Host "Skipping CI agent installation due to lack of URL or token."
+    Write-Host "SKIPPING CI agent installation due to lack of URL or token."
     exit 0
 }
 

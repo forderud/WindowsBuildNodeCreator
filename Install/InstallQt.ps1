@@ -3,7 +3,7 @@ $ErrorActionPreference = "Stop"
 
 # NOTICE: The script expects $Env:QT_INSTALLER_JWT_TOKEN to have already been set
 if (-not $Env:QT_INSTALLER_JWT_TOKEN) {
-    Write-Host "Skipping Qt installation due to lack of license."
+    Write-Host "SKIPPING Qt installation due to lack of license."
     exit 0
 }
 
