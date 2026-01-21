@@ -18,9 +18,6 @@ if ($url[-1] -eq "/") {
     $url = $url.Substring(0, $url.Length-1)
 }
 
-# global variable accessible from both InstallJava and InstallJenkinsAgent functions
-$javaBin = "C:\Program Files\Amazon Corretto\jdk17.0.18_8\bin"
-
 
 function InstallJava {
     # Using Amzon Corretto (https://aws.amazon.com/corretto/) instead of Oracle Java
@@ -37,18 +34,23 @@ function InstallJava {
         throw "Java install failure (ExitCode: {0})" -f $process.ExitCode
     }
 
+    $curVer = Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\JavaSoft\JDK" -Name "CurrentVersion"
+    $javaHome = Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\JavaSoft\JDK\$curVer" -Name "JavaHome"
+
     Write-Host "Let Java trust the GEHC root CA..."
-    & "$javaBin\keytool.exe" -import -alias gehealthcarerootca1 -file "C:\Install\gehealthcarerootca1.crt" -cacerts -noprompt -storepass changeit
+    & "$javaHome\bin\keytool.exe" -import -alias gehealthcarerootca1 -file "C:\Install\gehealthcarerootca1.crt" -cacerts -noprompt -storepass changeit
     if ($process.ExitCode -ne 0) {
         throw "Java GEHC root CA 1 failure (ExitCode: {0})" -f $process.ExitCode
     }
-    & "$javaBin\keytool.exe" -import -alias gehealthcarerootca2 -file "C:\Install\gehealthcarerootca2.crt" -cacerts -noprompt -storepass changeit
+    & "$javaHome\bin\keytool.exe" -import -alias gehealthcarerootca2 -file "C:\Install\gehealthcarerootca2.crt" -cacerts -noprompt -storepass changeit
     if ($process.ExitCode -ne 0) {
         throw "Java GEHC root CA 2 failure (ExitCode: {0})" -f $process.ExitCode
     }
+
+    return $javaHome
 }
 
-function InstallJenkinsAgent {
+function InstallJenkinsAgent ($javaHome) {
     Write-Host "Downloading service wrapper..."
     $client = new-object System.Net.WebClient
     $client.DownloadFile("https://github.com/winsw/winsw/releases/download/v2.12.0/WinSW-x64.exe", "C:\Install\JenkinsAgent.exe")
@@ -77,7 +79,7 @@ function InstallJenkinsAgent {
     $service.AppendChild($description)
     # <executable></executable>
     $executable = $xml.CreateElement("executable")
-    $executable.InnerText = "$javaBin\java.exe"
+    $executable.InnerText = "$javaHome\bin\java.exe"
     $service.AppendChild($executable)
     # <<arguments>></<arguments>>
     $arguments = $xml.CreateElement("arguments")
@@ -142,6 +144,6 @@ if ($url -like "*gitlab*") {
     InstallGitLabRunner
 } else {
     # Assume Jenkins setup
-    InstallJava
-    InstallJenkinsAgent
+    $javaHome = InstallJava
+    InstallJenkinsAgent $javaHome
 }
