@@ -83,7 +83,7 @@ source "hyperv-iso" "windows-builder" {
   boot_command          = ["a<enter><wait>a<enter><wait>a<enter><wait>a<enter>"]
   boot_wait             = "1s"
 
-  cd_files              = ["./scripts/hyperv/Autounattend.xml", "./scripts/hyperv/bootstrap.ps1", "./scripts/hyperv/unattend.xml", "./scripts/hyperv_shutdown.bat"]
+  cd_files              = ["./Scripts/hyperv/Autounattend.xml", "./Scripts/hyperv/bootstrap.ps1", "./Scripts/hyperv/unattend.xml", "./Scripts/hyperv_shutdown.bat"]
 
   shutdown_command      = "E:/hyperv_shutdown.bat" # .ps1 doesn't seem to work
 
@@ -115,7 +115,7 @@ source "amazon-ebs" "windows-builder" {
      max_attempts = 240 # 1 hour (15sec intervals)
   }
 
-  user_data_file = "./scripts/aws_bootstrap.txt" # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html
+  user_data_file = "./Scripts/aws_bootstrap.txt" # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html
 
   communicator  = "winrm"
   winrm_username = "Administrator"
@@ -136,12 +136,12 @@ build {
 
   provisioner "powershell" {
     environment_vars = ["WINRMPASS=${build.Password}"]
-    script = "./scripts/prepare.ps1"
+    script = "./Scripts/prepare.ps1"
   }
   
   provisioner "powershell" {
     only   = ["hyperv-iso.windows-builder"]
-    script = "./scripts/hyperv_prepare.ps1"
+    script = "./Scripts/hyperv_prepare.ps1"
   }
 
   provisioner "windows-update" {
@@ -210,7 +210,7 @@ build {
   }
 
   provisioner "powershell" {
-      script = "./scripts/preshutdown.ps1"
+      script = "./Scripts/preshutdown.ps1"
   }
 
   provisioner "windows-shell" {
