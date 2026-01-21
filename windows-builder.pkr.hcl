@@ -83,9 +83,9 @@ source "hyperv-iso" "windows-builder" {
   boot_command          = ["a<enter><wait>a<enter><wait>a<enter><wait>a<enter>"]
   boot_wait             = "1s"
 
-  cd_files              = ["./Scripts/hyperv/Autounattend.xml", "./Scripts/hyperv/bootstrap.ps1", "./Scripts/hyperv/unattend.xml", "./Scripts/hyperv_shutdown.bat"]
+  cd_files              = ["./Scripts/hyperv/Autounattend.xml", "./Scripts/hyperv/bootstrap.ps1", "./Scripts/hyperv/unattend.xml"]
 
-  shutdown_command      = "E:/hyperv_shutdown.bat" # .ps1 doesn't seem to work
+  shutdown_command      = "\"C:\\Windows\\System32\\Sysprep\\Sysprep.exe\" /generalize /oobe /unattend:E:\\unattend.xml /quiet /shutdown"
 
   communicator          = "winrm"
   winrm_password        = "password"
