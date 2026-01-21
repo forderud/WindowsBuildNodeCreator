@@ -8,7 +8,12 @@ Write-Host "Appx cleanup before sysprep..."
 $packages = Get-AppxPackage -Name "Microsoft.MicrosoftEdge.*"
 foreach ($package in $packages) {
     Write-Host("* Removing {0}..." -f $package.Name)
-
+    Remove-AppxPackage -Package $package.PackageFullName
+}
+# Remove per-user TortoiseSVN installations to prevent sysprep failures
+$packages = Get-AppxPackage | Where PublisherId -eq yyj3t4bx8qhke # Stefan Kueng
+foreach ($package in $packages) {
+    Write-Host("* Removing {0}..." -f $package.Name)
     Remove-AppxPackage -Package $package.PackageFullName
 }
 

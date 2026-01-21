@@ -190,11 +190,9 @@ build {
     inline = ["C:\\Install\\InstallGit.ps1"]
   }
 
-/*
   provisioner "powershell" {
     inline = ["C:\\Install\\InstallSvn.ps1"]
   }
-*/
 
   provisioner "powershell" {
     inline = ["C:\\Install\\InstallDocker.ps1"]
