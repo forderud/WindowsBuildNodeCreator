@@ -19,3 +19,7 @@ foreach ($package in $packages) {
 
 Write-Host "Disable WinRM startup on next boot..."
 Set-Service -Name WinRM -StartupType Disabled
+
+# Stop whitelisting WinRM in firewall
+# & netsh advfirewall firewall set rule name="Windows Remote Management (HTTP-In)" new enable=no
+
