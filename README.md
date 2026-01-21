@@ -1,16 +1,16 @@
 Project to **automate building of Windows CI/CD build node images** using Packer automation scripts. The images can either be built on Amazon AWS or locally using Hyper-V.
 
 ### Installed SW
-* [CI agent](Install/InstallCiAgent.ps1) - Jenkins or GitLab CI
+* [CI agent](Install/InstallCiAgent.ps1) - Jenkins or GitLab CI (optional)
 * [CMake](Install/InstallCMake.ps1)
 * [Docker](Install/InstallDocker.ps1)
 * [Git](Install/InstallGit.ps1)
 * [NuGet](Install/InstallNuGet.ps1)
 * [Packer](Install/InstallPacker.ps1) for self-hosting
 * [Python](Install/InstallPython.ps1)
-* [Qt](Install/InstallQt.ps1)
+* [Qt](Install/InstallQt.ps1) (optional, version configurable)
 * [Svn](Install/InstallSvn.ps1)
-* [Visual Studio](Install/InstallVisualStudio.ps1) with C++, .Net workloads and WDK
+* [Visual Studio](Install/InstallVisualStudio.ps1) with C++, .Net workloads and WDK (version configurable)
 * [Wix and HeatWave](Install/InstallWix.ps1) for MSI packaging
 
 ## AWS build instructions
@@ -32,7 +32,7 @@ QT_INSTALLER_JWT_TOKEN=""
 ```
 
 ### AWS prerequisites
-The `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` env.vars. set as described in the [Amazon](https://developer.hashicorp.com/packer/integrations/hashicorp/amazon) packer integration. You'll find these by logging in to http://aws.amazon.com/ and afterwards opening "Security Credentials" for your account.
+The `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` env.vars. set as described in the Amazon packer integration. You'll find these by logging in to http://aws.amazon.com/ and afterwards opening "Security Credentials" for your account.
 
 It's possible to use a [AWS Free Tier](https://aws.amazon.com/free/) account with this project.
 
