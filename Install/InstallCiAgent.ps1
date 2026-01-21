@@ -18,6 +18,10 @@ if ($url[-1] -eq "/") {
     $url = $url.Substring(0, $url.Length-1)
 }
 
+# global variable accessible from both InstallJava and InstallJenkinsAgent functions
+$javaBin = "C:\Program Files\Amazon Corretto\jdk17.0.18_8\bin"
+
+
 function InstallJava {
     # Using Amzon Corretto (https://aws.amazon.com/corretto/) instead of Oracle Java
     # this avoids Windows Defender quarantine due to threat EUS:Win32/CustomEnterpriseBlock!cl
@@ -34,11 +38,11 @@ function InstallJava {
     }
 
     Write-Host "Let Java trust the GEHC root CA..."
-    & "C:\Program Files\Amazon Corretto\jdk17.0.17_10\bin\keytool.exe" -import -alias gehealthcarerootca1 -file "C:\Install\gehealthcarerootca1.crt" -cacerts -noprompt -storepass changeit
+    & "$javaBin\keytool.exe" -import -alias gehealthcarerootca1 -file "C:\Install\gehealthcarerootca1.crt" -cacerts -noprompt -storepass changeit
     if ($process.ExitCode -ne 0) {
         throw "Java GEHC root CA 1 failure (ExitCode: {0})" -f $process.ExitCode
     }
-    & "C:\Program Files\Amazon Corretto\jdk17.0.17_10\bin\keytool.exe" -import -alias gehealthcarerootca2 -file "C:\Install\gehealthcarerootca2.crt" -cacerts -noprompt -storepass changeit
+    & "$javaBin\keytool.exe" -import -alias gehealthcarerootca2 -file "C:\Install\gehealthcarerootca2.crt" -cacerts -noprompt -storepass changeit
     if ($process.ExitCode -ne 0) {
         throw "Java GEHC root CA 2 failure (ExitCode: {0})" -f $process.ExitCode
     }
@@ -73,7 +77,7 @@ function InstallJenkinsAgent {
     $service.AppendChild($description)
     # <executable></executable>
     $executable = $xml.CreateElement("executable")
-    $executable.InnerText = "C:\Program Files\Amazon Corretto\jdk17.0.17_10\bin\java.exe"
+    $executable.InnerText = "$javaBin\java.exe"
     $service.AppendChild($executable)
     # <<arguments>></<arguments>>
     $arguments = $xml.CreateElement("arguments")
