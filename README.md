@@ -14,6 +14,7 @@ Project to **automate building of Windows CI/CD build node images** using Packer
 * [Wix and HeatWave](Install/InstallWix.ps1) for MSI packaging
 
 ## AWS build instructions
+Instructions to build a new Amazon AMI image:
 ```
 packer init windows-builder.pkr.hcl
 packer build -only=amazon-ebs.windows-builder --var-file=variables.pkvars.hcl windows-builder.pkr.hcl
@@ -42,7 +43,20 @@ Steps to connect with RDP to the VM during packer build:
 * Use the VM "Public DNS" name to connect to the VM with the remote desktop client.
 * Use `Administrator` as username and the temporary WinRM password from the packer build log.
 
+### AMI boot parameters
+It's possible to run arbitrary scripts on first boot with ["user data"](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html) when creating a new Amazon VM instance based on a AMI image. This can be useful for deferred configuration of parameters that differ between VM instances.
+
+Example "user data" for deferred CI agent configuration:
+```
+<powershell>
+  $Env:BUILD_SERVER_URL = "..."
+  $Env:BUILDER_SECRET= "..."
+  . C:\\Install\\InstallCiAgent.ps1
+</powershell>
+```
+
 ## Hyper-V build instructions
+Instructions to build a local Hyper-V image:
 
 Edit `variables.pkvars.hcl` as in AWS instructions above. In addition, set `HYPERV_SWITCH` to a switch with internet access.
 
