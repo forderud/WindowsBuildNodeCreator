@@ -29,20 +29,26 @@ if (-not $repoUrl) {
         Write-Host "SKIPPING NuGet authentication configuration."
     } else {
         Write-Host "Configure NuGet authentication..."
-        # Passing -StorePasswordInClearText in an attempt to avoid "CryptographicException: Access is denied" errors on AWS
-        & $exePath sources Update -Name $repoName -Username $username -Password $password -StorePasswordInClearText -Verbosity detailed
+        # Pass -StorePasswordInClearText to avoid "CryptographicException: Access is denied" errors on AWS
+        & $exePath sources Update -Name $repoName -Username $username -Password $password -Verbosity detailed
         if ($LastExitCode -ne 0) {
             #Write-Host("nuget.exe sources Update failure (ExitCode: {0})" -f $LastExitCode)
             #sleep 1800 # sleep 30min to give time for interactive debugging
             throw "nuget.exe sources Update failure (ExitCode: {0})" -f $LastExitCode
         }
 
+        # Gives "CryptographicException: Access is denied" errors on AWS
         $auth = "{0}:{1}" -f $username, $password
         & $exePath setapikey $auth -Source $repoName -Verbosity detailed
         if ($LastExitCode -ne 0) {
             throw "nuget.exe setapikey failure (ExitCode: {0})" -f $LastExitCode
         }
     }
+
+    # Copy NuGet config file to the SYSTEM account
+    $src = "$Env:APPDATA\NuGet"
+    $dst = "C:\Windows\System32\config\systemprofile\AppData\Roaming\NuGet"
+    Copy-Item "$src\NuGet.Config" -Destination "$dst\NuGet.Config"
 }
 
 Write-Host "Copying NuGet.exe to new BuildTools folder..."
