@@ -27,6 +27,7 @@ $process = Start-Process -FilePath "C:\Install\vs_Professional.exe" -ArgumentLis
     "--add", "Microsoft.VisualStudio.Component.VC.14.29.16.11.x86.x64", `
     "--add", "Microsoft.VisualStudio.Component.VC.Runtimes.x86.x64.Spectre", ` # required for driver builds
     "--add", "Microsoft.VisualStudio.Workload.ManagedDesktop", `
+    "--add", "Microsoft.VisualStudio.Workload.Python", `                       # doesn't include Python interpreter
     "--includeRecommended", "--passive", "--norestart", "--wait" -Wait -PassThru
 if ($process.ExitCode -ne 0) {
     # DOC: https://learn.microsoft.com/en-us/visualstudio/install/use-command-line-parameters-to-install-visual-studio#error-codes
