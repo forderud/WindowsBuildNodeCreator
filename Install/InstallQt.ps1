@@ -12,12 +12,6 @@ if (($args.Count -gt 0) -and -not (Test-Path "C:\Qt" -PathType Container)) {
     Write-Host "Downloading Qt online installer..."
     $client = new-object System.Net.WebClient
     $client.DownloadFile("https://github.com/forderud/WindowsBuildNodeCreator/releases/download/v0.1.0/qt-online-installer-windows-x64-4.11.0.exe","C:\Install\qt-online-installer.exe")
-
-    Write-Host "Installing Qt maintenance tool..."
-    & "C:\Install\qt-online-installer.exe" --root C:\Qt --accept-licenses --default-answer --confirm-command --no-default-installations install qt.tools.maintenance
-    if ($LastExitCode -ne 0) {
-        throw "Qt online install failure (ExitCode: {0})" -f $LastExitCode
-    }
 }
 
 # iterate over Qt version arguments
@@ -54,7 +48,7 @@ for ($i=0; $i -lt $args.Count; $i++) {
     }
 
     Write-Host "Installing $modules..."
-    & "C:\Qt\MaintenanceTool.exe" --accept-licenses --default-answer --confirm-command install @modules
+    & "C:\Install\qt-online-installer.exe" --root C:\Qt --accept-licenses --default-answer --confirm-command install @modules
     if ($LastExitCode -ne 0) {
         Write-Host("Qt install failure (ExitCode: {0})" -f $LastExitCode)
         sleep 18000 # sleep 300min to give time for interactive debugging
