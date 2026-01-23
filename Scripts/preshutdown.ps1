@@ -1,6 +1,9 @@
 # stop script on first error
 $ErrorActionPreference = "Stop"
 
+# Updating file associations
+. C:\Install\UpdateFileAssociations.ps1
+
 Write-Host "Appx cleanup before sysprep..."
 
 # Remove per-user Microsoft Edge installations to prevent sysprep failures
