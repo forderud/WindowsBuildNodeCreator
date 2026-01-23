@@ -1,10 +1,10 @@
 # Update custom file associations with .py handling
 
 
-function UpdateFileAssocXML ($input, $output) {
+function UpdateFileAssocXML ($baseFile, $updatedFile) {
     $xml = New-Object -TypeName System.Xml.XmlDocument
     $xml.PreserveWhitespace = $true
-    $xml.LoadXml($(Get-Content $input -Raw))
+    $xml.LoadXml($(Get-Content $baseFile -Raw))
     $defaultAssoc = $xml["DefaultAssociations"]
 
     # add <Association Identifier=".py" ProgId="Python.File" ApplicationName="Python" />
@@ -12,19 +12,19 @@ function UpdateFileAssocXML ($input, $output) {
     $assoc.SetAttribute("Identifier", ".py")
     $assoc.SetAttribute("ProgId", "Python.File")
     $assoc.SetAttribute("ApplicationName", "Python")
-    $defaultAssoc.AppendChild($xml)
+    $defaultAssoc.AppendChild($assoc)
 
     # Save XML file
-    $xml.Save($output)
+    $xml.Save($updatedFile)
 }
 
 Write-Host "Retrieving current file associations..."
-$input = "C:\Install\FileAssocBase.xml"
-& Dism /Online /Export-DefaultAppAssociations:$input
+$baseFile = "C:\Install\FileAssocBase.xml"
+& Dism /Online /Export-DefaultAppAssociations:$baseFile
 
 Write-Host "Updating file associations..."
-$output = "C:\Install\FileAssocUpdated.xml"
-UpdateFileAssocXML $input $output 
+$updatedFile = "C:\Install\FileAssocUpdated.xml"
+UpdateFileAssocXML $baseFile $updatedFile 
 
 Write-Host "Applying updated file associations..."
-& Dism.exe /online /Import-DefaultAppAssociations:$output
+& Dism.exe /online /Import-DefaultAppAssociations:$updatedFile
