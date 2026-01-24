@@ -64,7 +64,7 @@ source "hyperv-iso" "windows-builder" {
   memory                = "4096"
   disk_size             = "128000" # MB
   generation            = 2
-  enable_dynamic_memory = "true"
+  enable_dynamic_memory = true
   enable_secure_boot    = false
   enable_tpm            = false
   guest_additions_mode  = "disable"
