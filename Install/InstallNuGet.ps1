@@ -48,6 +48,9 @@ if (-not $repoUrl) {
     # Copy NuGet config file to the SYSTEM account
     $src = "$Env:APPDATA\NuGet"
     $dst = "C:\Windows\System32\config\systemprofile\AppData\Roaming\NuGet"
+    if (-not (Test-Path $dst -PathType Container)) {
+        [void](New-Item $dst -Type Directory)
+    }
     Copy-Item "$src\NuGet.Config" -Destination "$dst\NuGet.Config"
 }
 
