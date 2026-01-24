@@ -66,6 +66,8 @@ source "hyperv-iso" "windows-builder" {
   generation            = 2
   enable_secure_boot    = false
   enable_tpm            = false
+  enable_virtualization_extensions = true # required for Docker
+  enable_mac_spoofing   = true            # required for virtualization extensions
   guest_additions_mode  = "disable"
   skip_export           = true
   switch_name           = "${var.HYPERV_SWITCH}"
@@ -193,11 +195,10 @@ build {
     inline = ["C:\\Install\\InstallSvn.ps1"]
   }
 
-/*
   provisioner "powershell" {
+    only   = ["hyperv-iso.windows-builder"] # require nested virtualization
     inline = ["C:\\Install\\InstallDocker.ps1"]
   }
-*/
 
   provisioner "powershell" {
     environment_vars = ["BUILD_SERVER_URL=${var.BUILD_SERVER_URL}", "BUILDER_SECRET=${var.BUILDER_SECRET}"]
