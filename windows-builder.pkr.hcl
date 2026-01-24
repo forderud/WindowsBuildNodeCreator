@@ -194,9 +194,11 @@ build {
     inline = ["C:\\Install\\InstallSvn.ps1"]
   }
 
+/*
   provisioner "powershell" {
     inline = ["C:\\Install\\InstallDocker.ps1"]
   }
+*/
 
   provisioner "powershell" {
     environment_vars = ["BUILD_SERVER_URL=${var.BUILD_SERVER_URL}", "BUILDER_SECRET=${var.BUILDER_SECRET}"]
