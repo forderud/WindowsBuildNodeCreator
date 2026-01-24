@@ -63,10 +63,10 @@ source "hyperv-iso" "windows-builder" {
   cpus                  = "4"
   memory                = "4096"
   disk_size             = "128000" # MB
+  generation            = 2
   enable_dynamic_memory = "true"
   enable_secure_boot    = false
   enable_tpm            = false
-  generation            = 2
   guest_additions_mode  = "disable"
   skip_export           = true
   switch_name           = "${var.HYPERV_SWITCH}"
