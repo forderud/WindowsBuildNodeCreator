@@ -5,11 +5,13 @@ $ErrorActionPreference = "Stop"
 for ($i=0; $i -lt $args.Count; $i++) {
     $vsVersion = $args[$i]
 
+    Write-Host "Downloading Visual Studio $vsVersion bootstrapper..."
     if ($vsVersion -eq "16/release.16.7") {
-        # use download from Box
-        Copy-Item "C:\Install\vs_Professional_16.7.exe" -Destination "C:\Install\vs_Professional.exe"
+        # Download from custom URL
+        $client = new-object System.Net.WebClient
+        $client.DownloadFile("https://github.com/forderud/WindowsBuildNodeCreator/releases/download/v0.1.0/vs_Professional_16.7.exe", "C:\Install\vs_Professional.exe")
     } else {
-        Write-Host "Downloading Visual Studio $vsVersion bootstrapper..."
+        # Download directly from Microsoft
         $client = new-object System.Net.WebClient
         $client.DownloadFile("https://aka.ms/vs/"+$vsVersion+"/vs_professional.exe", "C:\Install\vs_Professional.exe")
     }
