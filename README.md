@@ -46,9 +46,14 @@ Steps to connect with RDP to the VM during packer build:
 ### AMI boot parameters
 It's possible to run arbitrary scripts on first boot with ["user data"](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html) when creating a new Amazon VM instance based on a AMI image. This can be useful for deferred configuration of parameters that differ between VM instances.
 
-Example "user data" for deferred CI agent configuration:
+Example "user data" for deferred NuGet and CI agent configuration:
 ```
 <powershell>
+  $Env:NUGET_REPO_URL="..."
+  $Env:NUGET_REPO_USER="..."
+  $Env:NUGET_REPO_PW="..."
+  . C:\\Install\\ConfigureNuGet.ps1
+
   $Env:BUILD_SERVER_URL = "..."
   $Env:BUILDER_SECRET= "..."
   . C:\\Install\\InstallCiAgent.ps1
