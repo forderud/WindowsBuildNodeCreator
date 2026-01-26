@@ -101,13 +101,9 @@ Verbose build output: `set PACKER_LOG=1`
 * Packer [Amazon integration](https://developer.hashicorp.com/packer/integrations/hashicorp/amazon) - mentions `%USERPROFILE%.aws\credentials` ([sources](https://github.com/hashicorp/packer-plugin-amazon))
 * Packer [Hyper-V integration](https://developer.hashicorp.com/packer/integrations/hashicorp/hyperv) ([sources](https://github.com/hashicorp/packer-plugin-hyperv))
 
-### Similar Windows image projects
+### Related Windows image projects
 * GitHub [Actions runner windows images](https://github.com/actions/runner-images/tree/main/images/windows)
 * runs-on [GitHub Actions Runner images for AWS](https://github.com/runs-on/runner-images-for-aws)
-* GitHub [marcinbojko/hv-packer](https://github.com/marcinbojko/hv-packer)
-* GitHub [StefanScherer/packer-windows](https://github.com/StefanScherer/packer-windows)
-* GitHub [jborean93/packer-windoze](https://github.com/jborean93/packer-windoze)
-* GitHub [MattHodge/PackerTemplates](https://github.com/MattHodge/PackerTemplates) - with shutdown samples
 
 ## Windows server images
 * Microsoft [Windows Server 2025 download](https://www.microsoft.com/en-us/evalcenter/download-windows-server-2025) 24H2 - `26100.1742.240906-0331.ge_release_svc_refresh_SERVER_EVAL_x64FRE_en-us.iso` (September 10, 2024, 5.6 GB)
