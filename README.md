@@ -49,11 +49,6 @@ It's possible to run arbitrary scripts on first boot with ["user data"](https://
 Example "user data" for deferred NuGet and CI agent configuration:
 ```
 <powershell>
-  $Env:NUGET_REPO_URL="..."
-  $Env:NUGET_REPO_USER="..."
-  $Env:NUGET_REPO_PW="..."
-  . C:\Install\ConfigureNuGet.ps1
-
   $Env:BUILD_SERVER_URL = "..."
   $Env:BUILDER_SECRET= "..."
   . C:\Install\InstallCiAgent.ps1

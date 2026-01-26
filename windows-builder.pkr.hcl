@@ -160,8 +160,14 @@ build {
   }
 
   provisioner "powershell" {
-    environment_vars = ["NUGET_REPO_URL=${var.NUGET_REPO_URL}", "NUGET_REPO_USER=${var.NUGET_REPO_USER}", "NUGET_REPO_PW=${var.NUGET_REPO_PW}"]
     inline = ["C:\\Install\\InstallNuGet.ps1"]
+  }
+
+  provisioner "windows-shell" {
+    inline = [
+      # Configure NuGet for System account
+      "C:\\Install\\psexec64.exe -i -accepteula -s powershell.exe -NonInteractive -ExecutionPolicy Bypass -Command \"$env:NUGET_REPO_URL='${var.NUGET_REPO_URL}'; $env:NUGET_REPO_USER='${var.NUGET_REPO_USER}'; $env:NUGET_REPO_PW='${var.NUGET_REPO_PW}'; C:\\Install\\ConfigureNuGet.ps1\""
+    ]
   }
 
   provisioner "powershell" {
