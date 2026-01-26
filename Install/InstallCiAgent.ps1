@@ -139,13 +139,17 @@ function InstallGitLabRunner {
     }
 }
 
+function InstallGitHubRunner {
+    # https://docs.github.com/en/actions/how-tos/manage-runners/self-hosted-runners/add-runners
+    throw "GitHub support not yet implemented"
+}
 
 if ($url -like "*gitlab*") {
     # GitLab setup
     InstallGitLabRunner
 } elseif ($url -like "*github*") {
-    # TODO: GitHub setup
-    throw "GitHub support not yet implemented"
+    # GitHub setup
+    InstallGitHubRunner
 } else {
     # Jenkins setup
     $javaHome = InstallJava
