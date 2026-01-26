@@ -141,10 +141,13 @@ function InstallGitLabRunner {
 
 
 if ($url -like "*gitlab*") {
-    # Assume GitLab setup
+    # GitLab setup
     InstallGitLabRunner
+} elseif ($url -like "*github*") {
+    # TODO: GitHub setup
+    throw "GitHub support not yet implemented"
 } else {
-    # Assume Jenkins setup
+    # Jenkins setup
     $javaHome = InstallJava
     InstallJenkinsAgent $javaHome
 }
