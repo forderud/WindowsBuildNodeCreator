@@ -107,7 +107,7 @@ function InstallJenkinsAgent ($javaHome) {
 
 function InstallGitLabRunner {
     Write-Host "Downloading GitLab runner..."
-    # https://docs.gitlab.com/runner/install/windows.html
+    # https://docs.gitlab.com/runner/install/windows/
     $client = new-object System.Net.WebClient
     $runnerUrl = "https://s3.dualstack.us-east-1.amazonaws.com/gitlab-runner-downloads/latest/binaries/gitlab-runner-windows-amd64.exe"
     $client.DownloadFile($runnerUrl, "C:\Install\gitlab-runner.exe")
@@ -126,6 +126,7 @@ function InstallGitLabRunner {
     $cfg | Set-Content $cfgFile
 
     Write-Host "Installing GitLab runner service..."
+    # Service will run using the inbuilt "System" account (recommended)
     & "C:\Install\gitlab-runner.exe" install
     if ($LastExitCode -ne 0) {
         throw "GitLab runner install failure (ExitCode: {0})" -f $LastExitCode
