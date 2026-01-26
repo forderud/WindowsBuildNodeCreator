@@ -32,7 +32,7 @@ for ($i=0; $i -lt $args.Count; $i++) {
         $msvcVer = "msvc2019_64"
     } else {
         $modules += "qt.$qtVersion.win64_msvc2022_64"
-        $modules += "extensions.qtwebengine." + $qtVersion.Split(".")[1]
+        $modules += "extensions.qtwebengine." + $qtVersion.Split(".")[1] + ".win64_msvc2022_64"
         $msvcVer = "msvc2022_64"
     }
     $modules += "qt.$qtVersion.addons.qtactiveqt", "qt.$qtVersion.addons.qt3d"
