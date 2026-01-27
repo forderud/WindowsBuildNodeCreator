@@ -1,4 +1,6 @@
 # Update custom file associations with .py handling
+# Only affect local user accounts created _after_ the script is run.
+# LIMITATION: Does not seem to affect inbuilt LocalService, NetworkService or System accounts - even if running sysprep
 
 
 function UpdateFileAssocXML ($baseFile, $updatedFile) {
