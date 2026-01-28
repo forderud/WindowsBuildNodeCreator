@@ -163,10 +163,13 @@ build {
     inline = ["C:\\Install\\InstallNuGet.ps1"]
   }
 
-  provisioner "windows-shell" {
+  provisioner "powershell" {
+    # Configure NuGet for System account
     inline = [
-      # Configure NuGet for System account
-      "C:\\Install\\psexec64.exe -accepteula -s powershell.exe -NonInteractive -ExecutionPolicy Bypass -Command \"$env:NUGET_REPO_URL='${var.NUGET_REPO_URL}'; $env:NUGET_REPO_USER='${var.NUGET_REPO_USER}'; $env:NUGET_REPO_PW='${var.NUGET_REPO_PW}'; C:\\Install\\ConfigureNuGet.ps1\""
+      "$action = New-ScheduledTaskAction -Execute 'Powershell.exe' -Argument \"-Command `\" `$env:NUGET_REPO_URL='${var.NUGET_REPO_URL}'; `$env:NUGET_REPO_USER='${var.NUGET_REPO_USER}'; `$env:NUGET_REPO_PW='${var.NUGET_REPO_PW}'; C:\\Install\\ConfigureNuGet.ps1 `\" \"",
+      "Register-ScheduledTask -Action $action -User \"System\" -TaskName \"NuGet configure\" -Description \"Configure NuGet package sources\"",
+      "Start-ScheduledTask -TaskName \"NuGet configure\"",
+      #"Unregister-ScheduledTask -TaskName \"NuGet configure\" -Confirm:$false"
     ]
   }
 
