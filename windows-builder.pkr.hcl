@@ -160,6 +160,10 @@ build {
   }
 
   provisioner "powershell" {
+    inline = ["C:\\Install\\InstallVisualStudio.ps1 ${var.VISUAL_STUDIO}"]
+  }
+
+  provisioner "powershell" {
     inline = ["C:\\Install\\InstallNuGet.ps1"]
   }
 
@@ -172,10 +176,6 @@ build {
       "Start-ScheduledTask -TaskName \"NuGet configure\"",
       "Unregister-ScheduledTask -TaskName \"NuGet configure\" -Confirm:$false"
     ]
-  }
-
-  provisioner "powershell" {
-    inline = ["C:\\Install\\InstallVisualStudio.ps1 ${var.VISUAL_STUDIO}"]
   }
 
   provisioner "powershell" {
