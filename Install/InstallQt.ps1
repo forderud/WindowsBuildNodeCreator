@@ -26,16 +26,24 @@ for ($i=0; $i -lt $args.Count; $i++) {
     # The installation will be listed on https://account.qt.io/s/active-installation-list
     # Doc: https://doc.qt.io/qt-6/get-and-install-qt-cli.html
     $modules = @()
-    if ($qtVersion.Split(".")[1] -lt "680") {
+    if ($qtVersion.Split(".")[0] -eq "qt5") {
+        # Qt 5
+        $modules += "qt.$qtVersion.win64_msvc2019_64" # includes ActiveQt & Qt3D
+        $modules += "qt.$qtVersion.qtwebengine"
+        $msvcVer = "msvc2019_64"
+    } elseif ($qtVersion.Split(".")[1] -lt "680") {
+        # Qt 6.0-6.7
         $modules += "qt.$qtVersion.win64_msvc2019_64"
         $modules += "qt.$qtVersion.addons.qtwebengine"
+        $modules += "qt.$qtVersion.addons.qtactiveqt", "qt.$qtVersion.addons.qt3d"
         $msvcVer = "msvc2019_64"
     } else {
+        # Qt 6.8-
         $modules += "qt.$qtVersion.win64_msvc2022_64"
         $modules += "extensions.qtwebengine." + $qtVersion.Split(".")[1] + ".win64_msvc2022_64"
+        $modules += "qt.$qtVersion.addons.qtactiveqt", "qt.$qtVersion.addons.qt3d"
         $msvcVer = "msvc2022_64"
     }
-    $modules += "qt.$qtVersion.addons.qtactiveqt", "qt.$qtVersion.addons.qt3d"
 
     Write-Host "Installing $modules..."
     & "C:\Qt\MaintenanceTool.exe" --accept-licenses --default-answer --confirm-command install @modules
