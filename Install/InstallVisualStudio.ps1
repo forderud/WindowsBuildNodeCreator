@@ -34,7 +34,10 @@ for ($i=0; $i -lt $args.Count; $i++) {
         throw "Visual Studio install failure (ExitCode: {0})" -f $process.ExitCode
     }
 
-    if ($vsVersion.Substring(0,2) -eq "17") {
+    if ($vsVersion.Substring(0,2) -eq "16") {
+        Write-Host "Set VS160COMNTOOLS env.var. to VS2019 installation folder..."
+        [Environment]::SetEnvironmentVariable("VS160COMNTOOLS", "C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\Common7\Tools\", [EnvironmentVariableTarget]::Machine)
+    } elseif ($vsVersion.Substring(0,2) -eq "17") {
         Write-Host "Downloading and install Windows Driver Kit (WDK) 10.0.22621.2428..."
         $client = new-object System.Net.WebClient
         $client.DownloadFile("https://go.microsoft.com/fwlink/?linkid=2249371", "C:\Install\wdksetup.exe")
