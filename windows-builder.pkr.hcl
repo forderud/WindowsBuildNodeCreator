@@ -45,7 +45,7 @@ variable "QT_VERSION" {
   type    = string
   default = "qt6.683"
 }
-variable "QT_INSTALLER_JWT_TOKEN" { # Qt license JWT token from %APPDATA%\\Qt\\qtaccount.ini (optional). The installation will be listed on https://account.qt.io/s/active-installation-list
+variable "QT_INSTALLER_JWT_TOKEN" { # Qt license JWT token from %APPDATA%\Qt\qtaccount.ini (optional). The installation will be listed on https://account.qt.io/s/active-installation-list
   type    = string
   default = ""
 }
