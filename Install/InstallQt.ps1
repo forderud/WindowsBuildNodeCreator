@@ -30,6 +30,7 @@ for ($i=0; $i -lt $args.Count; $i++) {
         # Qt 5
         $modules += "qt.$qtVersion.win64_msvc2019_64" # includes ActiveQt & Qt3D
         #$modules += "qt.$qtVersion.qtwebengine"
+        $modules += "qt.$qtVersion.qtcharts"
         $msvcVer = "msvc2019_64"
     } else {
         # Qt 6
