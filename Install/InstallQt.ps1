@@ -29,7 +29,7 @@ for ($i=0; $i -lt $args.Count; $i++) {
     if ($qtVersion.Split(".")[0] -eq "qt5") {
         # Qt 5
         $modules += "qt.$qtVersion.win64_msvc2019_64" # includes ActiveQt & Qt3D
-        $modules += "qt.$qtVersion.qtwebengine"
+        #$modules += "qt.$qtVersion.qtwebengine"
         $msvcVer = "msvc2019_64"
     } elseif ($qtVersion.Split(".")[1] -lt "680") {
         # Qt 6.0-6.7
