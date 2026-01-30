@@ -31,18 +31,23 @@ for ($i=0; $i -lt $args.Count; $i++) {
         $modules += "qt.$qtVersion.win64_msvc2019_64" # includes ActiveQt & Qt3D
         #$modules += "qt.$qtVersion.qtwebengine"
         $msvcVer = "msvc2019_64"
-    } elseif ($qtVersion.Split(".")[1] -lt "680") {
-        # Qt 6.0-6.7
-        $modules += "qt.$qtVersion.win64_msvc2019_64"
-        $modules += "qt.$qtVersion.addons.qtwebengine"
-        $modules += "qt.$qtVersion.addons.qtactiveqt", "qt.$qtVersion.addons.qt3d"
-        $msvcVer = "msvc2019_64"
     } else {
-        # Qt 6.8-
-        $modules += "qt.$qtVersion.win64_msvc2022_64"
-        $modules += "extensions.qtwebengine." + $qtVersion.Split(".")[1] + ".win64_msvc2022_64"
-        $modules += "qt.$qtVersion.addons.qtactiveqt", "qt.$qtVersion.addons.qt3d"
-        $msvcVer = "msvc2022_64"
+        # Qt 6
+        if ($qtVersion.Split(".")[1] -lt "680") {
+            # Qt 6.0-6.7
+            $modules += "qt.$qtVersion.win64_msvc2019_64"
+            $modules += "qt.$qtVersion.addons.qtwebengine"
+            $msvcVer = "msvc2019_64"
+        } else {
+            # Qt 6.8-
+            $modules += "qt.$qtVersion.win64_msvc2022_64"
+            $modules += "extensions.qtwebengine." + $qtVersion.Split(".")[1] + ".win64_msvc2022_64"
+            $msvcVer = "msvc2022_64"
+        }
+
+        $modules += "qt.$qtVersion.addons.qtactiveqt"
+        $modules += "qt.$qtVersion.addons.qtcharts"
+        $modules += "qt.$qtVersion.addons.qt3d"
     }
 
     Write-Host "Installing $modules..."
