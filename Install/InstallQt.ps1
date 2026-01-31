@@ -7,15 +7,17 @@ if (-not $Env:QT_INSTALLER_JWT_TOKEN) {
     exit 0
 }
 
-# DOC: https://doc.qt.io/qt-6/get-and-install-qt-cli.html
-Write-Host "Downloading Qt online installer..."
-$client = new-object System.Net.WebClient
-$client.DownloadFile("https://download.qt.io/official_releases/online_installers/qt-online-installer-windows-x64-online.exe","C:\Install\qt-online-installer.exe")
+if (-not (Test-Path "C:\Qt" -PathType Container)) {
+    # DOC: https://doc.qt.io/qt-6/get-and-install-qt-cli.html
+    Write-Host "Downloading Qt online installer..."
+    $client = new-object System.Net.WebClient
+    $client.DownloadFile("https://download.qt.io/official_releases/online_installers/qt-online-installer-windows-x64-online.exe","C:\Install\qt-online-installer.exe")
 
-Write-Host "Installing Qt maintenance tool..."
-& "C:\Install\qt-online-installer.exe" --root C:\Qt --accept-licenses --default-answer --confirm-command --no-default-installations install qt.tools.maintenance
-if ($LastExitCode -ne 0) {
-    throw "Qt online install failure (ExitCode: {0})" -f $LastExitCode
+    Write-Host "Installing Qt maintenance tool..."
+    & "C:\Install\qt-online-installer.exe" --root C:\Qt --accept-licenses --default-answer --confirm-command --no-default-installations install qt.tools.maintenance
+    if ($LastExitCode -ne 0) {
+        throw "Qt online install failure (ExitCode: {0})" -f $LastExitCode
+    }
 }
 
 # iterate over Qt version arguments
