@@ -43,7 +43,7 @@ variable "NUGET_REPO_PW" { # NuGet repo password or API key from https://eu-arti
 
 variable "QT_VERSION" {
   type    = string
-  default = "qt6.683"
+  default = "" # "qt5.5152 qt6.683"
 }
 variable "QT_INSTALLER_JWT_TOKEN" { # Qt license JWT token from %APPDATA%\Qt\qtaccount.ini (optional). The installation will be listed on https://account.qt.io/s/active-installation-list
   type    = string
