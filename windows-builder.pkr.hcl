@@ -203,7 +203,6 @@ build {
     inline = ["C:\\Install\\InstallSvn.ps1"]
   }
 
-/*
   provisioner "powershell" {
     inline = [
       "C:\\Install\\DownloadDocker.ps1",
@@ -212,7 +211,6 @@ build {
       "C:\\Install\\install-docker-ce.ps1 -Force"
     ]
   }
-*/
 
   provisioner "powershell" {
     environment_vars = ["BUILD_SERVER_URL=${var.BUILD_SERVER_URL}", "BUILDER_SECRET=${var.BUILDER_SECRET}"]
