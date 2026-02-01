@@ -8,10 +8,4 @@ Write-Host "Downloading Docker Community Edition (CE) installation script..."
 $scriptUrl = "https://raw.githubusercontent.com/microsoft/Windows-Containers/Main/helpful_tools/Install-DockerCE/install-docker-ce.ps1" # upstream version
 #$scriptUrl = "https://raw.githubusercontent.com/forderud/Windows-Containers/refs/heads/ExecutionPolicy/helpful_tools/Install-DockerCE/install-docker-ce.ps1" # ExecutionPolicy modification
 
-$scriptPath = "C:\Install\install-docker-ce.ps1"
-Invoke-WebRequest -UseBasicParsing $scriptUrl -o $scriptPath
-
-Write-Host "Installing Docker CE..."
-# Force restart to avoid the following error on Hyper-V builds:
-# The system shutdown cannot be initiated because there are other users logged on to the computer.
-. $scriptPath -Force
+Invoke-WebRequest -UseBasicParsing $scriptUrl -o "C:\Install\install-docker-ce.ps1"

@@ -205,7 +205,12 @@ build {
 
 /*
   provisioner "powershell" {
-    inline = ["C:\\Install\\InstallDocker.ps1"]
+    inline = [
+      "C:\\Install\\DownloadDocker.ps1",
+      # Force restart to avoid the following error on Hyper-V builds:
+      # The system shutdown cannot be initiated because there are other users logged on to the computer.
+      "C:\\Install\\install-docker-ce.ps1 -Force"
+    ]
   }
 */
 
