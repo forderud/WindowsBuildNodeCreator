@@ -64,7 +64,7 @@ for ($i=0; $i -lt $args.Count; $i++) {
 
 if ($args.Count -gt 0) {
     Write-Host "Let QT_ROOT_64 point to the Qt SDK path for the last argument"
-    $ver = $qtVersion.Split(".")[1] # from "qt5.5152" to "5152"
-    $ver = $ver[0]+"."+$ver.substring(1, $ver.length-2)+"."+$ver[-1] # from "5152" to 5.15.2)
+    $ver = $qtVersion.Split(".")[1] # "qt5.5152"->"5152" , "qt6.683"->"683"
+    $ver = $ver[0]+"."+$ver.substring(1, $ver.length-2)+"."+$ver[-1] # "5152"->"5.15.2", "683"->"6.8.3"
     setx.exe QT_ROOT_64 C:\Qt\$ver\$msvcVer /M
 }
