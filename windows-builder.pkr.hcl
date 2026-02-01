@@ -143,83 +143,11 @@ build {
     script = "./Scripts/hyperv_prepare.ps1"
   }
 
-  provisioner "windows-update" {
-    search_criteria = "AutoSelectOnWebSites=1 and IsInstalled=0" # Important updates
-  }
-
-  provisioner "windows-update" {
-    search_criteria = "BrowseOnly=0 and IsInstalled=0" # Recommended updates
-  }
-
-  provisioner "windows-restart" {
-    restart_timeout = "30m"
-  }
-
-  provisioner "powershell" {
-    inline = ["C:\\Install\\InstallPacker.ps1"]
-  }
-
-  provisioner "powershell" {
-    inline = ["C:\\Install\\InstallVisualStudio.ps1 ${var.VISUAL_STUDIO}"]
-  }
-
-  provisioner "powershell" {
-    inline = ["C:\\Install\\InstallNuGet.ps1"]
-  }
-
-  provisioner "powershell" {
-    # Configure NuGet for System account
-    # Using scheduled task instead of PsExec, since HealthSOS images are blocking PsExec
-    inline = [
-      "$action = New-ScheduledTaskAction -Execute 'Powershell.exe' -Argument \"-Command `\" `$env:NUGET_REPO_URL='${var.NUGET_REPO_URL}'; `$env:NUGET_REPO_USER='${var.NUGET_REPO_USER}'; `$env:NUGET_REPO_PW='${var.NUGET_REPO_PW}'; C:\\Install\\ConfigureNuGet.ps1 `\" \"",
-      "Register-ScheduledTask -Action $action -User \"System\" -TaskName \"NuGet configure\" -Description \"Configure NuGet package sources\"",
-      "Start-ScheduledTask -TaskName \"NuGet configure\"",
-      "Unregister-ScheduledTask -TaskName \"NuGet configure\" -Confirm:$false"
-    ]
-  }
-
-  provisioner "powershell" {
-    inline = ["C:\\Install\\InstallWix.ps1 ${var.VISUAL_STUDIO}"]
-  }
-
-  provisioner "powershell" {
-    inline = ["C:\\Install\\InstallPython.ps1"]
-  }
-
-  provisioner "powershell" {
-    inline = ["C:\\Install\\InstallCMake.ps1"]
-  }
-
   provisioner "powershell" {
     environment_vars = ["QT_INSTALLER_JWT_TOKEN=${var.QT_INSTALLER_JWT_TOKEN}"]
     inline = ["C:\\Install\\InstallQt.ps1 ${var.QT_VERSION}"]
   }
 
-  provisioner "powershell" {
-    inline = ["C:\\Install\\InstallGit.ps1"]
-  }
-
-  provisioner "powershell" {
-    inline = ["C:\\Install\\InstallSvn.ps1"]
-  }
-
-  provisioner "powershell" {
-    inline = [
-      "C:\\Install\\DownloadDocker.ps1",
-      # Force restart to avoid the following error on Hyper-V builds:
-      # The system shutdown cannot be initiated because there are other users logged on to the computer.
-      "C:\\Install\\install-docker-ce.ps1 -Force"
-    ]
-  }
-
-  provisioner "powershell" {
-    environment_vars = ["BUILD_SERVER_URL=${var.BUILD_SERVER_URL}", "BUILDER_SECRET=${var.BUILDER_SECRET}"]
-    inline = ["C:\\Install\\InstallCiAgent.ps1"]
-  }
-
-  provisioner "windows-restart" {
-    restart_timeout = "15m"
-  }
 
   provisioner "powershell" {
       script = "./Scripts/preshutdown.ps1"
