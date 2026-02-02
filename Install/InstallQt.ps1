@@ -60,6 +60,15 @@ for ($i=0; $i -lt $args.Count; $i++) {
         #sleep 1800 # sleep 30min to give time for interactive debugging
         throw "Qt install failure (ExitCode: {0})" -f $LastExitCode
     }
+
+    if ($qtVersion.Split(".")[0] -eq "qt5") {
+        Write-Host "Creating Qt5 legacy compatibility symlink..."
+        $ver = $qtVersion.Split(".")[1] # "qt5.5152"->"5152" , "qt6.683"->"683"
+        $ver = $ver[0]+"."+$ver.substring(1, $ver.length-2)+"."+$ver[-1] # "5152"->"5.15.2", "683"->"6.8.3"
+        # create symlink from "C:\Qt\Qt5.15.2\5.15.2" to "C:\Qt\5.15.2"
+        New-Item -Path "C:\Qt\Qt$ver" -ItemType Directory
+        New-Item -ItemType SymbolicLink -Path "C:\Qt\Qt$ver\$ver" -Target "C:\Qt\$ver"
+    }
 }
 
 if ($args.Count -gt 0) {
