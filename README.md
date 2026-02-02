@@ -22,6 +22,8 @@ packer build -only=amazon-ebs.windows-builder --var-file=variables.pkvars.hcl wi
 
 Example `variables.pkvars.hcl` file:
 ```
+WINDOWS_SERVER_VERSION="2025"
+
 BUILD_SERVER_URL=""
 BUILDER_SECRET=""
 

@@ -15,6 +15,10 @@ packer {
   }
 }
 
+variable "WINDOWS_SERVER_VERSION" {
+  type    = string
+  default = "2025" # "2022" or "2025"
+}
 variable "BUILD_SERVER_URL" { # Jenkins agent URL or GitLab server URL
   type    = string
   default = ""
@@ -98,7 +102,7 @@ source "amazon-ebs" "windows-builder" {
 
   source_ami_filter {
     filters = {
-      name = "Windows_Server-2025-English-Full-Base*"
+      name = "Windows_Server-${var.WINDOWS_SERVER_VERSION}-English-Full-Base*"
     }
     most_recent = true
     owners      = ["amazon"]
