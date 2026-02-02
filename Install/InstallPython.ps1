@@ -20,7 +20,7 @@ if ($LastExitCode -ne 0) {
 }
 
 Write-Host "Installing python packages..."
-& "C:\Program Files\Python314\Scripts\pip.exe" install comtypes numpy matplotlib pywin32
+& "C:\Program Files\Python314\Scripts\pip.exe" install comtypes numpy matplotlib pywin32 pybind11
 if ($LastExitCode -ne 0) {
     throw "pip install failure (ExitCode: {0})" -f $LastExitCode
 }
