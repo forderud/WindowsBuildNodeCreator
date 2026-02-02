@@ -22,7 +22,7 @@ packer build -only=amazon-ebs.windows-builder --var-file=variables.pkvars.hcl wi
 
 Example `variables.pkvars.hcl` file:
 ```
-BUILD_SERVER_URL="https://gitlab.kitware.com"
+BUILD_SERVER_URL=""
 BUILDER_SECRET=""
 VISUAL_STUDIO="17/release.ltsc.17.6"
 NUGET_REPO_USER=""
@@ -44,11 +44,14 @@ Steps to connect with RDP to the VM during packer build:
 * Use `Administrator` as username and the temporary WinRM password from the packer build log.
 
 ### AMI boot parameters
-It's possible to run arbitrary scripts on first boot with ["user data"](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html) when creating a new Amazon VM instance based on a AMI image. This can be useful for deferred configuration of parameters that differ between VM instances.
+It's possible to run arbitrary scripts on first boot with ["user data"](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html) when creating a new Amazon VM instance based on a AMI image. This can be useful for deferred configuration of parameters that differ between VM instances. It can also be used as a work-around for challenging tools that refuse to install before sysprep.
 
-Example "user data" for deferred CI agent configuration:
+Example "user data" for deferred Qt and CI agent configuration:
 ```
 <powershell>
+  $Env:QT_INSTALLER_JWT_TOKEN="..."
+  . C:\Install\InstallQt.ps1 qt5.5152 qt6.683
+
   $Env:BUILD_SERVER_URL = "..."
   $Env:BUILDER_SECRET= "..."
   . C:\Install\InstallCiAgent.ps1
