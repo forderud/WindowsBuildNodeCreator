@@ -146,7 +146,26 @@ function InstallGitLabRunner {
 
 function InstallGitHubRunner {
     # https://docs.github.com/en/actions/how-tos/manage-runners/self-hosted-runners/add-runners
-    throw "GitHub support not yet implemented"
+    # download GitHub runner
+    $ver = "2.319.1"
+    $zipFile = "actions-runner-win-x64-$ver.zip"
+    $url = "https://github.com/actions/runner/releases/download/v$ver/$zipFile"
+    Invoke-WebRequest -Uri $url -OutFile "C:\Install\$zipFile"
+    # extract archive
+    New-Item -Path "C:\GitHubCI" -ItemType Directory
+    Add-Type -AssemblyName System.IO.Compression.FileSystem;
+    [System.IO.Compression.ZipFile]::ExtractToDirectory("C:\Install\$zipFile", "C:\GitHubCI")
+
+    # configure and start runner    
+    Set-Location -Path "C:\GitHubCI"
+    & "C:\GitHubCI\config.cmd" --url $url --token $token
+    if ($LastExitCode -ne 0) {
+        throw "GitHub runner configuration failure (ExitCode: {0})" -f $LastExitCode
+    }
+    & "C:\GitHubCI\run.cmd"
+    if ($LastExitCode -ne 0) {
+        throw "GitHub runner startup failure (ExitCode: {0})" -f $LastExitCode
+    }
 }
 
 if ($url -like "*gitlab*") {
