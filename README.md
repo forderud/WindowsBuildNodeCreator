@@ -24,10 +24,13 @@ Example `variables.pkvars.hcl` file:
 ```
 BUILD_SERVER_URL=""
 BUILDER_SECRET=""
+
 VISUAL_STUDIO="17/release.ltsc.17.6"
+
 NUGET_REPO_USER=""
 NUGET_REPO_PW=""
 NUGET_REPO_URL=""
+
 QT_VERSION="qt6.683"
 QT_INSTALLER_JWT_TOKEN=""
 ```
