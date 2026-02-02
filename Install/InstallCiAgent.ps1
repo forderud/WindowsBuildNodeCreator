@@ -62,6 +62,7 @@ function InstallJenkinsAgent ($javaHome) {
     $client.DownloadFile($agentUrl, "C:\Install\agent.jar")
 
     Write-Host "Creating JenkinsAgent.xml for service wrapper..."
+    # Based on https://github.com/winsw/winsw/blob/v3/samples/jenkins.xml
     $xml = New-Object -TypeName System.Xml.XmlDocument
     $service = $xml.CreateElement("service") # root node
     $xml.AppendChild($service)
@@ -81,7 +82,7 @@ function InstallJenkinsAgent ($javaHome) {
     $executable = $xml.CreateElement("executable")
     $executable.InnerText = "$javaHome\bin\java.exe"
     $service.AppendChild($executable)
-    # <<arguments>></<arguments>>
+    # <arguments></arguments>
     $arguments = $xml.CreateElement("arguments")
     $arguments.InnerText = "-jar C:\Install\agent.jar -jnlpUrl $url -noCertificateCheck -secret $token -workDir C:\Jenkins"
     $service.AppendChild($arguments)
@@ -89,6 +90,10 @@ function InstallJenkinsAgent ($javaHome) {
     $log = $xml.CreateElement("log")
     $log.SetAttribute("mode", "roll")
     $service.AppendChild($log)
+    # <onfailure action="restart" />
+    $onfailure = $xml.CreateElement("onfailure")
+    $onfailure.SetAttribute("action", "restart")
+    $service.AppendChild($onfailure)
     # Save XML file
     $xml.Save("C:\Install\JenkinsAgent.xml")
 
