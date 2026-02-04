@@ -204,10 +204,6 @@ build {
   }
 
   provisioner "powershell" {
-    inline = ["C:\\Install\\InstallSvn.ps1"]
-  }
-
-  provisioner "powershell" {
     inline = [
       "C:\\Install\\DownloadDocker.ps1",
       # Force restart to avoid the following error on Hyper-V builds:

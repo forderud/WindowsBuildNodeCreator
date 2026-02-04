@@ -9,7 +9,6 @@ Project to **automate building of Windows CI/CD build node images** using Packer
 * [Packer](Install/InstallPacker.ps1) for self-hosting
 * [Python](Install/InstallPython.ps1)
 * [Qt](Install/InstallQt.ps1) (optional, version configurable)
-* [Svn](Install/InstallSvn.ps1)
 * [Visual Studio](Install/InstallVisualStudio.ps1) with C++, .Net workloads and WDK (version configurable)
 * [Wix and HeatWave](Install/InstallWix.ps1) for MSI packaging
 
