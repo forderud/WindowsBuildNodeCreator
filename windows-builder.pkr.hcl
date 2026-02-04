@@ -217,6 +217,10 @@ build {
     inline = ["C:\\Install\\InstallCiAgent.ps1"]
   }
 
+  provisioner "powershell" {
+    inline = ["C:\\Install\\CreateCleanJenkinsWorkspaceTask.ps1"]
+  }
+
   provisioner "windows-restart" {
     restart_timeout = "15m"
   }
