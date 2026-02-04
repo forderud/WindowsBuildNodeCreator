@@ -91,8 +91,8 @@ source "hyperv-iso" "windows-builder" {
   shutdown_command      = "\"C:\\Windows\\System32\\Sysprep\\Sysprep.exe\" /generalize /oobe /unattend:E:\\unattend.xml /quiet /shutdown"
 
   communicator          = "winrm"
-  winrm_password        = "password"
   winrm_username        = "Administrator"
+  winrm_password        = "password"
 }
 
 source "amazon-ebs" "windows-builder" {
