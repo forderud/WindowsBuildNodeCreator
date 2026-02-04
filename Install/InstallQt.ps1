@@ -77,3 +77,6 @@ if ($args.Count -gt 0) {
     $ver = $ver[0]+"."+$ver.substring(1, $ver.length-2)+"."+$ver[-1] # "5152"->"5.15.2", "683"->"6.8.3"
     setx.exe QT_ROOT_64 C:\Qt\$ver\$msvcVer /M
 }
+
+Write-Host "Setting QTFRAMEWORK_BYPASS_LICENSE_CHECK=1 environment variable..."
+[Environment]::SetEnvironmentVariable("QTFRAMEWORK_BYPASS_LICENSE_CHECK", "1", [EnvironmentVariableTarget]::Machine)
