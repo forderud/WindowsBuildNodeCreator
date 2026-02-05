@@ -12,4 +12,5 @@ $settings = New-ScheduledTaskSettingsSet -RunOnlyIfIdle -IdleDuration 00:05:00 -
 
 Register-ScheduledTask -Action $action -User "System" -Trigger $trigger -Settings $settings -TaskName "Jenkins cleanup" -Description "Delete old  Jenkins workspaces"
 
-#Start-ScheduledTask -TaskName "Jenkins cleanup"
+Write-Host "Excluding Jenkins workspace from antivirus scans..."
+Add-MpPreference -ExclusionPath $jeninsWorkspace

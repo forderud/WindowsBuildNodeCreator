@@ -178,4 +178,5 @@ if ($url -like "*gitlab*") {
     # Jenkins setup
     $javaHome = InstallJava
     InstallJenkinsAgent $javaHome
+    . C:\Install\CreateCleanJenkinsWorkspaceTask.ps1
 }
