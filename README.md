@@ -47,7 +47,7 @@ Steps to connect with RDP to the VM during packer build:
 * Use the VM "Public DNS" name to connect to the VM with the remote desktop client.
 * Use `Administrator` as username and the temporary WinRM password from the packer build log.
 
-### AMI boot parameters
+### First boot parameters
 It's possible to run arbitrary scripts on first boot with ["user data"](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html) when creating a new Amazon VM instance based on a AMI image. This can be useful for deferred configuration of parameters that differ between VM instances. It can also be used as a work-around for challenging tools that refuse to install before sysprep.
 
 Example "user data" for deferred Qt and CI agent configuration:
