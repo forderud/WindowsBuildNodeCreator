@@ -117,6 +117,12 @@ function InstallGitLabRunner {
     $runnerUrl = "https://s3.dualstack.us-east-1.amazonaws.com/gitlab-runner-downloads/latest/binaries/gitlab-runner-windows-amd64.exe"
     $client.DownloadFile($runnerUrl, "C:\Install\gitlab-runner.exe")
 
+    # Change current-dir to C:\Dev
+    if (-not (Test-Path "C:\Dev" -PathType Container)) {
+        [void](New-Item "C:\Dev" -Type Directory)
+    }
+    Set-Location -Path "C:\Dev"
+
     Write-Host "Registering GitLab runner..."
     # https://docs.gitlab.com/runner/register/index.html?tab=Windows
     & "C:\Install\gitlab-runner.exe" register --non-interactive --url $url --token $token --executor shell
@@ -152,17 +158,19 @@ function InstallGitHubRunner {
     $url = "https://github.com/actions/runner/releases/download/v$ver/$zipFile"
     Invoke-WebRequest -Uri $url -OutFile "C:\Install\$zipFile"
     # extract archive
-    New-Item -Path "C:\GitHubCI" -ItemType Directory
+    if (-not (Test-Path "C:\Dev" -PathType Container)) {
+        [void](New-Item "C:\Dev" -Type Directory)
+    }
     Add-Type -AssemblyName System.IO.Compression.FileSystem;
-    [System.IO.Compression.ZipFile]::ExtractToDirectory("C:\Install\$zipFile", "C:\GitHubCI")
+    [System.IO.Compression.ZipFile]::ExtractToDirectory("C:\Install\$zipFile", "C:\Dev")
 
-    # configure and start runner    
-    Set-Location -Path "C:\GitHubCI"
-    & "C:\GitHubCI\config.cmd" --url $url --token $token
+    # configure and start runner
+    Set-Location -Path "C:\Dev"
+    & "C:\Dev\config.cmd" --url $url --token $token
     if ($LastExitCode -ne 0) {
         throw "GitHub runner configuration failure (ExitCode: {0})" -f $LastExitCode
     }
-    & "C:\GitHubCI\run.cmd"
+    & "C:\Dev\run.cmd"
     if ($LastExitCode -ne 0) {
         throw "GitHub runner startup failure (ExitCode: {0})" -f $LastExitCode
     }
