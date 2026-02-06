@@ -8,7 +8,7 @@ if ($args.Count -eq 0) {
 }
 
 $workspace = $args[0] # typically "C:\dev\workspace"
-$numDays = 1 # unmodified for "X" days
+$numDays = 0.5 # unmodified for 12 hours
 
 Get-ChildItem $workspace -Directory | Foreach-Object {
     $item = $_.FullName
