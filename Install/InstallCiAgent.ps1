@@ -118,9 +118,6 @@ function InstallGitLabRunner {
     $client.DownloadFile($runnerUrl, "C:\Install\gitlab-runner.exe")
 
     # Change current-dir to C:\Dev
-    if (-not (Test-Path "C:\Dev" -PathType Container)) {
-        [void](New-Item "C:\Dev" -Type Directory)
-    }
     Set-Location -Path "C:\Dev"
 
     Write-Host "Registering GitLab runner..."
@@ -158,9 +155,6 @@ function InstallGitHubRunner {
     $url = "https://github.com/actions/runner/releases/download/v$ver/$zipFile"
     Invoke-WebRequest -Uri $url -OutFile "C:\Install\$zipFile"
     # extract archive
-    if (-not (Test-Path "C:\Dev" -PathType Container)) {
-        [void](New-Item "C:\Dev" -Type Directory)
-    }
     Add-Type -AssemblyName System.IO.Compression.FileSystem;
     [System.IO.Compression.ZipFile]::ExtractToDirectory("C:\Install\$zipFile", "C:\Dev")
 
@@ -175,6 +169,13 @@ function InstallGitHubRunner {
         throw "GitHub runner startup failure (ExitCode: {0})" -f $LastExitCode
     }
 }
+
+# Use C:\Dev as workspace for all CI systems
+if (-not (Test-Path "C:\Dev" -PathType Container)) {
+    [void](New-Item "C:\Dev" -Type Directory)
+}
+Write-Host "Excluding C:\Dev from antivirus scans..."
+Add-MpPreference -ExclusionPath "C:\Dev"
 
 if ($url -like "*gitlab*") {
     # GitLab setup
