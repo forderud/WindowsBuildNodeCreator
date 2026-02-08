@@ -37,8 +37,8 @@ build {
     inline = [
       "sleep 10",
       "sudo apt update -y",
-      "echo Installing Docker",
-      "sudo apt-get install -y docker.io",
+      "echo Installing podman container runtime...",
+      "sudo apt-get install -y podman podman-docker",
     ]
   }
 }
