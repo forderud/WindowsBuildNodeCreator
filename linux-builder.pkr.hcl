@@ -7,6 +7,15 @@ packer {
   }
 }
 
+variable "BUILD_SERVER_URL" { # URL to Jenkins agent, GitLab server or GitHub server
+  type    = string
+  default = ""
+}
+variable "BUILDER_SECRET" { # Jenkins builder secret or GitLab runner token
+  type    = string
+  default = ""
+}
+
 locals {
   timestamp = regex_replace(timestamp(), "[- TZ:]", "")
 }
@@ -25,6 +34,13 @@ source "amazon-ebs" "linux-builder" {
     most_recent = true
     owners      = ["099720109477"]
   }
+
+  launch_block_device_mappings {
+    device_name = "/dev/sda1"
+    volume_size = 128 # GB
+    delete_on_termination = true
+  }
+
   ssh_username = "ubuntu"
 }
 

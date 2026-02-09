@@ -19,7 +19,7 @@ variable "WINDOWS_SERVER_VERSION" {
   type    = string
   default = "2025" # "2022" or "2025"
 }
-variable "BUILD_SERVER_URL" { # Jenkins agent URL or GitLab server URL
+variable "BUILD_SERVER_URL" { # URL to Jenkins agent, GitLab server or GitHub server
   type    = string
   default = ""
 }
