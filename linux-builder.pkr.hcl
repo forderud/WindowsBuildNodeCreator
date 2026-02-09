@@ -59,7 +59,15 @@ build {
   }
 
   provisioner "shell" {
-    environment_vars = ["BUILD_SERVER_URL=${var.BUILD_SERVER_URL}", "BUILDER_SECRET=${var.BUILDER_SECRET}"]
     script = "Install/InstallCiAgent.sh"
   }
+
+/*
+  provisioner "shell" {
+    inline = [
+      "echo Registering GitLab runner...",
+      "sudo sudo gitlab-runner register --non-interactive --url ${var.BUILD_SERVER_URL} --token ${var.BUILDER_SECRET} --executor \"docker\" --docker-image alpine:latest --description \"docker-runner\"",
+    ]
+  }
+*/
 }
