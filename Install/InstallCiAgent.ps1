@@ -152,8 +152,8 @@ function InstallGitHubRunner {
     # download GitHub runner
     $ver = "2.319.1"
     $zipFile = "actions-runner-win-x64-$ver.zip"
-    $url = "https://github.com/actions/runner/releases/download/v$ver/$zipFile"
-    Invoke-WebRequest -Uri $url -OutFile "C:\Install\$zipFile"
+    $runnerUrl = "https://github.com/actions/runner/releases/download/v$ver/$zipFile"
+    Invoke-WebRequest -Uri $runnerUrl -OutFile "C:\Install\$zipFile"
     # extract archive
     Add-Type -AssemblyName System.IO.Compression.FileSystem;
     [System.IO.Compression.ZipFile]::ExtractToDirectory("C:\Install\$zipFile", "C:\Dev")
