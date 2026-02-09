@@ -57,4 +57,9 @@ build {
       "sudo apt-get install -y podman podman-docker",
     ]
   }
+
+  provisioner "shell" {
+    environment_vars = ["BUILD_SERVER_URL=${var.BUILD_SERVER_URL}", "BUILDER_SECRET=${var.BUILDER_SECRET}"]
+    script = "Install/InstallCiAgent.sh"
+  }
 }
