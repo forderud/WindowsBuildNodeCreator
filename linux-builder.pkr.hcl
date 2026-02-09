@@ -11,7 +11,7 @@ variable "BUILD_SERVER_URL" { # URL to Jenkins agent, GitLab server or GitHub se
   type    = string
   default = ""
 }
-variable "BUILDER_SECRET" { # Jenkins builder secret or GitLab runner token
+variable "BUILDER_SECRET" { # Jenkins builder secret, GitLab runner token or GitHub runner token
   type    = string
   default = ""
 }
