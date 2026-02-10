@@ -16,10 +16,10 @@ Project to **automate building of Windows CI/CD build node images** using Packer
 Instructions to build a new Amazon AMI image:
 ```
 packer init windows-builder.pkr.hcl
-packer build -only=amazon-ebs.windows-builder --var-file=variables.pkvars.hcl windows-builder.pkr.hcl
+packer build -only=amazon-ebs.windows-builder --var-file=windows-builder.pkvars.hcl windows-builder.pkr.hcl
 ```
 
-Example `variables.pkvars.hcl` file:
+Example `windows-builder.pkvars.hcl` file:
 ```
 WINDOWS_SERVER_VERSION="2025"
 
@@ -65,13 +65,13 @@ Example "user data" for deferred Qt and CI agent configuration:
 ## Hyper-V build instructions
 Instructions to build a local Hyper-V image:
 
-Edit `variables.pkvars.hcl` as in AWS instructions above. In addition, set `HYPERV_SWITCH` to a switch with internet access.
+Edit `windows-builder.pkvars.hcl` as in AWS instructions above. In addition, set `HYPERV_SWITCH` to a switch with internet access.
 
 From an admin command prompt:
 ```
 set PATH=%PATH%;C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Deployment Tools\amd64\Oscdimg
 packer init windows-builder.pkr.hcl
-packer build -only=hyperv-iso.windows-builder --var-file=variables.pkvars.hcl windows-builder.pkr.hcl
+packer build -only=hyperv-iso.windows-builder --var-file=windows-builder.pkvars.hcl windows-builder.pkr.hcl
 ```
 
 ### Hyper-V prerequisites
