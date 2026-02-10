@@ -15,6 +15,10 @@ variable "BUILDER_SECRET" { # Jenkins builder secret, GitLab runner token or Git
   type    = string
   default = ""
 }
+variable "ARTIFACTORY_TOKEN" { # Artifactory authentication token
+  type    = string
+  default = ""
+}
 
 locals {
   timestamp = regex_replace(timestamp(), "[- TZ:]", "")
@@ -60,6 +64,14 @@ build {
 
   provisioner "shell" {
     script = "Install/InstallCiAgent.sh"
+  }
+
+  provisioner "shell" {
+    inline = [
+      "echo Configuring Artifactory authentication token for gitlab-runner account...",
+      "sudo -u gitlab-runner mkdir /home/gitlab-runner/.ssh",
+      "echo ${var.ARTIFACTORY_TOKEN} | sudo -u gitlab-runner tee /home/gitlab-runner/.ssh/artifactory_identity_token",
+    ]
   }
 
 /*

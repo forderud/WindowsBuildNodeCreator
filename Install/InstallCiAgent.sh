@@ -11,3 +11,5 @@ sudo bash script.deb.sh
 
 echo "Installing GitLab runner..."
 sudo apt install -y gitlab-runner
+
+# Runner registration postponed to instance creation
