@@ -1,6 +1,6 @@
-Project to **automate building of Windows CI/CD build node images** using Packer automation scripts. The images can either be deployed on Amazon AWS or locally from Hyper-V images.
+Project to **automate building of Windows and Linux CI/CD build node images** using Packer automation scripts. The images can either be deployed on Amazon AWS or locally from Hyper-V images.
 
-### Installed SW
+### Installed SW (Windows)
 * [CI agent](Install/InstallCiAgent.ps1) - Jenkins, GitHub or GitLab CI
 * [CMake](Install/InstallCMake.ps1)
 * [Docker](Install/InstallDocker.ps1)
@@ -12,7 +12,7 @@ Project to **automate building of Windows CI/CD build node images** using Packer
 * [Visual Studio](Install/InstallVisualStudio.ps1) with C++, .Net workloads and WDK (version configurable)
 * [Wix and HeatWave](Install/InstallWix.ps1) for MSI packaging
 
-## AWS build instructions
+## AWS build instructions (Windows)
 Instructions to build a new Amazon AMI image:
 ```
 packer init windows-builder.pkr.hcl
@@ -36,18 +36,30 @@ QT_VERSION="qt6.683"
 QT_INSTALLER_JWT_TOKEN=""
 ```
 
+## AWS build instructions (Linux)
+Instructions to build a new Amazon AMI image:
+```
+packer init linux-builder.pkr.hcl
+packer build --var-file=linux-builder.pkvars.hcl linux-builder.pkr.hcl
+```
+
+Example `linux-builder.pkvars.hcl` file:
+```
+ARTIFACTORY_TOKEN=""
+```
+
 ### AWS prerequisites
 The `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` env.vars. set as described in the Amazon packer integration. You'll find these by logging in to http://aws.amazon.com/ and afterwards opening "Security Credentials" for your account.
 
 It's possible to use a [AWS Free Tier](https://aws.amazon.com/free/) account with this project.
 
-### RDP connection
+### RDP connection (Windows)
 Steps to connect with RDP to the VM during packer build:
 * Edit the VM "Security group" and add an inbound "RDP" firewall rule.
 * Use the VM "Public DNS" name to connect to the VM with the remote desktop client.
 * Use `Administrator` as username and the temporary WinRM password from the packer build log.
 
-### First boot parameters
+### First boot parameters (Windows)
 It's possible to run arbitrary scripts on first boot with ["user data"](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html) when creating a new Amazon VM instance based on a AMI image. This can be useful for deferred configuration of parameters that differ between VM instances. It can also be used as a work-around for challenging tools that refuse to install before sysprep.
 
 Example "user data" for deferred Qt and CI agent configuration:
@@ -62,7 +74,7 @@ Example "user data" for deferred Qt and CI agent configuration:
 </powershell>
 ```
 
-## Hyper-V build instructions
+## Hyper-V build instructions (Windows)
 Instructions to build a local Hyper-V image:
 
 Edit `windows-builder.pkvars.hcl` as in AWS instructions above. In addition, set `HYPERV_SWITCH` to a switch with internet access.
@@ -103,9 +115,9 @@ Verbose build output: `set PACKER_LOG=1`
 * Packer [Amazon integration](https://developer.hashicorp.com/packer/integrations/hashicorp/amazon) - mentions `%USERPROFILE%.aws\credentials` ([sources](https://github.com/hashicorp/packer-plugin-amazon))
 * Packer [Hyper-V integration](https://developer.hashicorp.com/packer/integrations/hashicorp/hyperv) ([sources](https://github.com/hashicorp/packer-plugin-hyperv))
 
-### Related Windows image projects
-* GitHub [Actions runner windows images](https://github.com/actions/runner-images/tree/main/images/windows)
-* runs-on [GitHub Actions Runner images for AWS](https://github.com/runs-on/runner-images-for-aws)
+### Related image projects
+* GitHub [Actions runner images](https://github.com/actions/runner-images/tree/main/images) (macos, ubuntu & windows)
+* runs-on [GitHub Actions Runner images for AWS](https://github.com/runs-on/runner-images-for-aws) (ubuntu & windows)
 
 ## Windows server images
 * Microsoft [Windows Server 2025 download](https://www.microsoft.com/en-us/evalcenter/download-windows-server-2025) 24H2 - `26100.1742.240906-0331.ge_release_svc_refresh_SERVER_EVAL_x64FRE_en-us.iso` (September 10, 2024, 5.6 GB)
