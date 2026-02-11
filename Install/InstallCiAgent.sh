@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# create workspace relative to user home folder
-mkdir GitLab
-cd GitLab
-
 # DOC: https://docs.gitlab.com/runner/install/linux-repository/
 echo "Adding official GitLab repository..."
 curl -L "https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh" -o script.deb.sh
