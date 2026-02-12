@@ -40,4 +40,4 @@ if ((-not $username) -or (-not $password)) {
 
 # Copy NuGet configuration to machine-wide folder
 # DOC: https://learn.microsoft.com/en-us/nuget/consume-packages/configuring-nuget-behavior
-Copy-Item "$Env:APPDATA\NuGet\NuGet.Config" -Destination "$Env:ProgramFiles(x86)\NuGet\Config"
+Copy-Item "$Env:APPDATA\NuGet\NuGet.Config" -Destination "${Env:ProgramFiles(x86)}\NuGet\Config"
