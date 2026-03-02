@@ -1,2 +1,3 @@
 /packer_cache
 /*.pkvars.hcl
+/Install/box_settings.json

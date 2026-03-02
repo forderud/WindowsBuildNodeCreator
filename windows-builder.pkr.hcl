@@ -191,6 +191,10 @@ build {
   }
 
   provisioner "powershell" {
+    inline = ["C:\\Install\\ConfigureBoxAuth.ps1"]
+  }
+
+  provisioner "powershell" {
     inline = ["C:\\Install\\InstallCMake.ps1"]
   }
 
