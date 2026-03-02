@@ -78,10 +78,11 @@ build {
   provisioner "shell" {
     # This step needs to be done on first boot of a new VM
     inline = [
+      # DOC: https://docs.gitlab.com/ci/docker/using_docker_build/
       "echo Registering GitLab runner...",
-      "sudo gitlab-runner register --non-interactive --url ${var.BUILD_SERVER_URL} --token ${var.BUILDER_SECRET} --executor \"docker\" --docker-image alpine:latest --docker-privileged --description \"docker-runner\"",
-      # Change 'volumes = ["/cache"]' lines to 'volumes = ["/cache", "/home/gitlab-runner/.ssh:/root/.ssh:ro"]' to expose Artifactory token to containers
-      "sed -i 's/volumes = \["\/cache"/volumes = \["\/cache", "\/home\/gitlab-runner\/.ssh:\/root\/.ssh:ro"/' /etc/gitlab-runner/config.toml",
+      # map /home/gitlab-runner/.ssh:/root/.ssh:ro to expose Artifactory token to containers
+      # map /var/run/docker.sock:/var/run/docker.sock to enable docker-in-docker
+      "sudo gitlab-runner register --non-interactive --url ${var.BUILD_SERVER_URL} --token ${var.BUILDER_SECRET} --executor \"docker\" --docker-image alpine:latest --description \"docker-runner\" --docker-volumes \"/home/gitlab-runner/.ssh:/root/.ssh:ro\" --docker-volumes \"/var/run/docker.sock:/var/run/docker.sock\" ",
     ]
   }
 */
