@@ -145,6 +145,9 @@ function InstallGitLabRunner {
     if ($LastExitCode -ne 0) {
         throw "GitLab runner startup failure (ExitCode: {0})" -f $LastExitCode
     }
+
+    # Unregister runner command:
+    # C:\Dev>c:\Install\gitlab-runner.exe unregister --token "..."
 }
 
 function InstallGitHubRunner {
