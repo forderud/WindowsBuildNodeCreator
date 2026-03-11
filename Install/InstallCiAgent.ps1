@@ -93,6 +93,7 @@ function InstallJenkinsAgent ($javaHome) {
     # <onfailure action="restart" />
     $onfailure = $xml.CreateElement("onfailure")
     $onfailure.SetAttribute("action", "restart")
+    $onfailure.SetAttribute("delay", "60 sec")
     $service.AppendChild($onfailure)
     # Save XML file
     $xml.Save("C:\Install\JenkinsAgent.xml")
