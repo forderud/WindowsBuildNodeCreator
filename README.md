@@ -11,6 +11,7 @@ Project to **automate building of Windows and Linux CI/CD build node images** us
 * [Qt](Install/InstallQt.ps1) (optional, version configurable)
 * [Visual Studio](Install/InstallVisualStudio.ps1) with C++, .Net workloads and WDK (version configurable)
 * [Wix and HeatWave](Install/InstallWix.ps1) for MSI packaging
+* DigiCert smtools for code signing
 
 ## AWS build instructions (Windows)
 Instructions to build a new Amazon AMI image:
@@ -108,6 +109,7 @@ Verbose build output: `set PACKER_LOG=1`
 * Packer [Unattended Installation for Windows](https://developer.hashicorp.com/packer/guides/automatic-operating-system-installs/autounattend_windows)
 * Packer [`winrm`](https://developer.hashicorp.com/packer/docs/communicators/winrm) communicator
 * Packer [`powershell`](https://developer.hashicorp.com/packer/docs/provisioners/powershell) provisioner
+* Packer [`file`](https://developer.hashicorp.com/packer/docs/provisioners/file) provisioner (WinRM copy known to be slow)
 * Packer [`windows-restart`](https://developer.hashicorp.com/packer/docs/provisioners/windows-restart) provisioner
 * AWS [Build a Windows image](https://developer.hashicorp.com/packer/tutorials/cloud-production/aws-windows-image) tutorial
 * [learn-packer-windows-ami](https://github.com/hashicorp-education/learn-packer-windows-ami) sample
