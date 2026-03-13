@@ -9,9 +9,15 @@ if (-not (Test-Path $authFile -PathType Leaf)) {
     exit 0
 }
 
-Write-Host "Installing DigiCert One Signing Manager Tools..."
-
+# download DigiCert One Signing Manager Tools smtools-windows-x64-1.62.msi (Box ID 2078884777880)
+Write-Host "Downloading DigiCert One Signing Manager Tools..."
 $msiPath = "C:\Install\smtools-windows-x64.msi"
+& py "C:\Install\BoxDownload.py" 2078884777880 $msiPath
+if ($LastExitCode -ne 0) {
+    throw "smtools download failure (ExitCode: {0})" -f $LastExitCode
+}
+
+Write-Host "Installing DigiCert One Signing Manager Tools..."
 $process = Start-Process -FilePath msiexec.exe -ArgumentList "/i", $msiPath, "/qn", "/norestart" -Wait -PassThru
 if ($process.ExitCode -ne 0) {
     throw "DigiCert install failure (ExitCode: {0})" -f $process.ExitCode
@@ -38,6 +44,6 @@ Copy-Item $certFile -Destination "C:\Program Files\DigiCert"
 [Environment]::SetEnvironmentVariable("SM_CLIENT_CERT_FILE", "C:\Program Files\DigiCert\AUC.p12", [EnvironmentVariableTarget]::Machine)
 
 & "C:\Program Files\DigiCert\DigiCert One Signing Manager Tools\smctl.exe" windows certsync
-if ($process.ExitCode -ne 0) {
-    throw "smctl.exe certsync failed (ExitCode: {0})" -f $process.ExitCode
+if ($LastExitCode -ne 0) {
+    throw "smctl.exe certsync failed (ExitCode: {0})" -f $LastExitCode
 }

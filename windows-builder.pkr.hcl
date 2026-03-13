@@ -195,6 +195,10 @@ build {
   }
 
   provisioner "powershell" {
+    inline = ["C:\\Install\\ConfigureCodeSigning.ps1"] # require: InstallPython & ConfigureBoxAuth
+  }
+
+  provisioner "powershell" {
     inline = ["C:\\Install\\InstallCMake.ps1"]
   }
 
