@@ -18,7 +18,7 @@ for ($i=0; $i -lt $args.Count; $i++) {
 
     Write-Host "Installing Visual Studio $vsVersion with C++ and .Net..."
     # Component list: https://learn.microsoft.com/en-us/visualstudio/install/workload-component-id-vs-professional
-    $process = Start-Process -FilePath "C:\Install\vs_Professional.exe" -ArgumentList `
+    $componentList = @(
         "--add", "Microsoft.VisualStudio.Workload.NativeDesktop", `
         "--add", "Microsoft.VisualStudio.Component.VC.ATLMFC", `
         "--add", "Microsoft.VisualStudio.ComponentGroup.VC.Tools.142.x86.x64", `   # VS2019 build tools
@@ -26,11 +26,18 @@ for ($i=0; $i -lt $args.Count; $i++) {
         "--add", "Microsoft.VisualStudio.Component.VC.14.29.16.11.MFC", `
         "--add", "Microsoft.VisualStudio.Component.VC.14.29.16.11.x86.x64", `
         "--add", "Microsoft.VisualStudio.Component.VC.Runtimes.x86.x64.Spectre", ` # required for driver builds
-        "--add", "Microsoft.VisualStudio.Workload.ManagedDesktop", `
-        "--add", "Microsoft.VisualStudio.Workload.Python", `                       # doesn't include Python interpreter
-        "--includeRecommended", "--passive", "--norestart", "--wait" -Wait -PassThru
+        "--add", "Microsoft.VisualStudio.Workload.Python" `                        # doesn't include Python interpreter
+    )
+    if ($vsVersion.Substring(0,2) -gt "16") {
+        # Skip .Net workload in VS2019, since it pulls in the deprecated .Net core 3.1
+        $comonentList += "--add", "Microsoft.VisualStudio.Workload.ManagedDesktop"
+    }
+    $componentList += "--includeRecommended", "--passive", "--norestart", "--wait"
+
+    $process = Start-Process -FilePath "C:\Install\vs_Professional.exe" -ArgumentList $componentList -Wait -PassThru
     if ($process.ExitCode -ne 0) {
         # DOC: https://learn.microsoft.com/en-us/visualstudio/install/use-command-line-parameters-to-install-visual-studio#error-codes
+        # Log files in %TEMP% folder: dd_bootstrapper, dd_client, and dd_setup files
         throw "Visual Studio install failure (ExitCode: {0})" -f $process.ExitCode
     }
 
