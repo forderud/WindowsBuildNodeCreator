@@ -1,4 +1,5 @@
 /packer_cache
 /*.pkvars.hcl
+/*.pem
 /Install/box_settings.json
 /Install/ssm-config.properties
