@@ -15,7 +15,7 @@ if ($process.ExitCode -ne 0) {
 for ($i=0; $i -lt $args.Count; $i++) {
     $vsVersion = $args[$i]
 
-    Write-Host "Downloading Wix 3 Visual Studio extension..."
+    Write-Host "Downloading Wix 3 extension for Visual Studio $vsVersion..."
     $installerPath = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\resources\app\ServiceHub\Services\Microsoft.VisualStudio.Setup.Service\VSIXInstaller.exe"
     if ($vsVersion.Substring(0,2) -eq "16") {
         $vsixPath = "C:\Install\Votive2019.vsix"
