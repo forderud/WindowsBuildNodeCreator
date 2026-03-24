@@ -36,8 +36,19 @@ if ((-not $username) -or (-not $password)) {
     if ($LastExitCode -ne 0) {
         throw "nuget.exe setapikey failure (ExitCode: {0})" -f $LastExitCode
     }
+
+    # Store token to file to allow later authentication from HTTP clients like curl
+    $sshFolder = "C:\Windows\System32\config\systemprofile\.ssh"
+    if (-not (Test-Path $sshFolder -PathType Container)) {
+        [void](New-Item $sshFolder -Type Directory)
+    }
+    Set-Content -Path "$sshFolder\artifactory_identity_token" -Value $password
 }
 
 # Copy NuGet configuration to machine-wide folder
 # DOC: https://learn.microsoft.com/en-us/nuget/consume-packages/configuring-nuget-behavior
-Copy-Item "$Env:APPDATA\NuGet\NuGet.Config" -Destination "${Env:ProgramFiles(x86)}\NuGet\Config"
+$nugetConfig = "${Env:ProgramFiles(x86)}\NuGet\Config"
+if (-not (Test-Path $nugetConfig -PathType Container)) {
+    [void](New-Item $nugetConfig -Type Directory)
+}
+Copy-Item "$Env:APPDATA\NuGet\NuGet.Config" -Destination $nugetConfig
