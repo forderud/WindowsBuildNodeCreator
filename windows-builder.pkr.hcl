@@ -40,7 +40,7 @@ variable "NUGET_REPO_USER" { # NuGet repo username (optional)
   type    = string
   default = ""
 }
-variable "NUGET_REPO_PW" { # NuGet repo password or API key from https://eu-artifactory.apps.ge-healthcare.net/ui/user_profile (optional)
+variable "NUGET_REPO_PW" { # NuGet repo password or identity token from https://eu-artifactory.apps.ge-healthcare.net/ui/user_profile (optional)
   type    = string
   default = ""
 }
@@ -195,7 +195,18 @@ build {
   }
 
   provisioner "powershell" {
-    inline = ["C:\\Install\\ConfigureCodeSigning.ps1"] # require: InstallPython & ConfigureBoxAuth
+    inline = ["C:\\Install\\InstallCodeSigning.ps1"] # require: InstallPython & ConfigureBoxAuth
+  }
+
+  provisioner "powershell" {
+    # Configure code signing for System account
+    # Using scheduled task instead of PsExec, since HealthSOS images are blocking PsExec
+    inline = [
+      "$action = New-ScheduledTaskAction -Execute 'Powershell.exe' -Argument \"-File C:\\Install\\ConfigureCodeSigning.ps1 \"",
+      "Register-ScheduledTask -Action $action -User \"System\" -TaskName \"ConfigureCodeSigning\" -Description \"Configure code signing\"",
+      "Start-ScheduledTask -TaskName \"ConfigureCodeSigning\"",
+      "Unregister-ScheduledTask -TaskName \"ConfigureCodeSigning\" -Confirm:$false"
+    ]
   }
 
   provisioner "powershell" {
