@@ -52,18 +52,27 @@ build {
   sources = [
     "source.amazon-ebs.linux-builder"
   ]
-  
+
+  provisioner "file" {
+    source      = "./InstallLinux"
+    destination = "/tmp"
+  }
+
   provisioner "shell" {
+    # DOC: https://docs.docker.com/engine/install/ubuntu/
     inline = [
-      "sleep 10",
       "sudo apt update -y",
-      "echo Installing podman container runtime...",
-      "sudo apt-get install -y podman podman-docker",
+      "echo Installing Docker container runtime...",
+      "curl -fsSL https://get.docker.com -o get-docker.sh",
+      "sh get-docker.sh",
     ]
   }
 
   provisioner "shell" {
-    script = "Install/InstallCiAgent.sh"
+    inline = [
+      "sudo chmod a+x /tmp/InstallLinux/InstallCiAgent.sh",
+      "sudo /tmp/InstallLinux/InstallCiAgent.sh",
+    ]
   }
 
   provisioner "shell" {
@@ -82,7 +91,7 @@ build {
       "echo Registering GitLab runner...",
       # map /home/gitlab-runner/.ssh:/root/.ssh:ro to expose Artifactory token to containers
       # map /var/run/docker.sock:/var/run/docker.sock to enable docker-in-docker
-      "sudo gitlab-runner register --non-interactive --url ${var.BUILD_SERVER_URL} --token ${var.BUILDER_SECRET} --executor \"docker\" --docker-image alpine:latest --description \"docker-runner\" --docker-volumes \"/home/gitlab-runner/.ssh:/root/.ssh:ro\" --docker-volumes \"/var/run/docker.sock:/var/run/docker.sock\" ",
+      "sudo gitlab-runner register --non-interactive --url ${var.BUILD_SERVER_URL} --token ${var.BUILDER_SECRET} --executor \"docker\" --docker-image docker:cli --description \"docker-runner\" --docker-volumes \"/home/gitlab-runner/.ssh:/root/.ssh:ro\" --docker-volumes \"/var/run/docker.sock:/var/run/docker.sock\" --docker-privileged --docker-allowed-pull-policies \"always\" --docker-allowed-pull-policies \"if-not-present\" --docker-allowed-pull-policies \"never\" ",
     ]
   }
 */
